@@ -1,0 +1,291 @@
+@font-face {
+    font-family: Jost;
+    src: url(fonts/Jost.ttf);
+}
+
+img.emoji {
+    height: 1em;
+    width: 1em;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+    pointer-events: none;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+body{
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: row;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    padding-left: 15vw;
+}
+
+
+header>nav{
+    display: flex;
+    flex-direction: column;
+    width: moz-fit-content;
+    width: 100%;
+}
+
+header>button{
+    padding: 8px;
+    background-color: black;
+    border: none;
+    text-align: left;
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    padding-bottom: 0px;
+    margin: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 24px;
+    transition: background-color .2s linear;
+    position:  absolute;
+    bottom: 0;
+}
+
+header>button:hover{
+    background-color: #8b8b8b2d;
+    transition: none;
+}
+
+img.profilePic{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px rgb(56, 56, 56) solid;
+}
+
+header>button>div{
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+header>button>div>p{
+    margin: 0px;
+    color: white;
+}
+
+
+
+header>nav>a{
+    color: white;
+    text-decoration: none;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    flex-grow: 1;
+    width: fit-content;
+    padding: 8px;
+    padding-left: 12px;
+    padding-right: 18px;
+    margin: 8px;
+    border-radius: 24px;
+    font-size: 20px;
+    transition: background-color .2s linear;
+}
+
+a>i{
+    padding-right: 8px;
+}
+
+
+header>nav>a:hover{
+    background-color: #8b8b8b2d;
+    transition: none;
+    text-decoration: none;
+}
+
+p.settingsButton{
+    text-align: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 12px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+p.settingsButton:hover{
+    background-color: #8b8b8b2d;
+
+}
+
+
+
+.newTweet{
+    min-width: 52px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgb(120, 86, 255);
+    width: 90%;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    text-align: center;
+    color: white;
+
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 45px;
+    width: 100vw;
+}
+
+#feed{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tweet{
+    border: 1px rgb(56, 56, 56) solid;
+    padding: 12px;
+    max-width: 30vw;
+}
+.tweetInfo{
+    display: flex;
+}
+
+.tweetInfo>p{
+    margin: 12px;
+}
+
+.tweetInteract{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px rgb(56, 56, 56) solid;
+}
+
+#timelineSelect{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: black;
+}
+
+#timelineSelect>a{
+    text-align: center;
+    width: 50%;
+    padding: 12px;
+    border: 1px rgb(56, 56, 56) solid;
+    border-top: none;
+}
+
+#timelineSelect>a:hover{
+    background-color: #8b8b8b2d;
+    cursor: pointer;
+}
+
+
+#forYou{
+    border-bottom: 2px rgb(120, 86, 255) solid !important; 
+}
+
+.tweet:hover{
+    background-color: #8b8b8b2d;
+    cursor: pointer;
+    transition: .2s linear;
+}
+
+#sideBar{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: fixed;
+    top: 0; 
+    right: 0;
+    padding-right: 5vw;
+    margin: 12px;
+    width: 20vw;
+}
+
+#sideBar>div{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 24px;
+    border-radius: 12px;
+}
+
+#sideBar>div>div{
+    border: 1px rgb(56, 56, 56) solid;
+    padding: 12px;
+}
+
+
+
+#whotfollow>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+}
+
+#whotfollow>div>div{
+    margin: 0px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#whotfollow>div>div>p{
+    margin: 0px;
+}
+
+a.followButton{
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgb(120, 86, 255);
+    margin-bottom: 4px;
+    margin-top: 4px;
+    text-align: center;
+    color: white;
+    border-radius: 12px;
+    padding: 8px;
+    position: absolute;
+    left: 66%;
+}
+
+#menuSettings{
+    display: none;
+    z-index: 5;
+    position: fixed;
+    left: 15vw;
+    bottom: 9vh;
+    flex-direction: column;
+    background-color: black;
+    border: #8b8b8b2d 2px solid;
+    padding: 12px;
+    border-radius: 12px;
+    width: 12vw;
+}
+
+.visible{
+    display: flex !important;
+}
+
+.clickedDown{
+    background-color: #8b8b8b2d;
+}

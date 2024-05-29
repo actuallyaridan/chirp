@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="/src/styles/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+  <script src="src/scripts/general.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>actuallyNotTwitter</title>
+</head>
+<body>
+    <div id="menuSettings">
+        <a href="settings">⚙️ Settings</a>
+        <a>👪 Add another account</a>
+        <a>🚪 Sign out</a>
+    </div>
+    <header>
+        <nav>
+            <img src="" alt="">
+            <a href="/">🏠 Home</a>
+            <a href="search">🔍 Explore</a>
+            <a href="notifications">🔔 Notifications</a>
+            <a href="messages">✉️ Messages</a>
+            <a href="profile">👤 Profile</a>
+            <a href="compose" class="newTweet">Chirp</a>
+        </nav>
+        <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
+            <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
+            <div>
+                <p>aridan ✅</p>
+                <p>@actuallyaridan</p>
+            </div>
+            <p class="settingsButton">⚙️</p>
+        </button>
+    </header>
+    <main>
+        <div id="feed">
+            <div id="timelineSelect">
+                <a id="forYou">For you</a>
+                <a id="following">Following</a>
+            </div>
+            <div class="tweet">
+                <div class="tweetInfo">
+                    <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
+                    <p>aridan ✅  @actuallyaridan / 2 days ago</p>
+                </div>
+                <p> This is a chirp, which is a post on this platfrom with short messages that are at most 240 charcherts long.</p>
+                <div class="tweetInteract">
+                    <p>💬 1</p><p>🔁 0</p><p>❤️ 1</p>
+                </div>
+                <div class="tweet">
+                    <div class="tweetInfo">
+                        <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
+                        <p>aridan ✅  @actuallyaridan / 1 second ago</p>
+                    </div>
+                    <p> This is a reply to a chirp, which is a post on this platfrom with short messages that are at most 240 charcherts long.</p>
+                    <div class="tweetInteract">
+                        <p>💬 0</p><p>🔁 0</p><p>🖤 0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweetInfo">
+                    <img class="profilePic" src="src/images/profiles/apple/profile.png" alt="aridan">
+                    <p>Apple ✅  @apple / just now</p>
+                </div>
+                <p> Introducing the brand new iPhone 69. With a camera you can't tell if it's any better than the iPhone 68 and Siri with AI features it's truly the best iPhone yet. Coming never.</p>
+                <div class="tweetInteract">
+                    <p>💬 0</p><p>🔁 0</p><p>🖤 0</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <aside id="sideBar">
+        <div id="trends">
+            <p>Trends for you</p>
+            <div>
+                <a>gay people</a>
+                <p>12 chirps</p>
+            </div>
+            <div>
+                <a>twitter</a>
+                <p>47 chirps</p>
+            </div>
+            <div>
+                <a>iphone 69</a>
+                <p>2 chirps</p>
+            </div>
+        </div>
+        <div id="whotfollow">
+            <p>Who to follow</p>
+            <div>
+                <img class="profilePic" src="src/images/profiles/apple/profile.png">
+                <div>
+                    <p>Apple<br>@apple</p>
+                </div>
+                <a class="followButton">Follow</a>
+            </div>
+            <div>
+                <img class="profilePic" src="src/images/profiles/potus/profile.png">
+                <div>
+                    <p>President Biden<br>@POTUS</p>
+                </div>
+                <a class="followButton">Follow</a>
+            </div>
+        </div>
+    </aside>
+</body>
+</html>

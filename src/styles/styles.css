@@ -109,6 +109,22 @@ header>nav>a{
     transition: background-color .2s linear;
 }
 
+header>nav>p{
+    color: white;
+    text-decoration: none;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    flex-grow: 1;
+    width: fit-content;
+    padding: 8px;
+    padding-left: 12px;
+    padding-right: 18px;
+    margin: 8px;
+    border-radius: 24px;
+    font-size: 32px;
+
+}
+
 a>i{
     padding-right: 8px;
 }

@@ -11,6 +11,10 @@ img.emoji {
     pointer-events: none;
 }
 
+h1{
+    font-weight: 600;
+}
+
 a{
     color: white;
     text-decoration: none;
@@ -288,4 +292,24 @@ a.followButton{
 
 .clickedDown{
     background-color: #8b8b8b2d;
+}
+
+.downNow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    margin: auto;
+    height: 100vh;
+}
+
+#signin{
+    justify-content: center;
+}
+
+#login{
+    background-color: #8b8b8b2d;
+    padding: 12px;
+    height: 94vh;
+    border-radius: 8px;
 }

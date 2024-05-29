@@ -181,7 +181,7 @@ main{
 .tweet{
     border: 1px rgb(56, 56, 56) solid;
     padding: 12px;
-    max-width: 30vw;
+    max-width: 35vw;
 }
 .tweetInfo{
     display: flex;
@@ -256,22 +256,26 @@ main{
     padding: 12px;
 }
 
-
-
 #whotfollow>div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#whotfollow>div>div{
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: start;
 }
 
-#whotfollow>div>div{
+#whotfollow>div>div>div{
     margin: 0px;
     padding-left: 12px;
     padding-right: 12px;
 }
 
-#whotfollow>div>div>p{
+#whotfollow>div>div>div>p{
     margin: 0px;
 }
 
@@ -284,9 +288,8 @@ a.followButton{
     color: white;
     border-radius: 12px;
     padding: 8px;
-    position: absolute;
-    left: 66%;
 }
+
 
 #menuSettings{
     display: none;

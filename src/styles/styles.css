@@ -8,7 +8,12 @@ html, body, main, footer{
     background-color: black;
     color: white;
     scroll-behavior: smooth;
+    transition: 0.2s linear;
 }
+
+div ,a{
+    transition: 0.2s linear;
+} 
 
 img.emoji {
     height: 1em;
@@ -222,15 +227,15 @@ main{
 }
 
 .tweet{
-    border: 1px rgb(56, 56, 56) solid;
     padding: 12px;
-    min-width: 35vw;
-    max-width: 35vw;
+    width: 35vw;
+    border-radius: 8px;
 }
 
 .tweet>.tweet{
-    min-width: unset;
-    max-width: 35vw;
+    width: 95%;
+    margin: auto;
+    
 }
 .tweetInfo{
     display: flex;
@@ -312,10 +317,19 @@ main{
     width: 100%;
     margin-bottom: 24px;
     border-radius: 12px;
+    background-color:#8b8b8b2d;
 }
 
-#sideBar>div>div, #exploreTrends>div>div{
-    border: 1px rgb(56, 56, 56) solid;
+#sideBar>div>p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#sideBar>div>div{
+    padding: 12px;
+}
+
+#exploreTrends>div>div{
     padding: 12px;
 }
 
@@ -485,6 +499,18 @@ div#iconChirp>p{
     border-radius: 8px;
 }
 
+div#notFound{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 20vw;
+    flex-direction: column;
+}
+
+div#notFound>p{
+    text-align: center;
+}
 
 @media only screen and (min-width: 759px) {
     footer>div{
@@ -511,12 +537,12 @@ div#iconChirp>p{
         width: 0px;
     }
     div.tweet{
-        max-width: 90vw;
+        width: 95%;
         border: none;
         border-bottom:#8b8b8b2d 1px solid;
     }
     div.tweet>div.tweet{
-        max-width: 90vw;
+        width: 90%;
         border: #8b8b8b2d 1px solid
     }
     aside#sideBar{
@@ -530,5 +556,9 @@ div#iconChirp>p{
     #composer>textarea,     #exploreer>textarea{
         width: 90vw;
         margin-top: 8px;
+    }
+
+    div#notFound{
+        width: 80vw;
     }
 }

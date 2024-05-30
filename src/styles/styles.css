@@ -573,7 +573,7 @@ div#notFound>p{
 
 
 
-@media only screen and (min-width: 759px) {
+@media only screen and (min-width: 891px) {
     footer>div{
         display: none;
     }

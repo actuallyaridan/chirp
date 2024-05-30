@@ -224,17 +224,18 @@ main{
     text-align: center;
     width: 50%;
     padding: 12px;
-    border: 1px rgb(56, 56, 56) solid;
+    border-bottom: 1px rgb(56, 56, 56) solid;
     border-top: none;
 }
 
 #timelineSelect>a:hover{
     background-color: #8b8b8b2d;
     cursor: pointer;
+    text-decoration: none;
 }
 
 
-#forYou{
+.selcted{
     border-bottom: 2px rgb(120, 86, 255) solid !important; 
 }
 

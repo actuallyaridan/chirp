@@ -8,7 +8,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
   <script src="src/scripts/general.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Following / Chirp</title>
+  <title>Messages / Chirp</title>
 </head>
 <body>
     <div id="menuSettings">
@@ -43,28 +43,19 @@
                 <p>🦜</p>
             </div>
             <div id="timelineSelect">
-                <a id="forYou" href="/">For you</a>
-                <a id="following" class="selcted" href="following">Following</a>
+                <p class="selcted">Messages</p>
             </div>
-            <p class="noMoreChirps">If you want to use the Following tab you need to follow people first! 😝</p>
+            <div id="searcher">
+                <textarea maxlength="240" placeholder="Find a message..."></textarea>
+            </div>
+            <div id="postChirpButton">
+                <button class="postChirp">Search</button>
+            </div>
+            <p class="noMoreChirps">Seems like you don't have any messages!<br>Why don't you go interact with someone?</p>
+        </div>
         </div>
     </main>
     <aside id="sideBar">
-        <div id="trends">
-            <p>Trends for you</p>
-            <div>
-                <a>gay people</a>
-                <p class="subText">12 chirps</p>
-            </div>
-            <div>
-                <a>twitter</a>
-                <p class="subText">47 chirps</p>
-            </div>
-            <div>
-                <a>iphone 69</a>
-                <p class="subText">62 chirps</p>
-            </div>
-        </div>
         <div id="whotfollow">
             <p>Who to follow</p>
             <div>

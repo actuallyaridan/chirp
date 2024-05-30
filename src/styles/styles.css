@@ -3,6 +3,13 @@
     src: url(fonts/Jost.ttf);
 }
 
+html, body, main, footer{
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+    scroll-behavior: smooth;
+}
+
 img.emoji {
     height: 1em;
     width: 1em;
@@ -24,6 +31,7 @@ a:hover{
     text-decoration: underline;
     cursor: pointer;
 }
+
 
 body{
     font-family: Jost, Arial, Helvetica, sans-serif;
@@ -166,6 +174,38 @@ p.settingsButton:hover{
     background-color: rgb(132, 101, 255);
 }
 
+#postChirpButton{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}
+
+#searchChrip{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.postChirp{
+    min-width: 52px;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgb(120, 86, 255);
+    margin-bottom: 4px;
+    margin-top: 4px;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    padding: 8px;
+    display: flex;
+}
+
+.postChirp:hover{
+    cursor: pointer;
+    background-color: rgb(132, 101, 255);
+}
+
 main{
     display: flex;
     flex-direction: column;
@@ -268,7 +308,13 @@ main{
     border-radius: 12px;
 }
 
-#sideBar>div>div{
+#sideBar>div, #searchTrends>div{
+    width: 100%;
+    margin-bottom: 24px;
+    border-radius: 12px;
+}
+
+#sideBar>div>div, #searchTrends>div>div{
     border: 1px rgb(56, 56, 56) solid;
     padding: 12px;
 }
@@ -294,6 +340,11 @@ main{
 
 #whotfollow>div>div>div>p{
     margin: 0px;
+}
+
+#searchTrends{
+    display: flex;
+    width: 100%;
 }
 
 a.followButton{
@@ -404,6 +455,32 @@ div#iconChirp>p{
 
 .noMoreChirps{
     text-align: center;
+}
+
+#composer>textarea{
+    margin-top: 12px;
+    width: 35vw;
+    height: 150px;
+    color-scheme: dark;
+    resize: none;
+    border: none;
+    padding: 12px;
+    font-size: 1em;
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    border-radius: 8px;
+}
+
+#searcher>textarea{
+    margin-top: 12px;
+    width: 35vw;
+    height: 1.5em;
+    color-scheme: dark;
+    resize: none;
+    border: none;
+    padding: 12px;
+    font-size: 1em;
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    border-radius: 8px;
 }
 
 

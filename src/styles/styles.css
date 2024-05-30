@@ -580,6 +580,16 @@ div#notFound>p{
     margin-bottom: 10%;
 }
 
+#highTraffic{
+    width: 35vw;
+    text-align: center;
+    background-color: rgb(24, 15, 0);
+    padding-left: 12px;
+    padding-right: 12px;
+    color:#8b8b8b;
+    border-radius: 0px 0px 8px 8px;
+}
+
 
 @media only screen and (min-width: 891px) {
     footer>div{
@@ -606,6 +616,9 @@ div#notFound>p{
     header{
         margin-left: 10vw;
     }
+    #highTraffic{
+        width: 96%;
+    }
 
 }
 
@@ -616,7 +629,7 @@ div#notFound>p{
     main{
         margin: 0px;
     }
-    #, #feedCompose{
+    #feed, #feedCompose{
         width: 90vw;
 
     }
@@ -660,5 +673,8 @@ div#notFound>p{
     }
     #feedCompose.swipe-up {
         animation: swipeUp 0.2s ease-out forwards;
+    }
+    #highTraffic{
+        width: 96%;
     }
 }

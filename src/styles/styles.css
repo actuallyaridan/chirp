@@ -80,7 +80,7 @@ header{
     position: fixed;
     top: 0; 
     left: 0;
-    padding-left: 15vw;
+    margin-left: 15vw;
 }
 
 
@@ -330,6 +330,7 @@ main{
     right: 0;
     padding-right: 5vw;
     margin: 12px;
+    margin-top: 24px;
     width: 20vw;
 }
 
@@ -584,7 +585,23 @@ div#notFound>p{
     }
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 1400px) {
+    aside#sideBar{
+        display: none;
+    }
+    main{
+        margin-left: 30vw;
+    } 
+    div.chirp{
+        width: 50vw;
+    }
+    header{
+        margin-left: 10vw;
+    }
+
+}
+
+@media only screen and (max-width: 890px) {
     div#desktopMenu {
         display: none;
     }
@@ -595,7 +612,6 @@ div#notFound>p{
         width: 90vw;
 
     }
-
     header{
         padding: 0px;
         width: 0px;

@@ -16,26 +16,31 @@
         <a>🚪 Sign out</a>
     </div>
     <header>
-        <nav>
-            <p>🦜</p>
-            <a href="/">🏠 Home</a>
-            <a href="search">🔍 Explore</a>
-            <a href="notifications">🔔 Notifications</a>
-            <a href="messages">✉️ Messages</a>
-            <a href="profile">👤 Profile</a>
-            <a href="compose" class="newTweet">Chirp</a>
-        </nav>
-        <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-            <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
-            <div>
-                <p>aridan ☑️</p>
-                <p>@actuallyaridan</p>
-            </div>
-            <p class="settingsButton">⚙️</p>
-        </button>
+        <div id="desktopMenu">
+            <nav>
+                <p>🦜</p>
+                <a href="/">🏠 Home</a>
+                <a href="search">🔍 Explore</a>
+                <a href="notifications">🔔 Notifications</a>
+                <a href="messages">✉️ Messages</a>
+                <a href="profile">👤 Profile</a>
+                <a href="compose" class="newTweet">Chirp</a>
+            </nav>
+            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
+                <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
+                <div>
+                    <p>aridan ☑️</p>
+                    <p>@actuallyaridan</p>
+                </div>
+                <p class="settingsButton">⚙️</p>
+            </button>
+        </div>
     </header>
     <main>
         <div id="feed">
+            <div id="iconChirp">
+                <p>🦜</p>
+            </div>
             <div id="timelineSelect">
                 <a id="forYou">For you</a>
                 <a id="following">Following</a>
@@ -110,5 +115,14 @@
             </div>
         </div>
     </aside>
+    <footer>
+        <div>
+            <a href="/">🏠</a>
+            <a href="search">🔍</a>
+            <a href="notifications">🔔</a>
+            <a href="messages">✉️</a>
+            <a href="profile">👤</a>
+        </div>
+    </footer>
 </body>
 </html>

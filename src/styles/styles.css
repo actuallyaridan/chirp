@@ -44,14 +44,14 @@ header{
 }
 
 
-header>nav{
+header>div>nav{
     display: flex;
     flex-direction: column;
     width: moz-fit-content;
     width: 100%;
 }
 
-header>button{
+header>div>button{
     padding: 8px;
     background-color: black;
     border: none;
@@ -69,7 +69,7 @@ header>button{
     bottom: 0;
 }
 
-header>button:hover{
+header>div>button:hover{
     background-color: #8b8b8b2d;
     transition: none;
 }
@@ -81,19 +81,19 @@ img.profilePic{
     border: 1px rgb(56, 56, 56) solid;
 }
 
-header>button>div{
+header>div>button>div{
     padding-left: 12px;
     padding-right: 12px;
 }
 
-header>button>div>p{
+header>div>button>div>p{
     margin: 0px;
     color: white;
 }
 
 
 
-header>nav>a{
+header>div>nav>a{
     color: white;
     text-decoration: none;
     padding-bottom: 4px;
@@ -109,7 +109,7 @@ header>nav>a{
     transition: background-color .2s linear;
 }
 
-header>nav>p{
+header>div>nav>p{
     color: white;
     text-decoration: none;
     padding-bottom: 4px;
@@ -130,7 +130,7 @@ a>i{
 }
 
 
-header>nav>a:hover{
+header>div>nav>a:hover{
     background-color: #8b8b8b2d;
     transition: none;
     text-decoration: none;
@@ -160,7 +160,6 @@ p.settingsButton:hover{
     margin-top: 4px;
     text-align: center;
     color: white;
-
 }
 
 main{
@@ -331,4 +330,84 @@ a.followButton{
     padding: 12px;
     height: 94vh;
     border-radius: 8px;
+}
+
+footer>div{
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.646);
+    border-top: #8b8b8b2d 1px solid;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    justify-content: space-between;
+    align-items: center;
+    width: 87vw;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+footer>div>a{
+    font-size: 24px;
+
+}
+
+div#iconChirp>p{
+    color: white;
+    text-decoration: none;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    flex-grow: 1;
+    width: fit-content;
+    padding-left: 12px;
+    padding-right: 18px;
+    margin: 0px;
+    border-radius: 24px;
+    font-size: 24px;
+}
+
+
+
+
+@media only screen and (min-width: 759px) {
+    footer>div{
+        display: none;
+    }
+    div#iconChirp{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 760px) {
+    div#desktopMenu {
+        display: none;
+    }
+    main{
+        margin: 0px;
+    }
+
+    header{
+        padding: 0px;
+        width: 0px;
+    }
+    div.tweet{
+        max-width: 90vw;
+        border: none;
+        border-bottom:#8b8b8b2d 1px solid;
+    }
+    div.tweet>div.tweet{
+        max-width: 90vw;
+        border: #8b8b8b2d 1px solid
+    }
+    aside#sideBar{
+        display: none;
+    }
+    #timelineSelect>a{
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
 }

@@ -3,6 +3,22 @@
     src: url(fonts/Jost.ttf);
 }
 
+@keyframes swipeUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Apply the animation to the body */
+#feed.swipe-up {
+    animation: swipeUp 0.3s ease-out forwards;
+}
+
 
 html, body, main, footer{
     font-family: Jost, Arial, Helvetica, sans-serif;
@@ -466,6 +482,7 @@ div#iconChirp>p{
 
 .subText{
     color: #8b8b8b;
+    margin-top: 0px;
 }
 
 .chirpInfo > p{
@@ -526,7 +543,7 @@ div#notFound>p{
     display: none;
     position: fixed;
     bottom: 64px;
-    left: 12px;
+    right: 18px;
     padding: 12px;
     background-color: rgb(120, 86, 255);
     border-radius: 20%;

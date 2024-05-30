@@ -180,6 +180,12 @@ main{
 .tweet{
     border: 1px rgb(56, 56, 56) solid;
     padding: 12px;
+    min-width: 35vw;
+    max-width: 35vw;
+}
+
+.tweet>.tweet{
+    min-width: unset;
     max-width: 35vw;
 }
 .tweetInfo{
@@ -391,7 +397,9 @@ div#iconChirp>p{
     margin: 0px;
 }
 
-
+.noMoreChirps{
+    text-align: center;
+}
 
 
 @media only screen and (min-width: 759px) {

@@ -512,9 +512,15 @@ div#iconChirp>p{
     border-radius: 8px;
 }
 
+#exploreer{
+    display: flex;
+    width: 35vw;
+    margin-bottom: 8px;
+}
+
 #exploreer>textarea{
     margin-top: 12px;
-    width: 35vw;
+    width: 100%;
     height: 1.5em;
     color-scheme: dark;
     background-color: #8b8b8b2d;
@@ -556,6 +562,12 @@ div#notFound>p{
 
 .mobileCompose:hover{
     background-color: rgb(132, 101, 255);
+}
+
+.chirpsee{
+    background-color: rgb(24, 15, 0);
+    padding: 8px;
+    border-radius: 4px;
 }
 
 
@@ -605,8 +617,12 @@ div#notFound>p{
         border-left: none;
         border-right: none;
     }
-    #composer>textarea,     #exploreer>textarea{
-        width: 85vw;
+    #exploreer, #composer{
+        width: 100%;
+    }
+
+    #composer>textarea, #exploreer>textarea{
+        width: 96%;
         margin-top: 8px;
     }
 

@@ -184,10 +184,17 @@ main{
 }
 .tweetInfo{
     display: flex;
+    flex-direction: row;
+}
+.tweetInfo>div{
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
 }
 
-.tweetInfo>p{
-    margin: 12px;
+.tweetInfo>div>p{
+    margin: 0px;
+    padding-left: 8px;
 }
 
 .tweetInteract{
@@ -287,6 +294,7 @@ a.followButton{
     color: white;
     border-radius: 12px;
     padding: 8px;
+    height: fit-content;
 }
 
 
@@ -367,6 +375,20 @@ div#iconChirp>p{
     margin: 0px;
     border-radius: 24px;
     font-size: 24px;
+}
+
+
+.subText{
+    color: #8b8b8b;
+}
+
+.tweetInfo > p{
+    margin: 0px;
+    margin-left: 8px;
+}
+
+#trends>div>p{
+    margin: 0px;
 }
 
 

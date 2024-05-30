@@ -506,7 +506,7 @@ div#iconChirp>p{
     background-color: #8b8b8b2d;
     resize: none;
     border: none;
-    padding: 12px;
+    padding: 8px;
     font-size: 1em;
     font-family: Jost, Arial, Helvetica, sans-serif;
     border-radius: 8px;
@@ -526,7 +526,7 @@ div#iconChirp>p{
     background-color: #8b8b8b2d;
     resize: none;
     border: none;
-    padding: 12px;
+    padding: 8px;
     font-size: 1em;
     font-family: Jost, Arial, Helvetica, sans-serif;
     border-radius: 8px;
@@ -622,7 +622,7 @@ div#notFound>p{
     }
 
     #composer>textarea, #exploreer>textarea{
-        width: 87vw;
+        width: 86vw;
         margin-top: 8px;
         margin-left: auto;
         margin-right: auto;

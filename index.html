@@ -11,11 +11,6 @@
   <title>Home / Chirp</title>
 </head>
 <body>
-    <div id="menuSettings">
-        <a href="settings">⚙️ Settings</a>
-        <a>👪 Add another account</a>
-        <a>🚪 Sign out</a>
-    </div>
     <header>
         <div id="desktopMenu">
             <nav>
@@ -25,8 +20,13 @@
                 <a href="notifications">🔔 Notifications</a>
                 <a href="messages">✉️ Messages</a>
                 <a href="profile">👤 Profile</a>
-                <a href="compose" class="newTweet">Chirp</a>
+                <a href="compose" class="newchirp">Chirp</a>
             </nav>
+            <div id="menuSettings">
+                <a href="settings">⚙️ Settings</a>
+                <a>👪 Add another account</a>
+                <a>🚪 Sign out</a>
+            </div>
             <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
                 <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
                 <div>
@@ -46,19 +46,19 @@
                 <a id="forYou" class="selcted" href="/">For you</a>
                 <a id="following" href="following">Following</a>
             </div>
-            <div class="tweet" id="1">
-                <div class="tweetInfo">
+            <div class="chirp" id="1">
+                <div class="chirpInfo">
                     <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
                     <div>
                         <p>aridan ☑️</p> <p class="subText">@actuallyaridan</p>
                     </div>
                 </div>
                 <p>This is a chirp, which is a post on this platfrom with short messages that are at most 240 charcherts long.</p>
-                <div class="tweetInteract">
+                <div class="chirpInteract">
                     <p>💬 12</p><p>🔁 7</p><p>❤️ 27</p>
                 </div>
-                <div class="tweet" id="4">
-                    <div class="tweetInfo">
+                <div class="chirp" id="4">
+                    <div class="chirpInfo">
                         <img class="profilePic" src="src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
                         <div>
                             <p>aridan ☑️</p> <p class="subText">@actuallyaridan</p>
@@ -66,38 +66,41 @@
                     </div>
                     <p class="subText">✨ Most popular reply</p>
                     <p> This is a reply to a chirp, which is a post on this platfrom with short messages that are at most 240 charcherts long.</p>
-                    <div class="tweetInteract">
+                    <div class="chirpInteract">
                         <p>💬 4</p><p>🔁 1</p><p>🖤 18</p>
                     </div>
                 </div>
             </div>
-            <div class="tweet" id="2">
-                <div class="tweetInfo">
+            <div class="chirp" id="2">
+                <div class="chirpInfo">
                     <img class="profilePic" src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="apple">
                     <div>
                         <p>Apple ☑️</p> <p class="subText">@apple</p>
                     </div>
                 </div>
                 <p> Introducing the brand new iPhone 69. With a camera you can't tell if it's any better than the iPhone 68 and Siri with AI features it's truly the best iPhone yet. Coming never.</p>
-                <div class="tweetInteract">
+                <div class="chirpInteract">
                     <p>💬 12</p><p>🔁 69</p><p>❤️ 420</p>
                 </div>
             </div>
-            <div class="tweet" id="3">
-                <div class="tweetInfo">
+            <div class="chirp" id="3">
+                <div class="chirpInfo">
                     <img class="profilePic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg" alt="apple">
                     <div>
                         <p>President Biden (Parody)</p> <p class="subText">@POTUSParody</p>
                     </div>
                 </div>
                 <p>Today, I am honored to welcome North Korea as NATO’s 82nd Ally.</p>
-                <div class="tweetInteract">
+                <div class="chirpInteract">
                     <p>💬 2</p><p>🔁 1</p><p>🖤 19</p>
                 </div>
             </div>
             <p class="noMoreChirps">Somehow you've seen all Chirps.<br>We have no idea how you did it<br>😵‍💫</p>
         </div>
     </main>
+    <div class="mobileCompose">
+        <a href="compose">Chirp</a>
+    </div>
     <aside id="sideBar">
         <div id="trends">
             <p>Trends for you</p>

@@ -3,13 +3,24 @@
     src: url(fonts/Jost.ttf);
 }
 
+
 html, body, main, footer{
     font-family: Jost, Arial, Helvetica, sans-serif;
     background-color: black;
     color: white;
     scroll-behavior: smooth;
     transition: 0.2s linear;
+    color-scheme: dark;
 }
+
+body{
+    overflow-y: scroll;
+}
+
+button{
+    font-family: Jost, Arial, Helvetica, sans-serif;
+}
+
 
 div ,a{
     transition: 0.2s linear;
@@ -91,7 +102,7 @@ img.profilePic{
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    border: 1px rgb(56, 56, 56) solid;
+    border: 2px solid #8b8b8b2d;
 }
 
 header>div>button>div{
@@ -164,7 +175,7 @@ p.settingsButton:hover{
 
 
 
-.newTweet{
+.newchirp{
     min-width: 52px;
     border-color: rgba(0, 0, 0, 0);
     background-color: rgb(120, 86, 255);
@@ -175,7 +186,7 @@ p.settingsButton:hover{
     color: white;
 }
 
-.newTweet:hover{
+.newchirp:hover{
     background-color: rgb(132, 101, 255);
 }
 
@@ -226,33 +237,33 @@ main{
     justify-content: center;
 }
 
-.tweet{
+.chirp{
     padding: 12px;
     width: 35vw;
     border-radius: 8px;
 }
 
-.tweet>.tweet{
+.chirp>.chirp{
     width: 95%;
     margin: auto;
     
 }
-.tweetInfo{
+.chirpInfo{
     display: flex;
     flex-direction: row;
 }
-.tweetInfo>div{
+.chirpInfo>div{
     display: flex;
     flex-direction: column;
     margin: 0px;
 }
 
-.tweetInfo>div>p{
+.chirpInfo>div>p{
     margin: 0px;
     padding-left: 8px;
 }
 
-.tweetInteract{
+.chirpInteract{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -288,7 +299,7 @@ main{
     border-bottom: 2px rgb(120, 86, 255) solid !important; 
 }
 
-.tweet:hover{
+.chirp:hover{
     background-color: #8b8b8b2d;
     cursor: pointer;
     transition: .2s linear;
@@ -377,15 +388,14 @@ a.followButton{
 #menuSettings{
     display: none;
     z-index: 5;
-    position: fixed;
-    left: 15vw;
-    bottom: 9vh;
+    position: absolute;
+    bottom: 12px;
     flex-direction: column;
-    background-color: black;
-    border: #8b8b8b2d 2px solid;
+    background-color: #8b8b8b2d;
     padding: 12px;
     border-radius: 12px;
-    width: 12vw;
+    width: 230px;
+    margin-bottom: 72px;
 }
 
 .visible{
@@ -458,7 +468,7 @@ div#iconChirp>p{
     color: #8b8b8b;
 }
 
-.tweetInfo > p{
+.chirpInfo > p{
     margin: 0px;
     margin-left: 8px;
 }
@@ -512,11 +522,35 @@ div#notFound>p{
     text-align: center;
 }
 
+.mobileCompose{
+    display: none;
+    position: fixed;
+    bottom: 64px;
+    left: 12px;
+    padding: 12px;
+    background-color: rgb(120, 86, 255);
+    border-radius: 20%;
+}
+
+.mobileCompose>a{
+    text-decoration: none;
+    color: whie;
+}
+
+.mobileCompose:hover{
+    background-color: rgb(132, 101, 255);
+}
+
+
+
 @media only screen and (min-width: 759px) {
     footer>div{
         display: none;
     }
     div#iconChirp{
+        display: none;
+    }
+    .mobileCompose{
         display: none;
     }
 }
@@ -529,19 +563,20 @@ div#notFound>p{
         margin: 0px;
     }
     #feed{
-        min-width: 90vw;
+        width: 90vw;
+
     }
 
     header{
         padding: 0px;
         width: 0px;
     }
-    div.tweet{
+    div.chirp{
         width: 95%;
         border: none;
         border-bottom:#8b8b8b2d 1px solid;
     }
-    div.tweet>div.tweet{
+    div.chirp>div.chirp{
         width: 90%;
         border: #8b8b8b2d 1px solid
     }
@@ -554,11 +589,14 @@ div#notFound>p{
         border-right: none;
     }
     #composer>textarea,     #exploreer>textarea{
-        width: 90vw;
+        width: 85vw;
         margin-top: 8px;
     }
 
     div#notFound{
         width: 80vw;
+    }
+    .mobileCompose{
+        display: flex;
     }
 }

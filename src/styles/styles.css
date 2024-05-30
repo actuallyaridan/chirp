@@ -162,6 +162,10 @@ p.settingsButton:hover{
     color: white;
 }
 
+.newTweet:hover{
+    background-color: rgb(132, 101, 255);
+}
+
 main{
     display: flex;
     flex-direction: column;

@@ -180,7 +180,7 @@ p.settingsButton:hover{
     justify-content: right;
 }
 
-#searchChrip{
+#exploreChrip{
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -255,7 +255,7 @@ main{
     border-top: 1px rgb(56, 56, 56) solid;
 }
 
-#timelineSelect{
+#timelineSelect, .title{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -264,7 +264,7 @@ main{
     background-color: black;
 }
 
-#timelineSelect>a{
+#timelineSelect>a, title>a{
     text-align: center;
     width: 50%;
     padding: 12px;
@@ -308,13 +308,13 @@ main{
     border-radius: 12px;
 }
 
-#sideBar>div, #searchTrends>div{
+#sideBar>div, #exploreTrends>div{
     width: 100%;
     margin-bottom: 24px;
     border-radius: 12px;
 }
 
-#sideBar>div>div, #searchTrends>div>div{
+#sideBar>div>div, #exploreTrends>div>div{
     border: 1px rgb(56, 56, 56) solid;
     padding: 12px;
 }
@@ -342,7 +342,7 @@ main{
     margin: 0px;
 }
 
-#searchTrends{
+#exploreTrends{
     display: flex;
     width: 100%;
 }
@@ -462,6 +462,7 @@ div#iconChirp>p{
     width: 35vw;
     height: 150px;
     color-scheme: dark;
+    background-color: #8b8b8b2d;
     resize: none;
     border: none;
     padding: 12px;
@@ -470,11 +471,12 @@ div#iconChirp>p{
     border-radius: 8px;
 }
 
-#searcher>textarea{
+#exploreer>textarea{
     margin-top: 12px;
     width: 35vw;
     height: 1.5em;
     color-scheme: dark;
+    background-color: #8b8b8b2d;
     resize: none;
     border: none;
     padding: 12px;
@@ -500,6 +502,9 @@ div#iconChirp>p{
     main{
         margin: 0px;
     }
+    #feed{
+        min-width: 90vw;
+    }
 
     header{
         padding: 0px;
@@ -521,5 +526,9 @@ div#iconChirp>p{
         border-top: none;
         border-left: none;
         border-right: none;
+    }
+    #composer>textarea,     #exploreer>textarea{
+        width: 90vw;
+        margin-top: 8px;
     }
 }

@@ -622,8 +622,10 @@ div#notFound>p{
     }
 
     #composer>textarea, #exploreer>textarea{
-        width: 96%;
+        width: 87vw;
         margin-top: 8px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     div#notFound{

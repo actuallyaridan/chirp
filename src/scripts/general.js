@@ -4,7 +4,7 @@ window.onload = function () {
     twemoji.parse(document.body,
         { folder: 'svg', ext: '.svg' } // This is to specify to Twemoji to use SVGs and not PNGs
     );
-    document.querySelector('#feed').classList.add('swipe-up');
+    document.querySelector('#feedCompose').classList.add('swipe-up');
 }
 
 function showMenuSettings(){

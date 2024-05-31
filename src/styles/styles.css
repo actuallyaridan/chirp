@@ -590,6 +590,44 @@ div#notFound>p{
     border-radius: 0px 0px 8px 8px;
 }
 
+.chirpInteract>button{
+    background-color: #00000000;
+    border: none;
+    font-size: 1em;
+    padding: 8px;
+    margin: 8px;
+    text-align: center;
+    margin-top: 12px;
+    transition: .2s linear;
+}
+
+.chirpInteract>button:hover{
+    background-color: #000000b9;
+    border-radius: 8px;
+    border: none;
+    font-size: 1em;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+
+.chirpInteract>button>img, .subText>img{
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 4px;
+    position: relative;
+    top: 3px;
+}
+
+img.verified{
+    width: 1.2rem;
+    height: 1rem;
+    position: relative;
+    top: 2px;
+}
+
 
 @media only screen and (min-width: 891px) {
     footer>div{

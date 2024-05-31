@@ -252,7 +252,6 @@ main{
 
 .chirp{
     padding: 12px;
-    width: 35vw;
     border-radius: 8px;
 }
 
@@ -290,7 +289,10 @@ main{
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: black;
+    background-color: #00000080;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    z-index: 12;
 }
 
 #timelineSelect>a, title>a{
@@ -453,9 +455,10 @@ footer{
     padding-right: 12px;
     padding-left: 12px;
     border-top: #8b8b8b2d 1px solid;
-    background-color: rgba(0, 0, 0, 0.646);
+    background-color: #00000080;
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
+    z-index: 11;
 
 }
 
@@ -640,6 +643,12 @@ img.verified{
     text-align: center;
 }
 
+div#chirps{
+    border-left:#8b8b8b2d 1px solid;
+    border-right:#8b8b8b2d 1px solid;
+    border-bottom:#8b8b8b2d 1px solid;
+    width: 35vw;
+}
 
 @media only screen and (min-width: 891px) {
     footer>div, footer{
@@ -660,7 +669,7 @@ img.verified{
     main{
         margin-left: 30vw;
     } 
-    div.chirp{
+    div#chirps{
         width: 50vw;
     }
     header{
@@ -681,14 +690,13 @@ img.verified{
     }
     #feed, #feedCompose{
         width: 90vw;
-
     }
     header{
         padding: 0px;
         width: 0px;
     }
-    div.chirp{
-        width: 95%;
+    div#chirps{
+        width: 100%;
         border: none;
         border-bottom:#8b8b8b2d 1px solid;
     }

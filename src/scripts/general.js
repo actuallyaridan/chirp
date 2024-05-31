@@ -11,3 +11,12 @@ function showMenuSettings(){
     document.getElementById("menuSettings").classList.toggle("visible");
     document.getElementById("settingsButtonWrapper").classList.toggle("clickedDown");
 }
+
+function slideDown() {
+    var element = document.getElementById('feedCompose');
+    element.classList.add('slideDown');
+    // Wait for the duration of the animation (0.25 seconds) before redirecting
+    setTimeout(function() {
+        window.history.back();
+    }, 100); // 250 milliseconds = 0.25 seconds
+}

@@ -14,7 +14,16 @@
     }
 }
 
-/* Apply the animation to the body */
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
 
 
 html, body, main, footer{
@@ -228,11 +237,34 @@ p.settingsButton:hover{
     font-size: 1em;
     padding: 8px;
     display: flex;
+    transition: .2s linear;
 }
 
 .postChirp:hover{
     cursor: pointer;
     background-color: rgb(132, 101, 255);
+}
+
+.cancelChirp{
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgb(255, 45, 45);
+    margin-bottom: 4px;
+    margin-top: 4px;
+    text-align: center;
+    color: rgb(247, 247, 247);
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    padding: 8px;
+    display: flex;
+    transition: .2s linear;
+    text-decoration: none;
+}
+
+.cancelChirp:hover{
+    cursor: pointer;
+    background-color: rgb(255, 71, 71);
+    text-decoration: none;
 }
 
 main{
@@ -289,9 +321,7 @@ main{
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: #00000080;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    background-color: black;
     z-index: 12;
 }
 
@@ -471,7 +501,20 @@ footer>div{
 
 footer>div>a{
     font-size: 24px;
+    padding: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 8px;
+}
 
+footer>div>a:hover{
+    background-color: #bdbdbd4f;
+}
+
+footer>div>a.active{
+    box-shadow: 0 -2px 0 rgb(120, 86, 255);
+    outline-offset: 12px;
+    border-radius: 0px 0px 8px 8px;
 }
 
 div#iconChirp>p{
@@ -559,17 +602,24 @@ div#notFound>p{
     position: fixed;
     bottom: 64px;
     right: 18px;
-    padding: 12px;
-    background-color: rgb(120, 86, 255);
-    border-radius: 20%;
 }
 
 .mobileCompose>a{
     text-decoration: none;
-    color: whie;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgb(120, 86, 255);
+    margin-bottom: 4px;
+    margin-top: 4px;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    padding: 8px;
+    display: flex;
 }
 
-.mobileCompose:hover{
+.mobileCompose>a:hover{
     background-color: rgb(132, 101, 255);
 }
 
@@ -610,15 +660,16 @@ div#notFound>p{
     margin-top: 12px;
     transition: .2s linear;
     color: white;
-}
-
-.chirpInteract>button:hover{
-    background-color: #000000b9;
     border-radius: 8px;
     border: none;
     font-size: 1em;
     padding: 8px;
     text-align: center;
+    
+}
+
+.chirpInteract>button:hover{
+    background-color: #0000004f;
     cursor: pointer;
 }
 
@@ -629,7 +680,7 @@ div#notFound>p{
     height: 1.2rem;
     margin-right: 4px;
     position: relative;
-    top: 3px;
+    top: 4px;
 }
 
 img.verified{
@@ -656,9 +707,11 @@ div#chirps{
     width: 35vw;
 }
 
+
 .lds-ring,
 .lds-ring div {
   box-sizing: border-box;
+  color: rgb(120, 86, 255);
 }
 .lds-ring {
   width: 42px;
@@ -671,19 +724,19 @@ div#chirps{
   width: 24px;
   height: 24px;
   margin: 8px;
-  border: 2px solid rgb(120, 86, 255);
+  border: 2px solid currentColor;
   border-radius: 50%;
-  animation: lds-ring 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: rgb(120, 86, 255) transparent transparent transparent;
+  animation: lds-ring 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: currentColor transparent transparent transparent;
 }
 .lds-ring div:nth-child(1) {
-  animation-delay: -0.375s;
+  animation-delay: -0.3s;
 }
 .lds-ring div:nth-child(2) {
-  animation-delay: -0.25s;
+  animation-delay: -0.2s;
 }
 .lds-ring div:nth-child(3) {
-  animation-delay: -0.125s;
+  animation-delay: -0.1s;
 }
 @keyframes lds-ring {
   0% {
@@ -707,6 +760,12 @@ div#chirps{
     .mobileCompose{
         display: none;
     }
+    #timelineSelect, .title{
+        background-color: #00000080;
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+    }
+    
 }
 
 @media only screen and (max-width: 1400px) {
@@ -776,10 +835,25 @@ div#chirps{
     .mobileCompose{
         display: flex;
     }
-    #feedCompose.swipe-up {
-        animation: swipeUp 0.2s ease-out forwards;
+
+    #feedCompose{
+        opacity: 0;
     }
+
+    #feedCompose.swipe-up {
+        animation: swipeUp 0.25s ease-out forwards;
+    }
+
+    #feedCompose.slideDown {
+        animation: slideDown 0.25s forwards !important;
+    }
+
     #highTraffic{
         width: 96%;
+    }
+    
+    #timelineSelect, .title{
+        background-color: black;
+
     }
 }

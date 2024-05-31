@@ -841,7 +841,7 @@ div#chirps{
     }
 
     #feedCompose.swipe-up {
-        animation: swipeUp 0.25s ease-out forwards;
+        animation: swipeUp 0.25s forwards;
     }
 
     #feedCompose.slideDown {

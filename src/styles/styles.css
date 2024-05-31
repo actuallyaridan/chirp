@@ -580,6 +580,12 @@ div#notFound>p{
 }
 
 #noMoreChirps{
+    margin-top: 24px;
+    padding-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     margin-bottom: 10%;
 }
 
@@ -649,6 +655,47 @@ div#chirps{
     border-bottom:#8b8b8b2d 1px solid;
     width: 35vw;
 }
+
+.lds-ring,
+.lds-ring div {
+  box-sizing: border-box;
+}
+.lds-ring {
+  width: 42px;
+  height: 42px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  margin: 8px;
+  border: 2px solid rgb(120, 86, 255);
+  border-radius: 50%;
+  animation: lds-ring 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: rgb(120, 86, 255) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.375s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.25s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.125s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 
 @media only screen and (min-width: 891px) {
     footer>div, footer{

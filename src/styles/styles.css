@@ -630,9 +630,19 @@ img.verified{
     top: 2px;
 }
 
+#signedOut{
+    width: 35vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 
 @media only screen and (min-width: 891px) {
-    footer>div{
+    footer>div, footer{
         display: none;
     }
     div#iconChirp{

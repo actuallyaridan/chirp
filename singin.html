@@ -8,14 +8,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
   <script src="src/scripts/general.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Following / Chirp</title>
+  <title>Sign in / Chirp</title>
 </head>
 <body>
-    <div id="menuSettings">
-        <a href="settings">⚙️ Settings</a>
-        <a>👪 Add another account</a>
-        <a>🚪 Sign out</a>
-    </div>
     <header>
         <div id="desktopMenu">
             <nav>
@@ -27,6 +22,10 @@
                 <a href="profile">👤 Profile</a>
                 <a href="compose" class="newchirp">Chirp</a>
             </nav>
+            <div id="menuSettings">
+                <a href="settings">⚙️ Settings</a>
+                <a>🚪 Sign in</a>
+            </div>
             <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
                 <img class="profilePic" src="src/images/profiles/guest/profile.svg" alt="aridan">
                 <div>
@@ -42,16 +41,16 @@
             <div id="iconChirp">
                 <p>🦜</p>
             </div>
-            <div id="timelineSelect">
-                <a id="forYou" href="/">For you</a>
-                <a id="following" class="selcted" href="following">Following</a>
+            <div class="title">
+                <p class="selcted">Sign in</p>
             </div>
-            <p class="noMoreChirps">If you want to use the Following tab you need to follow people first! 😝</p>
+            <div id="signedOut">
+                <p>You're currely using a guest account</p>
+                <p class="subText">You can't post, like, rechirp or reply to chirps.</p>
+                <p class="subText">Chirp is invite only. If you were invited to Chirp, you can scan this QR code to sing in..</p>
+            </div>
         </div>
     </main>
-    <div class="mobileCompose">
-        <a href="compose">Chirp</a>
-    </div>
     <aside id="sideBar">
         <div id="trends">
             <p>Trends for you</p>

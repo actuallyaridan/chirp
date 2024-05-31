@@ -588,6 +588,7 @@ div#notFound>p{
     padding-right: 12px;
     color:#8b8b8b;
     border-radius: 0px 0px 8px 8px;
+    display: none;
 }
 
 .chirpInteract>button{
@@ -599,6 +600,7 @@ div#notFound>p{
     text-align: center;
     margin-top: 12px;
     transition: .2s linear;
+    color: white;
 }
 
 .chirpInteract>button:hover{

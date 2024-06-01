@@ -1,0 +1,186 @@
+/* Styles for the sidebar */
+#sideBar {
+    display: flex; /* Flex container */
+    flex-direction: column; /* Stack items vertically */
+    min-height: 100vh; /* Minimum height of viewport */
+    position: fixed; /* Fixed positioning */
+    top: 0; /* Align to the top */
+    right: 0; /* Align to the right */
+    padding-right: 5vw; /* Right padding */
+    margin: 12px; /* Margin around the sidebar */
+    margin-top: 24px; /* Top margin */
+    width: 20vw; /* Width of sidebar */
+}
+
+/* Styles for items inside the sidebar */
+#sideBar > div {
+    width: 100%; /* Full width */
+    padding: 12px; /* Padding around items */
+    margin-bottom: 24px; /* Bottom margin */
+    border-radius: 12px; /* Rounded corners */
+}
+
+/* Additional styles for items inside the sidebar and another container */
+#sideBar > div,
+#exploreTrends > div {
+    width: 100%; /* Full width */
+    margin-bottom: 24px; /* Bottom margin */
+    border-radius: 12px; /* Rounded corners */
+    background-color: #8b8b8b2d; /* Semi-transparent background */
+}
+
+/* Styles for paragraph elements inside the sidebar items */
+#sideBar > div > p {
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 0; /* Remove bottom margin */
+}
+
+/* Styles for div elements inside the sidebar items */
+#sideBar > div > div {
+    padding: 12px; /* Padding around nested divs */
+}
+
+/* Styles for div elements inside the exploreTrends container */
+#exploreTrends > div > div {
+    padding: 12px; /* Padding around nested divs */
+}
+
+/* Styles for items inside the whotfollow container */
+#whotfollow > div {
+    display: flex; /* Flex container */
+    flex-direction: row; /* Arrange items horizontally */
+    justify-content: space-between; /* Space evenly between items */
+}
+
+/* Styles for div elements inside the whotfollow container */
+#whotfollow > div > div {
+    display: flex; /* Flex container */
+    flex-direction: row; /* Arrange items horizontally */
+    justify-content: start; /* Align items at the start */
+    align-items: start; /* Align items at the start */
+}
+
+/* Styles for nested div elements inside the whotfollow container */
+#whotfollow > div > div > div {
+    margin: 0; /* Remove default margin */
+    padding-left: 12px; /* Left padding */
+    padding-right: 12px; /* Right padding */
+}
+
+/* Styles for paragraph elements inside nested divs of the whotfollow container */
+#whotfollow > div > div > div > p {
+    margin: 0; /* Remove default margin */
+}
+
+/* Styles for the header */
+header {
+    display: flex; /* Flex container */
+    flex-direction: column; /* Stack items vertically */
+    min-height: 100vh; /* Minimum height of viewport */
+    position: fixed; /* Fixed positioning */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    margin-left: 15vw; /* Left margin */
+}
+
+/* Styles for nested div elements inside the header */
+header > div > nav {
+    display: flex; /* Flex container */
+    flex-direction: column; /* Stack items vertically */
+    width: moz-fit-content; /* Width based on content (Firefox) */
+    width: 100%; /* Full width */
+}
+
+/* Styles for buttons inside the header */
+header > div > button {
+    padding: 8px; /* Padding around the button */
+    background-color: black; /* Background color */
+    border: none; /* No border */
+    text-align: left; /* Left-aligned text */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    font-size: 1em; /* Font size */
+    padding-bottom: 0; /* Remove bottom padding */
+    margin: 8px; /* Margin around the button */
+    margin-bottom: 12px; /* Bottom margin */
+    display: flex; /* Flex container */
+    flex-direction: row; /* Arrange items horizontally */
+    border-radius: 24px; /* Rounded corners */
+    transition: background-color 0.2s linear; /* Smooth background color transition */
+    position: absolute; /* Absolute positioning */
+    bottom: 0; /* Align to the bottom */
+}
+
+/* Styles for button hover state */
+header > div > button:hover {
+    background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+    transition: none; /* Disable transition on hover */
+}
+
+/* Styles for nested div elements inside the buttons */
+header > div > button > div {
+    padding-left: 12px; /* Left padding */
+    padding-right: 12px; /* Right padding */
+}
+
+/* Styles for paragraph elements inside nested divs of the buttons */
+header > div > button > div > p {
+    margin: 0; /* Remove default margin */
+    color: white; /* Text color */
+}
+
+/* Styles for anchor elements inside the navigation */
+header > div > nav > a {
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline */
+    padding-bottom: 4px; /* Bottom padding */
+    padding-top: 4px; /* Top padding */
+    flex-grow: 1; /* Grow flex item */
+    width: fit-content; /* Width based on content */
+    padding: 8px; /* Padding around the anchor */
+    padding-left: 12px; /* Left padding */
+    padding-right: 18px; /* Right padding */
+    margin: 8px; /* Margin around the anchor */
+    border-radius: 24px; /* Rounded corners */
+    font-size: 20px; /* Font size */
+    transition: background-color 0.2s linear; /* Smooth background color transition */
+}
+
+/* Styles for image elements inside the navigation */
+header > div > nav > img {
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline */
+    padding-bottom: 4px; /* Bottom padding */
+    padding-top: 4px; /* Top padding */
+    flex-grow: 1; /* Grow flex item */
+    width: 32px; /* Width of the image */
+    height: 32px; /* Height of the image */
+    padding: 8px; /* Padding around the image */
+    padding-right: 18px; /* Right padding */
+    margin: 8px; /* Margin around the image */
+    margin-top: 12px; /* Top margin */
+    border-radius: 24px; /* Rounded corners */
+    font-size: 32px; /* Font size */
+}
+
+/* Styles for anchor hover state */
+header > div > nav > a:hover {
+    background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+    transition: none; /* Disable transition on hover */
+    text-decoration: none; /* Remove underline on hover */
+}
+
+/* Styles for settings button paragraph */
+p.settingsButton {
+    text-align: center; /* Center-aligned text */
+    width: 24px; /* Width of the button */
+    height:
+    24px; /* Height of the button */
+    margin-left: 12px; /* Left margin */
+    margin-right: 8px; /* Right margin */
+    border-radius: 50%; /* Rounded shape */
+}
+
+/* Styles for settings button hover state */
+p.settingsButton:hover {
+    background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+}

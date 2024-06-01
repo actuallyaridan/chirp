@@ -1,877 +1,432 @@
+/* Font face */
 @font-face {
-    font-family: Jost;
-    src: url(fonts/Jost.ttf);
+    font-family: Jost; /* Font family */
+    src: url(fonts/Jost.ttf); /* Font source */
 }
 
-@keyframes swipeUp {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+/* Global styles */
+html,
+body,
+main,
+footer {
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    background-color: black; /* Background color */
+    color: white; /* Text color */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    transition: 0.2s linear; /* Transition */
+    color-scheme: dark; /* Dark color scheme */
 }
 
-@keyframes slideDown {
-    from {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(100%);
-        opacity: 0;
-    }
+body {
+    overflow-y: scroll; /* Vertical overflow */
 }
 
-
-html, body, main, footer{
-    font-family: Jost, Arial, Helvetica, sans-serif;
-    background-color: black;
-    color: white;
-    scroll-behavior: smooth;
-    transition: 0.2s linear;
-    color-scheme: dark;
+button {
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
 }
 
-body{
-    overflow-y: scroll;
+/* Common styles for div and a elements */
+div,
+a {
+    transition: 0.2s width linear; /* Transition */
 }
 
-button{
-    font-family: Jost, Arial, Helvetica, sans-serif;
-}
-
-
-div ,a{
-    transition: 0.2s linear;
-} 
-
+/* Styles for emoji images */
 img.emoji {
-    height: 1em;
-    width: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
-    pointer-events: none;
+    height: 1em; /* Height */
+    width: 1em; /* Width */
+    margin: 0 .05em 0 .1em; /* Margins */
+    vertical-align: -0.1em; /* Vertical alignment */
+    pointer-events: none; /* No pointer events */
 }
 
-h1{
-    font-weight: 600;
+/* Styles for h1 */
+h1 {
+    font-weight: 600; /* Font weight */
 }
 
-a{
-    color: white;
-    text-decoration: none;
+/* Styles for links */
+a {
+    color: white; /* Text color */
+    text-decoration: none; /* No underline */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Additional body styles */
+body {
+    display: flex; /* Flex container */
+    flex-direction: row; /* Row direction */
 }
 
-a:hover{
-    text-decoration: underline;
-    cursor: pointer;
+/* Styles for profile pictures */
+img.profilePic {
+    width: 48px; /* Width */
+    height: 48px; /* Height */
+    border-radius: 50%; /* Border radius */
+    border: 2px solid #8b8b8b2d; /* Border */
 }
 
+/* Styles for links with icons */
+a > i {
+    padding-right: 8px; /* Right padding */
+}
+
+/* Styles for images within links */
+a > img {
+    height: 1em; /* Height */
+    width: 1em; /* Width */
+    margin: 0 .05em 0 .1em; /* Margins */
+    vertical-align: -0.1em; /* Vertical alignment */
+}
+
+/* Styles for 'newchirp' class */
+.newchirp {
+    min-width: 52px; /* Minimum width */
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(120, 86, 255); /* Background color */
+    width: 90%; /* Width */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: white; /* Text color */
+}
+
+.newchirp:hover {
+    background-color: rgb(132, 101, 255); /* Background color on hover */
+}
+
+/* Styles for 'postChirpButton' */
+#postChirpButton {
+    width: 100%; /* Full width */
+    display: flex; /* Flex container */
+    justify-content: right; /* Right justify content */
+}
+
+/* Styles for 'exploreChirp' */
+#exploreChirp {
+    width: 100%; /* Full width */
+    display: flex; /* Flex container */
+    justify-content: space-between; /* Space between */
+}
+
+/* Styles for 'postChirp' class */
+.postChirp {
+    min-width: 52px; /* Minimum width */
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(120, 86, 255); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 12px; /* Border radius */
+    font-size: 1em; /* Font size */
+    padding: 8px; /* Padding */
+    display: flex; /* Flex container */
+    transition: .2s linear; /* Transition */
+}
+
+.postChirp:hover {
+    cursor: pointer; /* Pointer cursor */
+    background-color: rgb(132, 101, 255); /* Background color on hover */
+}
 
-body{
-    font-family: Jost, Arial, Helvetica, sans-serif;
-    background-color: black;
-    color: white;
-    display: flex;
-    flex-direction: row;
-}
-
-header{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    position: fixed;
-    top: 0; 
-    left: 0;
-    margin-left: 15vw;
-}
-
-
-header>div>nav{
-    display: flex;
-    flex-direction: column;
-    width: moz-fit-content;
-    width: 100%;
-}
-
-header>div>button{
-    padding: 8px;
-    background-color: black;
-    border: none;
-    text-align: left;
-    font-family: Jost, Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    padding-bottom: 0px;
-    margin: 8px;
-    margin-bottom: 12px;
-    display: flex;
-    flex-direction: row;
-    border-radius: 24px;
-    transition: background-color .2s linear;
-    position:  absolute;
-    bottom: 0;
-}
-
-header>div>button:hover{
-    background-color: #8b8b8b2d;
-    transition: none;
-}
-
-img.profilePic{
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid #8b8b8b2d;
-}
-
-header>div>button>div{
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-header>div>button>div>p{
-    margin: 0px;
-    color: white;
-}
-
-
-
-header>div>nav>a{
-    color: white;
-    text-decoration: none;
-    padding-bottom: 4px;
-    padding-top: 4px;
-    flex-grow: 1;
-    width: fit-content;
-    padding: 8px;
-    padding-left: 12px;
-    padding-right: 18px;
-    margin: 8px;
-    border-radius: 24px;
-    font-size: 20px;
-    transition: background-color .2s linear;
-}
-
-header>div>nav>img{
-    color: white;
-    text-decoration: none;
-    padding-bottom: 4px;
-    padding-top: 4px;
-    flex-grow: 1;
-    width: 32px;
-    height: 32px;
-    padding: 8px;
-    padding-right: 18px;
-    margin: 8px;
-    margin-top: 12px;
-    border-radius: 24px;
-    font-size: 32px;
-}
-
-a>i{
-    padding-right: 8px;
-}
-
-a>img{
-    height: 1em;
-    width: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
-    
-}
-
-header>div>nav>a:hover{
-    background-color: #8b8b8b2d;
-    transition: none;
-    text-decoration: none;
-}
-
-p.settingsButton{
-    text-align: center;
-    width: 24px;
-    height: 24px;
-    margin-left: 12px;
-    margin-right: 8px;
-    border-radius: 50%;
-}
-p.settingsButton:hover{
-    background-color: #8b8b8b2d;
-
-}
-
-
-
-.newchirp{
-    min-width: 52px;
-    border-color: rgba(0, 0, 0, 0);
-    background-color: rgb(120, 86, 255);
-    width: 90%;
-    margin-bottom: 4px;
-    margin-top: 4px;
-    text-align: center;
-    color: white;
-}
-
-.newchirp:hover{
-    background-color: rgb(132, 101, 255);
-}
-
-#postChirpButton{
-    width: 100%;
-    display: flex;
-    justify-content: right;
-}
-
-#exploreChirp{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.postChirp{
-    min-width: 52px;
-    border-color: rgba(0, 0, 0, 0);
-    background-color: rgb(120, 86, 255);
-    margin-bottom: 4px;
-    margin-top: 4px;
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1em;
-    padding: 8px;
-    display: flex;
-    transition: .2s linear;
-}
-
-.postChirp:hover{
-    cursor: pointer;
-    background-color: rgb(132, 101, 255);
-}
-
-.cancelChirp{
-    border-color: rgba(0, 0, 0, 0);
-    background-color: rgb(255, 45, 45);
-    margin-bottom: 4px;
-    margin-top: 4px;
-    text-align: center;
-    color: rgb(247, 247, 247);
-    border: none;
-    border-radius: 12px;
-    font-size: 1em;
-    padding: 8px;
-    display: flex;
-    transition: .2s linear;
-    text-decoration: none;
-}
-
-.cancelChirp:hover{
-    cursor: pointer;
-    background-color: rgb(255, 71, 71);
-    text-decoration: none;
-}
-
-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 45px;
-    width: 100vw;
-}
-
-#feed, #feedCompose{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.chirp{
-    padding: 12px;
-    border-radius: 8px;
-}
-
-.chirp>.chirp{
-    width: 95%;
-    margin: auto;
-    
-}
-.chirpInfo{
-    display: flex;
-    flex-direction: row;
-}
-.chirpInfo>div{
-    display: flex;
-    flex-direction: column;
-    margin: 0px;
-}
-
-.chirpInfo>div>p{
-    margin: 0px;
-    padding-left: 8px;
-}
-
-.chirpInteract{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    border-top: 1px rgb(56, 56, 56) solid;
-}
-
-#timelineSelect, .title{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    position: sticky;
-    top: 0;
-    background-color: black;
-    z-index: 12;
-}
-
-#timelineSelect>a, title>a{
-    text-align: center;
-    width: 50%;
-    padding: 12px;
-    border-bottom: 1px rgb(56, 56, 56) solid;
-    border-top: none;
-}
-
-#timelineSelect>a:hover{
-    background-color: #8b8b8b2d;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-
-.selcted{
-    border-bottom: 2px rgb(120, 86, 255) solid !important; 
-}
-
-.chirp:hover{
-    background-color: #8b8b8b2d;
-    cursor: pointer;
-    transition: .2s linear;
-}
-
-#sideBar{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    position: fixed;
-    top: 0; 
-    right: 0;
-    padding-right: 5vw;
-    margin: 12px;
-    margin-top: 24px;
-    width: 20vw;
-}
-
-#sideBar>div{
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 24px;
-    border-radius: 12px;
-}
-
-#sideBar>div, #exploreTrends>div{
-    width: 100%;
-    margin-bottom: 24px;
-    border-radius: 12px;
-    background-color:#8b8b8b2d;
-}
-
-#sideBar>div>p{
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-#sideBar>div>div{
-    padding: 12px;
-}
-
-#exploreTrends>div>div{
-    padding: 12px;
-}
-
-#whotfollow>div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-#whotfollow>div>div{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: start;
-}
-
-#whotfollow>div>div>div{
-    margin: 0px;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-#whotfollow>div>div>div>p{
-    margin: 0px;
-}
-
-#exploreTrends{
-    display: flex;
-    width: 100%;
-}
-
-a.followButton{
-    border-color: rgba(0, 0, 0, 0);
-    background-color: rgb(120, 86, 255);
-    margin-bottom: 4px;
-    margin-top: 4px;
-    text-align: center;
-    color: white;
-    border-radius: 12px;
-    padding: 8px;
-    height: fit-content;
-}
-
-
-#menuSettings{
-    display: none;
-    z-index: 5;
-    position: absolute;
-    bottom: 12px;
-    flex-direction: column;
-    background-color: #8b8b8b2d;
-    padding: 12px;
-    border-radius: 12px;
-    width: 230px;
-    margin-bottom: 72px;
-}
-
-.visible{
-    display: flex !important;
-}
-
-.clickedDown{
-    background-color: #8b8b8b2d;
-}
-
-.downNow{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40vw;
-    margin: auto;
-    height: 100vh;
-}
-
-#signin{
-    justify-content: center;
-}
-
-#login{
-    background-color: #8b8b8b2d;
-    padding: 12px;
-    height: 94vh;
-    border-radius: 8px;
-}
-
-footer{
-    display: flex;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 12px;
-    padding-left: 12px;
-    border-top: #8b8b8b2d 1px solid;
-    background-color: #00000080;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    z-index: 11;
-
-}
-
-footer>div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 95%;
-}
-
-footer>div>a{
-    font-size: 24px;
-    padding: 1px;
-    padding-left: 4px;
-    padding-right: 4px;
-    border-radius: 8px;
-}
-
-footer>div>a:hover{
-    background-color: #bdbdbd4f;
-}
-
-footer>div>a.active{
-    box-shadow: 0 -2px 0 rgb(120, 86, 255);
-    outline-offset: 12px;
-    border-radius: 0px 0px 8px 8px;
-}
-
-div#iconChirp>img{
-    color: white;
-    text-decoration: none;
-    padding-bottom: 4px;
-    padding-top: 4px;
-    flex-grow: 1;
-    width: fit-content;
-    padding-left: 12px;
-    padding-right: 18px;
-    padding-top: 8px;
-    margin: 0px;
-    border-radius: 24px;
-    font-size: 24px;
-    height: 1em;
-    width: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
-    pointer-events: none;
-}
-
-
-.subText{
-    color: #8b8b8b;
-    margin-top: 0px;
-}
-
-.chirpInfo > p{
-    margin: 0px;
-    margin-left: 8px;
-}
-
-#trends>div>p{
-    margin: 0px;
-}
-
-.noMoreChirps{
-    text-align: center;
-}
-
-#composer>textarea{
-    margin-top: 12px;
-    width: 35vw;
-    height: 150px;
-    color-scheme: dark;
-    background-color: #8b8b8b2d;
-    resize: none;
-    border: none;
-    padding: 8px;
-    font-size: 1em;
-    font-family: Jost, Arial, Helvetica, sans-serif;
-    border-radius: 8px;
-}
-
-#exploreer{
-    display: flex;
-    width: 35vw;
-    margin-bottom: 8px;
-}
-
-#exploreer>textarea{
-    margin-top: 12px;
-    width: 100%;
-    height: 1.5em;
-    color-scheme: dark;
-    background-color: #8b8b8b2d;
-    resize: none;
-    border: none;
-    padding: 8px;
-    font-size: 1em;
-    font-family: Jost, Arial, Helvetica, sans-serif;
-    border-radius: 8px;
-}
-
-div#notFound{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90vh;
-    width: 20vw;
-    flex-direction: column;
-}
-
-div#notFound>p{
-    text-align: center;
-}
-
-.mobileCompose{
-    display: none;
-    position: fixed;
-    bottom: 64px;
-    right: 18px;
-}
-
-.mobileCompose>a{
-    text-decoration: none;
-    border-color: rgba(0, 0, 0, 0);
-    background-color: rgb(120, 86, 255);
-    margin-bottom: 4px;
-    margin-top: 4px;
-    text-align: center;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1em;
-    padding: 8px;
-    display: flex;
-}
-
-.mobileCompose>a:hover{
-    background-color: rgb(132, 101, 255);
-}
-
-.chirpsee{
-    background-color: rgb(24, 15, 0);
-    padding: 8px;
-    border-radius: 4px;
-}
-
-#noMoreChirps{
-    margin-top: 24px;
-    padding-bottom: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 10%;
-}
-
-#highTraffic{
-    width: 35vw;
-    text-align: center;
-    background-color: rgb(24, 15, 0);
-    padding-left: 12px;
-    padding-right: 12px;
-    color:#8b8b8b;
-    border-radius: 0px 0px 8px 8px;
-    display: none;
-}
-
-.chirpInteract>button{
-    background-color: #00000000;
-    border: none;
-    font-size: 1em;
-    padding: 8px;
-    margin: 8px;
-    text-align: center;
-    margin-top: 12px;
-    transition: .2s linear;
-    color: white;
-    border-radius: 8px;
-    border: none;
-    font-size: 1em;
-    padding: 8px;
-    text-align: center;
-    
-}
-
-.chirpInteract>button:hover{
-    background-color: #0000004f;
-    cursor: pointer;
-}
-
-
-
-.chirpInteract>button>img, .subText>img{
-    width: 1.2rem;
-    height: 1.2rem;
-    margin-right: 4px;
-    position: relative;
-    top: 4px;
-}
-
-img.verified{
-    width: 1.2rem;
-    height: 1rem;
-    position: relative;
-    top: 2px;
-}
-
-#signedOut{
-    width: 35vw;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-div#chirps{
-    border-left:#8b8b8b2d 1px solid;
-    border-right:#8b8b8b2d 1px solid;
-    border-bottom:#8b8b8b2d 1px solid;
-    width: 35vw;
-}
-
-textarea:focus{
-    outline: none;
-    background-color: #272727 !important;
-}
-
-
-.lds-ring,
-.lds-ring div {
-  box-sizing: border-box;
-  color: rgb(120, 86, 255);
-}
-.lds-ring {
-  width: 42px;
-  height: 42px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  margin: 8px;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-  animation: lds-ring 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: currentColor transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.2s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.1s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
-
-
-@media only screen and (min-width: 891px) {
-    footer>div, footer{
-        display: none;
-    }
-    div#iconChirp{
-        display: none;
-    }
-    .mobileCompose{
-        display: none;
-    }
-    #timelineSelect, .title{
-        background-color: #00000080;
-        -webkit-backdrop-filter: blur(20px);
-        backdrop-filter: blur(20px);
-    }
-    
-}
-
-@media only screen and (max-width: 1400px) {
-    aside#sideBar{
-        display: none;
-    }
-    main{
-        margin-left: 30vw;
-    } 
-    div#chirps{
-        width: 50vw;
-    }
-    header{
-        margin-left: 10vw;
-    }
-    #highTraffic{
-        width: 96%;
-    }
-
-}
-
-@media only screen and (max-width: 890px) {
-    div#desktopMenu {
-        display: none;
-    }
-    main{
-        margin: 0px;
-    }
-    #feed, #feedCompose{
-        width: 90vw;
-    }
-    header{
-        padding: 0px;
-        width: 0px;
-    }
-    div#chirps{
-        width: 100%;
-        border: none;
-        border-bottom:#8b8b8b2d 1px solid;
-    }
-    div.chirp>div.chirp{
-        width: 90%;
-        border: #8b8b8b2d 1px solid
-    }
-    aside#sideBar{
-        display: none;
-    }
-    #timelineSelect>a{
-        border-top: none;
-        border-left: none;
-        border-right: none;
-    }
-    #exploreer, #composer{
-        width: 100%;
-    }
-
-    #composer>textarea, #exploreer>textarea{
-        width: 86vw;
-        margin-top: 8px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    div#notFound{
-        width: 80vw;
-    }
-    .mobileCompose{
-        display: flex;
-    }
-
-    #feedCompose{
-        opacity: 0;
-    }
-
-    #feedCompose.swipe-up {
-        animation: swipeUp 0.25s forwards;
-    }
-
-    #feedCompose.slideDown {
-        animation: slideDown 0.25s forwards !important;
-    }
-
-    #highTraffic{
-        width: 96%;
-    }
-    
-    #timelineSelect, .title{
-        background-color: black;
-
-    }
+/* Styles for 'cancelChirp' class */
+.cancelChirp {
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(255, 45, 45); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: rgb(247, 247, 247); /* Text color */
+    border: none; /* No border */
+    border-radius: 12px; /* Border radius */
+    font-size: 1em; /* Font size */
+    padding: 8px; /* Padding */
+    display: flex; /* Flex container */
+    transition: .2s linear; /* Transition */
+    text-decoration: none; /* No underline */
+}
+
+.cancelChirp:hover {
+    cursor: pointer; /* Pointer cursor */
+    background-color: rgb(255, 71, 71); /* Background color on hover */
+    text-decoration: none; /* No underline on hover */
+}
+
+/* Styles for main container */
+main {
+    display: flex; /* Flex container */
+    flex-direction: column; /* Column direction */
+    align-items: center; /* Center align items */
+    margin-left: 45px; /* Left margin */
+    width: 100vw; /* Full width */
+}
+
+/* Styles for timeline selection and title */
+#timelineSelect,
+.title {
+    display: flex; /* Flex container */
+    flex-direction: row; /* Row direction */
+    width: 100%; /* Full width */
+    position: sticky; /* Sticky position */
+    top: 0; /* Top position */
+    background-color: black; /* Background color */
+    z-index: 12; /* Z-index */
+}
+
+/* Styles for links within timeline selection */
+#timelineSelect > a,
+.title > a {
+    text-align: center; /* Center alignment */
+    width: 50%; /* 50% width */
+    padding: 12px; /* Padding */
+    border-bottom: 1px rgb(56, 56, 56) solid; /* Bottom border */
+    border-top: none; /* No top border */
+}
+
+/* Styles for links within timeline selection on hover */
+#timelineSelect > a:hover {
+    background-color: #8b8b8b2d; /* Background color on hover */
+    cursor: pointer; /* Pointer cursor */
+    text-decoration: none; /* No underline */
+}
+
+/* Selected style */
+.selcted {
+    border-bottom: 2px rgb(120, 86, 255) solid !important; /* Selected border */
+}
+
+/* Hover style for chirp */
+.chirp:hover {
+    background-color: #8b8b8b2d; /* Background color on hover */
+    cursor: pointer; /* Pointer cursor */
+    transition: .2s linear; /* Transition */
+}
+
+/* Styles for explore trends */
+#exploreTrends {
+    display: flex; /* Flex container */
+    width: 100%; /* Full width */
+}
+
+/* Styles for follow button links */
+a.followButton {
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(120, 86, 255); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: white; /* Text color */
+    border-radius: 12px; /* Border radius */
+    padding: 8px; /* Padding */
+    height: fit-content; /* Height based on content */
+}
+
+/* Styles for menu settings */
+#menuSettings {
+    display: none; /* Hidden by default */
+    z-index: 5; /* Z-index */
+    position: absolute; /* Absolute position */
+    bottom: 12px; /* Bottom position */
+    flex-direction: column; /* Column direction */
+    background-color: #8b8b8b2d; /* Background color */
+    padding: 12px; /* Padding */
+    border-radius: 12px; /* Border radius */
+    width: 230px; /* Width */
+    margin-bottom: 72px; /* Bottom margin */
+}
+
+/* Visible style */
+.visible {
+    display: flex !important; /* Display as flex */
+}
+
+/* Clicked down style */
+.clickedDown {
+    background-color: #8b8b8b2d; /* Background color */
+}
+
+/* Styles for downNow */
+.downNow {
+    display: flex; /* Flex container */
+    justify-content: center; /* Center justify content */
+    align-items: center; /* Center align items */
+    width: 40vw; /* Width */
+    margin: auto; /* Center margin */
+    height: 100vh; /* Full height */
+}
+
+/* Sign-in style */
+#signin {
+    justify-content: center; /* Center justify content */
+}
+
+/* Login style */
+#login {
+    background-color: #8b8b8b2d; /* Background color */
+    padding: 12px; /* Padding */
+    height: 94vh; /* 94% viewport height */
+    border-radius: 8px; /* Border radius */
+}
+
+/* Footer styles */
+footer {
+    display: flex; /* Flex container */
+    position: fixed; /* Fixed position */
+    justify-content: center; /* Center justify content */
+    align-items: center; /* Center align items */
+    bottom: 0; /* Bottom position */
+    left: 0; /* Left position */
+    right: 0; /* Right position */
+    padding-top: 8px; /* Top padding */
+    padding-bottom: 8px; /* Bottom padding */
+    padding-right: 12px; /* Right padding */
+    padding-left: 12px; /* Left padding */
+    border-top: #8b8b8b2d 1px solid; /* Top border */
+    background-color: #00000080; /* Background color */
+    -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
+    backdrop-filter: blur(20px); /* Backdrop filter */
+    z-index: 11; /* Z-index */
+}
+
+/* Styles for footer div */
+footer > div {
+    display: flex; /* Flex container */
+    justify-content: space-between; /* Space between */
+    align-items: center; /* Center align items */
+    width: 95%; /* 95% width */
+}
+
+/* Styles for footer links */
+footer > div > a {
+    font-size: 24px; /* Font size */
+    padding: 1px; /* Padding */
+    padding-left: 4px; /* Left padding */
+    padding-right: 4px; /* Right padding */
+    border-radius: 8px; /* Border radius */
+}
+
+/* Hover style for footer links */
+footer > div > a:hover {
+    background-color: #bdbdbd4f; /* Background color on hover */
+}
+
+/* Active style for footer links */
+footer > div > a.active {
+    box-shadow: 0 -2px 0 rgb(120, 86, 255); /* Box shadow */
+    outline-offset: 12px; /* Outline offset */
+    border-radius: 0px 0px 8px 8px; /* Border radius */
+}
+
+/* Styles for iconChirp image */
+div#iconChirp > img {
+    color: white; /* Text color */
+    text-decoration: none; /* No underline */
+    padding-bottom: 4px; /* Bottom padding */
+    padding-top: 4px; /* Top padding */
+    flex-grow: 1; /* Flex grow */
+    width: fit-content; /* Width based on content */
+    padding-left: 12px; /* Left padding */
+    padding-right: 18px; /* Right padding */
+    padding-top: 8px; /* Top padding */
+    margin: 0px; /* Margin */
+    border-radius: 24px; /* Border radius */
+    font-size: 24px; /* Font size */
+    height: 1em; /* Height */
+    width: 1em; /* Width */
+    margin: 0 .05em 0 .1em; /* Margins */
+    vertical-align: -0.1em; /* Vertical alignment */
+    pointer-events: none; /* No pointer events */
+}
+
+/* Subtext styles */
+.subText {
+    color: #8b8b8b; /* Text color */
+    margin-top: 0px; /* Top margin */
+}
+
+/* Styles for chirp information paragraphs */
+.chirpInfo > p {
+    margin: 0px; /* Margin */
+    margin-left: 8px; /* Left margin */
+}
+
+/* Styles for trends div */
+#trends > div > p {
+    margin: 0px; /* Margin */
+}
+
+/* Styles for composer textarea */
+#composer > textarea {
+    margin-top: 12px; /* Top margin */
+    width: 35vw; /* Width */
+    height: 150px; /* Height */
+    color-scheme: dark; /* Dark color scheme */
+    background-color: #8b8b8b2d; /* Background color */
+    resize: none; /* No resizing */
+    border: none; /* No border */
+    padding: 8px; /* Padding */
+    font-size: 1em; /* Font size */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    border-radius: 8px; /* Border radius */
+}
+
+/* Styles for exploreer div */
+#exploreer {
+    display: flex; /* Flex container */
+    width: 35vw; /* Width */
+    margin-bottom: 8px; /* Bottom margin */
+}
+
+/* Styles for exploreer textarea */
+#exploreer > textarea {
+    margin-top: 12px; /* Top margin */
+    width: 100%; /* Full width */
+    height: 1.5em; /* Height */
+    color-scheme: dark
+    ; /* Dark color scheme */
+    background-color: #8b8b8b2d; /* Background color */
+    resize: none; /* No resizing */
+    border: none; /* No border */
+    padding: 8px; /* Padding */
+    font-size: 1em; /* Font size */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    border-radius: 8px; /* Border radius */
+}
+
+/* Styles for notFound div */
+div#notFound {
+    display: flex; /* Flex container */
+    justify-content: center; /* Center justify content */
+    align-items: center; /* Center align items */
+    height: 90vh; /* 90% viewport height */
+    width: 20vw; /* Width */
+    flex-direction: column; /* Column direction */
+}
+
+/* Styles for notFound paragraphs */
+div#notFound > p {
+    text-align: center; /* Center alignment */
+}
+
+/* Styles for signedOut div */
+#signedOut {
+    width: 35vw; /* Width */
+    height: 80vh; /* 80% viewport height */
+    display: flex; /* Flex container */
+    flex-direction: column; /* Column direction */
+    align-items: center; /* Center align items */
+    justify-content: center; /* Center justify content */
+    text-align: center; /* Center alignment */
+}
+
+/* Focus style for textarea */
+textarea:focus {
+    outline: none; /* No outline */
+    background-color: #272727 !important; /* Background color */
 }

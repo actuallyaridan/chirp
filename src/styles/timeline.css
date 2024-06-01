@@ -1,0 +1,353 @@
+/* Styles for element with class 'noMoreChirps' */
+.noMoreChirps {
+    text-align: center;
+    /* Center-align text */
+}
+
+/* Styles for elements with IDs 'feed' and 'feedCompose' */
+#feed,
+#feedCompose {
+    display: flex;
+    /* Flex container */
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: center;
+    /* Center-align items horizontally */
+    justify-content: center;
+    /* Center-align items vertically */
+}
+
+/* Styles for elements with class 'chirp' */
+.chirp {
+    padding: 12px;
+    /* Padding around the chirp */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+/* Styles for nested elements with class 'chirp' */
+.chirp>.chirp {
+    width: 95%;
+    /* 95% width */
+    margin: auto;
+    /* Center-align horizontally */
+}
+
+/* Styles for element with class 'chirpInfo' */
+.chirpInfo {
+    display: flex;
+    /* Flex container */
+    flex-direction: row;
+    /* Arrange items horizontally */
+}
+
+/* Styles for nested div elements within 'chirpInfo' */
+.chirpInfo>div {
+    display: flex;
+    /* Flex container */
+    flex-direction: column;
+    /* Stack items vertically */
+    margin: 0;
+    /* Remove default margin */
+}
+
+/* Styles for paragraph elements within 'chirpInfo' */
+.chirpInfo>div>p {
+    margin: 0;
+    /* Remove default margin */
+    padding-left: 8px;
+    /* Left padding */
+}
+
+/* Styles for element with class 'chirpInteract' */
+.chirpInteract {
+    display: flex;
+    /* Flex container */
+    flex-direction: row;
+    /* Arrange items horizontally */
+    width: 100%;
+    /* Full width */
+    justify-content: space-between;
+    /* Space items evenly */
+    border-top: 1px rgb(56, 56, 56) solid;
+    /* Top border */
+}
+
+/* Styles for element with class 'mobileCompose' */
+.mobileCompose {
+    display: none;
+    /* Hide element by default */
+    position: fixed;
+    /* Fixed positioning */
+    bottom: 64px;
+    /* Distance from the bottom */
+    right: 18px;
+    /* Distance from the right */
+}
+
+/* Styles for anchor elements within 'mobileCompose' */
+.mobileCompose>a {
+    text-decoration: none;
+    /* Remove underline */
+    border-color: rgba(0, 0, 0, 0);
+    /* Transparent border color */
+    background-color: rgb(120, 86, 255);
+    /* Background color */
+    margin-bottom: 4px;
+    /* Bottom margin */
+    margin-top: 4px;
+    /* Top margin */
+    text-align: center;
+    /* Center-align text */
+    color: white;
+    /* Text color */
+    border: none;
+    /* No border */
+    border-radius: 12px;
+    /* Rounded corners */
+    font-size: 1em;
+    /* Font size */
+    padding: 8px;
+    /* Padding */
+    display: flex;
+    /* Flex container */
+}
+
+/* Styles for anchor elements within 'mobileCompose' on hover */
+.mobileCompose>a:hover {
+    background-color: rgb(132, 101, 255);
+    /* Background color on hover */
+}
+
+/* Styles for element with class 'chirpsee' */
+.chirpsee {
+    background-color: rgb(24, 15, 0);
+    /* Background color */
+    padding: 8px;
+    /* Padding */
+    border-radius: 4px;
+    /* Rounded corners */
+}
+
+/* Styles for element with ID 'noMoreChirps' */
+#noMoreChirps {
+    margin-top: 24px;
+    /* Top margin */
+    padding-bottom: 24px;
+    /* Bottom padding */
+    display: flex;
+    /* Flex container */
+    justify-content: center;
+    /* Center-align horizontally */
+    align-items: center;
+    /* Center-align vertically */
+    flex-direction: column;
+    /* Stack items vertically */
+    margin-bottom: 10%;
+    /* Bottom margin */
+}
+
+/* Styles for element with ID 'highTraffic' */
+#highTraffic {
+    width: 35vw;
+    /* 35% of viewport width */
+    text-align: center;
+    /* Center-align text */
+    background-color: rgb(24, 15, 0);
+    /* Background color */
+    padding-left: 12px;
+    /* Left padding */
+    padding-right: 12px;
+    /* Right padding */
+    color: #8b8b8b;
+    /* Text color */
+    border-radius: 0 0 8px 8px;
+    /* Rounded corners */
+    display: none;
+    /* Hide element by default */
+}
+
+/* Styles for buttons within 'chirpInteract' */
+.chirpInteract>button {
+    background-color: #00000000;
+    /* Transparent background */
+    border: none;
+    /* No border */
+    font-size: 1em;
+    /* Font size */
+    padding: 8px;
+    /* Padding */
+    margin: 8px;
+    /* Margin */
+    text-align: center;
+    /* Center-align text */
+    margin-top: 12px;
+    /* Top margin */
+    transition: .2s linear;
+    /* Smooth transition */
+    color: white;
+    /* Text color */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+/* Styles for buttons within 'chirpInteract' on hover */
+.chirpInteract>button:hover {
+    background-color: #0000004f;
+    /* Semi-transparent background on hover */
+    cursor: pointer;
+    /* Cursor pointer on hover */
+}
+
+/* Styles for nested img elements within 'chirpInteract' and 'subText' */
+.chirpInteract>button>img,
+.subText>img {
+    width: 1.2rem;
+    /* Width */
+    height: 1.2rem;
+    /* Height */
+    margin-right: 4px;
+    /* Right margin */
+    position: relative;
+    /* Relative positioning */
+    top: 4px;
+    /* Offset from the top */
+}
+
+/* Styles for img elements with class 'verified' */
+img.verified {
+    width: 1.2rem;
+    /* Width */
+    height: 1rem;
+    /* Height */
+    position: relative;
+    /* Relative positioning */
+    top: 2px;
+    /* Offset from the top */
+}
+
+/* Styles for element with ID 'chirps' */
+div#chirps {
+    border-left: #8b8b8b2d 1px solid;
+    /* Left border */
+    border-right: #8b8b8b2d 1px solid;
+    /* Right border */
+    border-bottom: #8b8b8b2d 1px solid;
+    /* Bottom border */
+    width: 35vw;
+    /* 35% of viewport width */
+}
+
+/* Styles for elements with ID 'timelineSelect' and class 'title' */
+#timelineSelect,
+.title {
+    display: flex;
+    /* Flex container */
+    flex-direction: row;
+    /* Arrange items horizontally */
+    width: 100%;
+    /* Full width */
+    position: sticky;
+    /* Sticky positioning */
+    top: 0;
+    /* Stick to the top */
+    background-color: black;
+    /* Black background */
+    z-index: 12;
+    /* Stack order */
+}
+
+/* Styles for anchor elements within 'timelineSelect' and 'title' */
+#timelineSelect>a,
+.title>a {
+    text-align: center;
+    /* Center-align text */
+    width: 50%;
+    /* 50% width */
+    padding: 12px;
+    /* Padding */
+    border-bottom: 1px rgb(56, 56, 56) solid;
+    /* Bottom border */
+    border-top: none;
+    /* No top border */
+}
+
+/* Styles for anchor elements within 'timelineSelect' on hover */
+#timelineSelect>a:hover {
+    background-color: #8b8b8b2d;
+    /* Semi-transparent background on hover */
+    cursor: pointer;
+    /* Cursor pointer on hover */
+    text-decoration: none;
+    /* Remove underline on hover */
+}
+
+/* Styles for element with class 'selected' */
+.selected {
+    border-bottom: 2px rgb(120, 86, 255) solid !important;
+    /* Bottom border with increased thickness */
+}
+
+/* Styles for elements with class 'chirp' on hover */
+.chirp:hover {
+    background-color: #8b8b8b2d;
+    /* Semi-transparent background on hover */
+    cursor: pointer;
+    /* Cursor pointer on hover */
+    transition: .2s linear;
+    /* Smooth transition */
+}
+
+/* Styles for loading animation */
+.lds-ring,
+.lds-ring div {
+    box-sizing: border-box;
+    /* Border box model */
+    color: rgb(120, 86, 255);
+    /* Color */
+}
+
+.lds-ring,
+.lds-ring div {
+    box-sizing: border-box;
+}
+
+.lds-ring {
+    width: 42px;
+    height: 42px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    margin: 8px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    animation: lds-ring 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: currentColor transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.1s;
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,181 @@
+/* Keyframe animation for swiping up */
+@keyframes swipeUp {
+    from {
+        transform: translateY(100%); /* Move element downwards by its height */
+        opacity: 0; /* Make element fully transparent */
+    }
+
+    to {
+        transform: translateY(0); /* Reset element position */
+        opacity: 1; /* Make element fully opaque */
+    }
+}
+
+/* Keyframe animation for sliding down */
+@keyframes slideDown {
+    from {
+        transform: translateY(0); /* Reset element position */
+        opacity: 1; /* Make element fully opaque */
+    }
+
+    to {
+        transform: translateY(100%); /* Move element downwards by its height */
+        opacity: 0; /* Make element fully transparent */
+    }
+}
+
+/* Media query for screens wider than 891px */
+@media only screen and (min-width: 891px) {
+    /* Hide footer and its child divs */
+    footer > div,
+    footer {
+        display: none;
+    }
+
+    /* Hide element with ID 'iconChirp' */
+    div#iconChirp {
+        display: none;
+    }
+
+    /* Hide elements with class 'mobileCompose' */
+    .mobileCompose {
+        display: none;
+    }
+
+    /* Style for elements with ID 'timelineSelect' and elements with class 'title' */
+    #timelineSelect,
+    .title {
+        background-color: #00000080; /* Semi-transparent black background */
+        -webkit-backdrop-filter: blur(20px); /* Blur effect for WebKit browsers */
+        backdrop-filter: blur(20px); /* Blur effect for modern browsers */
+    }
+}
+
+/* Media query for screens narrower than 1400px */
+@media only screen and (max-width: 1400px) {
+    /* Hide element with ID 'sideBar' */
+    aside#sideBar {
+        display: none;
+    }
+
+    /* Adjust margin for the main content */
+    main {
+        margin-left: 30vw;
+    }
+
+    /* Set width for element with ID 'chirps' */
+    div#chirps {
+        width: 50vw;
+    }
+
+    /* Adjust margin for the header */
+    header {
+        margin-left: 10vw;
+    }
+
+    /* Set width for element with ID 'highTraffic' */
+    #highTraffic {
+        width: 96%;
+    }
+}
+
+/* Media query for screens narrower than 890px */
+@media only screen and (max-width: 890px) {
+    /* Hide element with ID 'desktopMenu' */
+    div#desktopMenu {
+        display: none;
+    }
+
+    /* Reset margin for the main content */
+    main {
+        margin: 0;
+    }
+
+    /* Set width for elements with IDs 'feed' and 'feedCompose' */
+    #feed,
+    #feedCompose {
+        width: 90vw;
+    }
+
+    /* Adjust styling for the header */
+    header {
+        padding: 0; /* Remove padding */
+        width: 0; /* Set width to 0 */
+    }
+
+    /* Set width for element with ID 'chirps' and adjust border */
+    div#chirps {
+        width: 100%; /* Full width */
+        border: none; /* Remove border */
+        border-bottom: #8b8b8b2d 1px solid; /* Add bottom border with semi-transparent color */
+    }
+
+    /* Set width for nested div elements with class 'chirp' */
+    div.chirp > div.chirp {
+        width: 90%; /* 90% width */
+        border: #8b8b8b2d 1px solid; /* Border with semi-transparent color */
+    }
+
+    /* Hide element with ID 'sideBar' */
+    aside#sideBar {
+        display: none;
+    }
+
+    /* Adjust styling for element with ID 'timelineSelect' */
+    #timelineSelect > a {
+        border-top: none; /* Remove top border */
+        border-left: none; /* Remove left border */
+        border-right: none; /* Remove right border */
+    }
+
+    /* Set width for elements with IDs 'exploreer' and 'composer' */
+    #exploreer,
+    #composer {
+        width: 100%; /* Full width */
+    }
+
+    /* Adjust styling for textarea elements inside elements with IDs 'composer' and 'exploreer' */
+    #composer > textarea,
+    #exploreer > textarea {
+        width: 86vw; /* 86% width */
+        margin-top: 8px; /* Top margin */
+        margin-left: auto; /* Auto left margin */
+        margin-right: auto; /* Auto right margin */
+    }
+
+    /* Set width for element with ID 'notFound' */
+    div#notFound {
+        width: 80vw; /* 80% width */
+    }
+
+    /* Display elements with class 'mobileCompose' as flex */
+    .mobileCompose {
+        display: flex; /* Flex container */
+    }
+
+    /* Hide element with ID 'feedCompose' */
+    #feedCompose {
+        opacity: 0; /* Make element fully transparent */
+    }
+
+    /* Apply swipeUp animation to element with ID 'feedCompose' */
+    #feedCompose.swipe-up {
+        animation: swipeUp 0.25s forwards; /* Apply animation */
+    }
+
+    /* Apply slideDown animation to element with ID 'feedCompose' */
+    #feedCompose.slideDown {
+        animation: slideDown 0.25s forwards !important; /* Apply animation with important flag */
+    }
+
+    /* Set width for element with ID 'highTraffic' */
+    #highTraffic {
+        width: 96%; /* 96% width */
+    }
+
+    /* Styling for elements with ID 'timelineSelect' and class 'title' */
+    #timelineSelect,
+    .title {
+        background-color: black; /* Black background */
+    }
+}

@@ -27,9 +27,12 @@ function slideDown() {
 
 function back() {
     var referrer = document.referrer || ""; // Set referrer to empty string if no referrer exists
-    if (referrer.indexOf('https://chirp.aridan.net') !== -1) { // Checks for complete URL with https
+    if (referrer.indexOf('chirp.aridan.net') !== -1) { // Checks if the referrer contains 'chirp.aridan.net'
         window.history.back();
     } else {
-        window.location.href = 'https://chirp.aridan.net';
+        // Prevent infinite loop by adding a slight delay
+        setTimeout(function() {
+            window.location.href = 'https://chirp.aridan.net';
+        }, 100);
     }
 }

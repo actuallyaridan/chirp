@@ -26,8 +26,8 @@ function slideDown() {
 }
 
 function back() {
-    var referrer = document.referrer || "";
-    if (referrer.indexOf('chirp.aridan.net') !== -1) {
+    var referrer = document.referrer || ""; // Set referrer to empty string if no referrer exists
+    if (referrer.indexOf('https://chirp.aridan.net') !== -1) { // Checks for complete URL with https
         window.history.back();
     } else {
         window.location.href = 'https://chirp.aridan.net';

@@ -27,12 +27,13 @@ function slideDown() {
 
 function back() {
     var referrer = document.referrer || ""; // Set referrer to empty string if no referrer exists
-    if (referrer.indexOf('chirp.aridan.net') !== -1) { // Checks if the referrer contains 'chirp.aridan.net'
+    var backAttempted = sessionStorage.getItem('backAttempted') || "false"; // Check if back has already been attempted
+
+    if (referrer.indexOf('chirp.aridan.net') !== -1 && backAttempted === "false") {
+        sessionStorage.setItem('backAttempted', "true"); // Set flag to prevent multiple back attempts
         window.history.back();
     } else {
-        // Prevent infinite loop by adding a slight delay
-        setTimeout(function() {
-            window.location.href = 'https://chirp.aridan.net';
-        }, 100);
+        sessionStorage.setItem('backAttempted', "false"); // Reset flag when redirecting
+        window.location.href = 'https://chirp.aridan.net';
     }
 }

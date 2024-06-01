@@ -18,7 +18,7 @@
 }
 
 /* Styles for elements with class 'chirp' */
-.chirp {
+.chirp, .chirpThread {
     padding: 12px;
     /* Padding around the chirp */
     border-radius: 8px;
@@ -26,7 +26,7 @@
 }
 
 /* Styles for nested elements with class 'chirp' */
-.chirp>.chirp {
+.chirp>.chirp, .chirpThread>.chirp  {
     width: 95%;
     /* 95% width */
     margin: auto;
@@ -189,11 +189,12 @@
     /* Text color */
     border-radius: 8px;
     /* Rounded corners */
+    color: #6b6b6b;
 }
 
 /* Styles for buttons within 'chirpInteract' on hover */
 .chirpInteract>button:hover {
-    background-color: #0000004f;
+    background-color: #6b6b6b4f;
     /* Semi-transparent background on hover */
     cursor: pointer;
     /* Cursor pointer on hover */
@@ -251,14 +252,14 @@ div#chirps {
     /* Sticky positioning */
     top: 0;
     /* Stick to the top */
-    background-color: black;
+    background-color: #00000080;
     /* Black background */
     z-index: 12;
     /* Stack order */
 }
 
 /* Styles for anchor elements within 'timelineSelect' and 'title' */
-#timelineSelect>a,
+#timelineSelect>a, #timelineSelect>button,
 .title>a {
     text-align: center;
     /* Center-align text */
@@ -266,14 +267,17 @@ div#chirps {
     /* 50% width */
     padding: 12px;
     /* Padding */
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
     border-bottom: 1px rgb(56, 56, 56) solid;
+    font-size: 1em;
     /* Bottom border */
     border-top: none;
     /* No top border */
 }
 
 /* Styles for anchor elements within 'timelineSelect' on hover */
-#timelineSelect>a:hover {
+#timelineSelect>a:hover, #timelineSelect>button:hover {
     background-color: #8b8b8b2d;
     /* Semi-transparent background on hover */
     cursor: pointer;
@@ -296,6 +300,15 @@ div#chirps {
     /* Cursor pointer on hover */
     transition: .2s linear;
     /* Smooth transition */
+}
+
+#back{
+    width: 100% !important;
+    color: white;
+}
+
+.chirpClicker, .chirpClicker>p, .chirpClicker>button{
+    text-decoration: none !important;
 }
 
 /* Styles for loading animation */

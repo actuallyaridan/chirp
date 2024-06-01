@@ -399,6 +399,27 @@ div#iconChirp > img {
     border-radius: 8px; /* Border radius */
 }
 
+#replyTo{
+    display: flex;
+
+}
+
+/* Styles for composer textarea */
+#replyTo > textarea {
+    margin: 12px; /* Top margin */
+    margin-top: 12px; /* Top margin */
+    width: 100%; /* Width */
+    height: 1.5em; /* Height */
+    color-scheme: dark; /* Dark color scheme */
+    background-color: #8b8b8b2d; /* Background color */
+    resize: none; /* No resizing */
+    border: none; /* No border */
+    padding: 8px; /* Padding */
+    font-size: 1em; /* Font size */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    border-radius: 8px; /* Border radius */
+}
+
 /* Styles for notFound div */
 div#notFound {
     display: flex; /* Flex container */

@@ -178,4 +178,7 @@
     .title {
         background-color: black; /* Black background */
     }
+    #back{
+        text-align: left !important;
+    }
 }

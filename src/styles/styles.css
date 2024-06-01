@@ -707,6 +707,11 @@ div#chirps{
     width: 35vw;
 }
 
+textarea:focus{
+    outline: none;
+    background-color: #272727 !important;
+}
+
 
 .lds-ring,
 .lds-ring div {

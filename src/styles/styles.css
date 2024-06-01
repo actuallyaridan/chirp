@@ -155,26 +155,33 @@ header>div>nav>a{
     transition: background-color .2s linear;
 }
 
-header>div>nav>p{
+header>div>nav>img{
     color: white;
     text-decoration: none;
     padding-bottom: 4px;
     padding-top: 4px;
     flex-grow: 1;
-    width: fit-content;
+    width: 32px;
+    height: 32px;
     padding: 8px;
-    padding-left: 12px;
     padding-right: 18px;
     margin: 8px;
+    margin-top: 12px;
     border-radius: 24px;
     font-size: 32px;
-
 }
 
 a>i{
     padding-right: 8px;
 }
 
+a>img{
+    height: 1em;
+    width: 1em;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+    
+}
 
 header>div>nav>a:hover{
     background-color: #8b8b8b2d;
@@ -218,7 +225,7 @@ p.settingsButton:hover{
     justify-content: right;
 }
 
-#exploreChrip{
+#exploreChirp{
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -517,7 +524,7 @@ footer>div>a.active{
     border-radius: 0px 0px 8px 8px;
 }
 
-div#iconChirp>p{
+div#iconChirp>img{
     color: white;
     text-decoration: none;
     padding-bottom: 4px;
@@ -526,9 +533,15 @@ div#iconChirp>p{
     width: fit-content;
     padding-left: 12px;
     padding-right: 18px;
+    padding-top: 8px;
     margin: 0px;
     border-radius: 24px;
     font-size: 24px;
+    height: 1em;
+    width: 1em;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+    pointer-events: none;
 }
 
 

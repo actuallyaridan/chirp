@@ -19,12 +19,12 @@
     <header>
         <div id="desktopMenu">
             <nav>
-                <p>🦜</p>
-                <a href="/">🏠 Home</a>
-                <a href="explore">🔍 Explore</a>
-                <a href="notifications">🔔 Notifications</a>
-                <a href="messages">✉️ Messages</a>
-                <a href="profile">👤 Profile</a>
+                <img src="src/images/icons/chirp.svg" alt="Chirp">
+                <a href="/"><img src="src/images/icons/house.svg" alt=""> Home</a>
+                <a href="explore"><img src="src/images/icons/search.svg" alt=""> Explore</a>
+                <a href="notifications"><img src="src/images/icons/bell.svg" alt=""> Notifications</a>
+                <a href="messages"><img src="src/images/icons/envelope.svg" alt=""> Messages</a>
+                <a href="profile"><img src="src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="compose" class="newchirp">Chirp</a>
             </nav>
             <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
@@ -40,11 +40,11 @@
     <main>
         <div id="feed">
             <div id="iconChirp">
-                <p>🦜</p>
+                <img src="src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div id="timelineSelect">
                 <a id="forYou" class="selcted" href="notifications.html">All</a>
-                <a id="following" >Mentions</a>
+                <a id="following">Mentions</a>
             </div>
             <div id="chirps">
             </div>
@@ -71,21 +71,21 @@
             <p>Who to follow</p>
             <div>
                 <div>
-                <img class="profilePic" src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png">
-                <div>
-                    <p>Apple <img class="verified" src="src/images/icons/verified.svg"></p><p class="subText">@apple</p>
+                    <img class="profilePic" src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
+                    <div>
+                        <p>Apple <img class="verified" src="src/images/icons/verified.svg" alt="Verified"></p><p class="subText">@apple</p>
+                    </div>
                 </div>
-            </div>
                 <a class="followButton">Follow</a>
             </div>
             <div>
                 <div>
-                <img class="profilePic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg">
-                <div>
-                    <p>President Biden <img class="verified" src="src/images/icons/verified.svg"></p><p class="subText">@POTUS</p>
+                    <img class="profilePic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg" alt="President Biden">
+                    <div>
+                        <p>President Biden <img class="verified" src="src/images/icons/verified.svg" alt="Verified"></p><p class="subText">@POTUS</p>
+                    </div>
                 </div>
-            </div>
-                <a class="followButton">Follow</a></div>
+                <a class="followButton">Follow</a>
             </div>
         </div>
         <div>
@@ -94,11 +94,11 @@
     </aside>
     <footer>
         <div>
-            <a href="/">🏠</a>
-            <a href="explore">🔍</a>
-            <a href="notifications">🔔</a>
-            <a href="messages">✉️</a>
-            <a href="profile">👤</a>
+            <a href="/"><img src="src/images/icons/house.svg" alt=""></a>
+            <a href="explore"><img src="src/images/icons/search.svg" alt=""></a>
+            <a href="notifications" class="active"><img src="src/images/icons/bell.svg" alt=""></a>
+            <a href="messages"><img src="src/images/icons/envelope.svg" alt=""></a>
+            <a href="profile"><img src="src/images/icons/person.svg" alt=""></a>
         </div>
     </footer>
 </body>

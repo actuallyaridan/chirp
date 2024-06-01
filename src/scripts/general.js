@@ -27,9 +27,13 @@ function slideDown() {
 
 function back() {
     var referrer = document.referrer || ""; // Set referrer to empty string if no referrer exists
+    console.log("Referrer: " + referrer); // Log the referrer for debugging
+
     if (referrer.includes('chirp.aridan.net')) { // Checks if the referrer contains 'chirp.aridan.net'
+        console.log("Navigating back in history");
         window.history.back();
     } else {
+        console.log("Redirecting to https://chirp.aridan.net");
         window.location.href = 'https://chirp.aridan.net';
     }
 }

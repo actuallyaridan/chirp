@@ -1,3 +1,13 @@
+<?php
+$myfile = fopen("../compose/chirp.json", "w") or die("Unable to open file!");
+$obj = json_decode($myfile);
+fclose($myfile);
+
+echo $obj->user;
+echo $obj->timestamp;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,8 +79,7 @@
                             <p class="subText">@chirp</p>
                         </div>
                     </div>
-                    <p>This is a chirp, which is a post on this platform with short messages that are at most 240
-                        characters long.</p>
+                    <p><php echo $obj->status; ?></p>
                     <div class="chirpInteract">
                         <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>9
                             replies</button><button type="button" class="rechirp"><img alt="Rechirp"
@@ -79,61 +88,6 @@
                     </div>
                     <div id="replyTo">
                         <textarea maxlength="240" placeholder="Reply to @chirp..."></textarea>
-                    </div>
-                    <div class="chirp" id="4">
-                        <p class="subText"><img src="/src/images/icons/special.svg" alt="Special"> Most popular reply</p>
-                        <div class="chirpInfo">
-                            <img class="profilePic" src="/src/images/profiles/actuallyaridan/profile.jpg" alt="aridan">
-                            <div>
-                                <p>aridan <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                                <p class="subText">@actuallyaridan</p>
-                            </div>
-                        </div>
-                        <p>This is a reply to a chirp, which is a post on this platform with short messages that are at
-                            most 240 characters long.</p>
-                        <div class="chirpInteract">
-                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                                1</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                    src="/src/images/icons/rechirp.svg"> 0</button><button type="button"
-                                class="like"><img alt="Like" src="/src/images/icons/like.svg"> 3</button>
-                        </div>
-                        <div class="chirp" id="47">
-                            <div class="chirpInfo">
-                                <img class="profilePic"
-                                    src="https://pbs.twimg.com/profile_images/1559209238076919809/H57ucjs2.jpg"
-                                    alt="aridan">
-                                <div>
-                                    <p>Minecraft <img class="verified" src="/src/images/icons/verified.svg"
-                                            alt="Verified"></p>
-                                    <p class="subText">@minecraft</p>
-                                </div>
-                            </div>
-                            <p>We love using Chirp!</p>
-                            <div class="chirpInteract">
-                                <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                                    0</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                        src="/src/images/icons/rechirp.svg"> 0</button><button type="button"
-                                    class="like"><img alt="Like" src="/src/images/icons/like.svg"> 3</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chirp" id="18">
-                        <div class="chirpInfo">
-                            <img class="profilePic"
-                                src="https://pbs.twimg.com/profile_images/1587835029173968896/IzgT8WkJ_400x400.jpg"
-                                alt="aridan">
-                            <div>
-                                <p>Dhiren V</p>
-                                <p class="subText">@dhiren_vasnani</p>
-                            </div>
-                        </div>
-                        <p>Hi</p>
-                        <div class="chirpInteract">
-                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                                0</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                    src="/src/images/icons/rechirp.svg"> 0</button><button type="button"
-                                class="like"><img alt="Like" src="/src/images/icons/like.svg"> 1</button>
-                        </div>
                     </div>
                 </div>
             </div>

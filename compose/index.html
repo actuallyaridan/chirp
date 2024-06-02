@@ -54,13 +54,15 @@
             <div class="title">
                 <p class="selected">Compose a Chirp</p>
             </div>
-            <div id="composer">
-                <textarea maxlength="240" placeholder="What's on your mind?"></textarea>
-            </div>
-            <div id="exploreChirp">
-                <button class="cancelChirp" onclick="slideDown()">Cancel</button>
-                <button class="postChirp">Chirp</button>
-            </div>
+            <form method="POST" action="/compose/submit.php">
+                <div id="composer">
+                    <textarea name="chirpComposeText" maxlength="240" placeholder="What's on your mind?"></textarea>
+                </div>
+                <div id="exploreChirp">
+                    <button type="button" class="cancelChirp" onclick="slideDown()">Cancel</button>
+                    <button type="submit" class="postChirp" >Chirp</button>
+                </div>
+            </form>
             <div class="title">
                 <p class="selected">Drafts</p>
             </div>

@@ -1,10 +1,19 @@
 <?php
-$myfile = fopen("../compose/chirp.json", "w") or die("Unable to open file!");
-$obj = json_decode($myfile);
+$filename = "../compose/chirp.json";
+$myfile = fopen($filename, "r") or die("Unable to open file!");
+$file_size = filesize($filename);
+$file_content = fread($myfile, $file_size);
 fclose($myfile);
 
-echo $obj->user;
-echo $obj->timestamp;
+$obj = json_decode($file_content);
+
+if ($obj !== null) {
+    $user = $obj->user;
+    $timestamp = gmdate("Y-m-d\TH:i:s\Z", $obj->timestamp);
+    $status = $obj->status;
+} else {
+    echo "Error decoding JSON";
+}
 ?>
 
 
@@ -79,12 +88,15 @@ echo $obj->timestamp;
                             <p class="subText">@chirp</p>
                         </div>
                     </div>
-                    <p><php echo $obj->status; ?></p>
-                    <div class="chirpInteract">
-                        <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>9
+                    <p><?php echo $status; ?></p>
+                    <div class="chirpInteractThread">
+                    <p class="subText postedDate">Posted at: <script>document.write(new Date("<?php echo  $timestamp ?>").toLocaleString())</script></p>
+                        <div>
+                        <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>0
                             replies</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                src="/src/images/icons/rechirp.svg"><br>3 rechirps</button><button type="button"
-                            class="like"><img alt="Like" src="/src/images/icons/liked.svg"><br>14 likes</button>
+                                src="/src/images/icons/rechirp.svg"><br>0 rechirps</button><button type="button"
+                            class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0 likes</button>
+                        </div>
                     </div>
                     <div id="replyTo">
                         <textarea maxlength="240" placeholder="Reply to @chirp..."></textarea>

@@ -23,6 +23,7 @@ body {
 
 button {
     font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    font-weight: normal;
 }
 
 /* Common styles for div and a elements */

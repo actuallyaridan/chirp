@@ -59,8 +59,18 @@
     /* Left padding */
 }
 
+.chirpInteractThread{
+    display: flex;
+    padding-top: 12px;
+    /* Flex container */
+    flex-direction: column;
+    /* Arrange items horizontally */
+    width: 100%;
+    border-top: 1px rgb(56, 56, 56) solid;
+}
+
 /* Styles for element with class 'chirpInteract' */
-.chirpInteract {
+.chirpInteractThread>div {
     display: flex;
     /* Flex container */
     flex-direction: row;
@@ -68,9 +78,6 @@
     width: 100%;
     /* Full width */
     justify-content: space-between;
-    /* Space items evenly */
-    border-top: 1px rgb(56, 56, 56) solid;
-    /* Top border */
 }
 
 /* Styles for element with class 'mobileCompose' */
@@ -168,7 +175,7 @@
 }
 
 /* Styles for buttons within 'chirpInteract' */
-.chirpInteract>button {
+.chirpInteractThread>div>button {
     background-color: #00000000;
     /* Transparent background */
     border: none;
@@ -190,10 +197,11 @@
     border-radius: 8px;
     /* Rounded corners */
     color: #6b6b6b;
+    margin-top: 0px;
 }
 
 /* Styles for buttons within 'chirpInteract' on hover */
-.chirpInteract>button:hover {
+.chirpInteracThreadt>div>button:hover {
     background-color: #6b6b6b4f;
     /* Semi-transparent background on hover */
     cursor: pointer;
@@ -201,7 +209,7 @@
 }
 
 /* Styles for nested img elements within 'chirpInteract' and 'subText' */
-.chirpInteract>button>img,
+.chirpInteractThread>div>button>img,
 .subText>img {
     width: 1.2rem;
     /* Width */
@@ -309,6 +317,67 @@ div#chirps {
 
 .chirpClicker, .chirpClicker>p, .chirpClicker>button{
     text-decoration: none !important;
+}
+
+.chirpInteract {
+    display: flex;
+    /* Flex container */
+    flex-direction: row;
+    /* Arrange items horizontally */
+    width: 100%;
+    /* Full width */
+    justify-content: space-between;
+    /* Space items evenly */
+    border-top: 1px rgb(56, 56, 56) solid;
+    /* Top border */
+}
+
+/* Styles for buttons within 'chirpInteract' */
+.chirpInteract>button {
+    background-color: #00000000;
+    /* Transparent background */
+    border: none;
+    /* No border */
+    font-size: 1em;
+    /* Font size */
+    padding: 8px;
+    /* Padding */
+    margin: 8px;
+    /* Margin */
+    text-align: center;
+    /* Center-align text */
+    margin-top: 12px;
+    /* Top margin */
+    transition: .2s linear;
+    /* Smooth transition */
+    color: white;
+    /* Text color */
+    border-radius: 8px;
+    /* Rounded corners */
+    color: #6b6b6b;
+}
+
+/* Styles for buttons within 'chirpInteract' on hover */
+.chirpInteract>button:hover {
+    background-color: #6b6b6b4f;
+    /* Semi-transparent background on hover */
+    cursor: pointer;
+    /* Cursor pointer on hover */
+}
+
+/* Styles for nested img elements within 'chirpInteract' and 'subText' */
+.chirpInteract>button>img,
+.subText>img {
+    width: 1.2rem;
+    /* Width */
+    height: 1.2rem;
+    /* Height */
+    margin-right: 4px;
+    /* Right margin */
+    position: relative;
+    /* Relative positioning */
+    top: 4px;
+    /* Offset from the top */
 }
 
 /* Styles for loading animation */

@@ -403,6 +403,24 @@ div#iconChirp > img {
 
 }
 
+#menuSettings>a{
+    text-decoration: none;
+    color: white;
+    padding-top: 8px;
+    background-color: #00000000;
+    padding-bottom: 8px;
+    border-radius: 8px;
+}
+
+#menuSettings>a:hover{
+    background-color: #00000033;
+}
+
+#menuSettings>a:hoer{
+    text-decoration: none;
+    color:#FFFFFF90;
+}
+
 /* Styles for composer textarea */
 #replyTo > textarea {
     margin: 12px; /* Top margin */

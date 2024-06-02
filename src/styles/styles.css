@@ -163,7 +163,6 @@ main {
     display: flex; /* Flex container */
     flex-direction: column; /* Column direction */
     align-items: center; /* Center align items */
-    margin-left: 45px; /* Left margin */
     width: 100vw; /* Full width */
 }
 

@@ -23,6 +23,7 @@
     /* Padding around the chirp */
     border-radius: 8px;
     /* Rounded corners */
+    font-family: Satoshi, Jost;
 }
 
 /* Styles for nested elements with class 'chirp' */
@@ -36,6 +37,7 @@
 /* Styles for element with class 'chirpInfo' */
 .chirpInfo {
     display: flex;
+    font-family: Jost;
     /* Flex container */
     flex-direction: row;
     /* Arrange items horizontally */
@@ -66,7 +68,9 @@
     flex-direction: column;
     /* Arrange items horizontally */
     width: 100%;
+    font-family: Jost;
     border-top: 1px rgb(56, 56, 56) solid;
+    font-family: Jost;
 }
 
 /* Styles for element with class 'chirpInteract' */
@@ -129,6 +133,7 @@
 /* Styles for element with class 'chirpsee' */
 .chirpsee {
     background-color: rgb(24, 15, 0);
+    font-family: Jost;
     /* Background color */
     padding: 8px;
     /* Padding */

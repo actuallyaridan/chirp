@@ -33,6 +33,13 @@ function slideDown() {
     }, 250);
 }
 
+function slideDownPost() {
+    var element = document.getElementById('feedCompose');
+    element.classList.add('slideDown');
+}
+
+   
+
 function back() {
     var referrer = document.referrer || ""; // Set referrer to empty string if no referrer exists
     console.log("Referrer: " + referrer); // Log the referrer for debugging

@@ -9,7 +9,7 @@ $obj = json_decode($file_content);
 
 if ($obj !== null) {
     $user = $obj->user;
-    $timestamp = gmdate("Y-m-d\TH:i:s\Z", $obj->timestamp);
+    $timestamp = gmdate("Y-m-d\TH:i\Z", $obj->timestamp);
     $status = $obj->status;
 } else {
     echo "Error decoding JSON";
@@ -28,8 +28,8 @@ if ($obj !== null) {
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
+    </script>
     <script src="/src/scripts/general.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -45,11 +45,11 @@ if ($obj !== null) {
             <nav>
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                <a href="explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
-                <a href="notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="profile"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
-                <a href="compose" class="newchirp">Chirp</a>
+                <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
+                <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
+                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
+                <a href="/profile"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
@@ -67,7 +67,7 @@ if ($obj !== null) {
         </div>
     </header>
     <main>
-        <div id="feed">
+        <div id="feed" class="thread">
             <div id="iconChirp">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
@@ -90,16 +90,29 @@ if ($obj !== null) {
                     </div>
                     <p><?php echo $status; ?></p>
                     <div class="chirpInteractThread">
-                    <p class="subText postedDate">Posted at: <script>document.write(new Date("<?php echo  $timestamp ?>").toLocaleString())</script></p>
+                        <p class="subText postedDate">Posted at: <script>
+                            const options = {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            };
+                            document.write(new Date("<?php echo $timestamp ?>").toLocaleString([], options));
+                            </script>
+                        </p>
                         <div>
-                        <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>0
-                            replies</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                src="/src/images/icons/rechirp.svg"><br>0 rechirps</button><button type="button"
-                            class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0 likes</button>
+                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>0
+                                replies</button><button type="button" class="rechirp"><img alt="Rechirp"
+                                    src="/src/images/icons/rechirp.svg"><br>0 rechirps</button><button type="button"
+                                class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0 likes</button>
                         </div>
                     </div>
                     <div id="replyTo">
                         <textarea maxlength="240" placeholder="Reply to @chirp..."></textarea>
+                    </div>
+                    <div id="postReply">
+                        <button class="postChirp">Reply</button>
                     </div>
                 </div>
             </div>
@@ -151,7 +164,8 @@ if ($obj !== null) {
                         src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                        </p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
@@ -166,10 +180,10 @@ if ($obj !== null) {
     <footer>
         <div>
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>
-            <a href="explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
-            <a href="notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
-            <a href="messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+            <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
+            <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
+            <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
+            <a href="/profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

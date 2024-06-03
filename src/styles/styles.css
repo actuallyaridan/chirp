@@ -1,7 +1,26 @@
+/* Keyframe animation for swiping up */
+@keyframes swipeUp {
+    from {
+        transform: translateY(100%); /* Move element downwards by its height */
+        opacity: 0; /* Make element fully transparent */
+    }
+
+    to {
+        transform: translateY(0); /* Reset element position */
+        opacity: 1; /* Make element fully opaque */
+    }
+}
+
 /* Font face */
 @font-face {
     font-family: Jost; /* Font family */
     src: url(fonts/Jost.ttf); /* Font source */
+}
+
+/* Font face */
+@font-face {
+    font-family: Satoshi; /* Font family */
+    src: url(fonts/Satoshi.ttf); /* Font source */
 }
 
 /* Global styles */
@@ -112,6 +131,13 @@ a > img {
     width: 100%; /* Full width */
     display: flex; /* Flex container */
     justify-content: space-between; /* Space between */
+}
+#postReply {
+    width: 100%; /* Full width */
+    display: flex; /* Flex container */
+    color-scheme: dark; /* Dark color scheme */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    justify-content: center;
 }
 
 /* Styles for 'postChirp' class */
@@ -348,6 +374,7 @@ div#iconChirp > img {
 .subText {
     color: #8b8b8b; /* Text color */
     margin-top: 0px; /* Top margin */
+    font-family: Jost;
 }
 
 /* Styles for chirp information paragraphs */
@@ -468,4 +495,8 @@ div#notFound > p {
 textarea:focus {
     outline: none; /* No outline */
     background-color: #272727 !important; /* Background color */
+}
+
+#feed.thread{
+    animation: swipeUp 0.25s forwards; /* Apply animation */
 }

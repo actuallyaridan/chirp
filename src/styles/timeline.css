@@ -26,6 +26,10 @@
     font-family: Satoshi, Jost;
 }
 
+.draft{
+    border-bottom: #8b8b8b2d 1px solid;
+}
+
 /* Styles for nested elements with class 'chirp' */
 .chirp>.chirp, .chirpThread>.chirp  {
     width: 95%;
@@ -241,7 +245,7 @@ img.verified {
 }
 
 /* Styles for element with ID 'chirps' */
-div#chirps, div.drafts-container {
+div#chirps {
     border-left: #8b8b8b2d 1px solid;
     /* Left border */
     border-right: #8b8b8b2d 1px solid;
@@ -254,6 +258,7 @@ div#chirps, div.drafts-container {
 
 div.drafts-container {
     border: #8b8b8b2d 1px solid;
+    width: 35vw;
 }
 
 /* Styles for elements with ID 'timelineSelect' and class 'title' */

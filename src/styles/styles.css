@@ -562,6 +562,10 @@ textarea:focus {
     backdrop-filter: blur(20px); /* Backdrop filter */
 }
 
+h1, h2, h3, h4{
+    font-weight: 500;
+}
+
 .modal-content {
     background-color: #292929;
     margin: 30vh auto; 

@@ -51,6 +51,14 @@
             <div id="iconChirp">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
+            <div id="cancelModal" class="modal">
+                <div class="modal-content">
+                    <h2>Save as draft?</h2>
+                    <p>It seems like you've written something without chirping it.<br>Do you want Chirpie to hold on to what you wrote and store it as a draft on your device?</p>
+                    <button id="saveDraftButton" class="modal-button">Save as draft</button>
+                    <button id="discardDraftButton" class="modal-button">No</button>
+                </div>
+            </div>
             <div class="title">
                 <p class="selected">Compose a Chirp</p>
             </div>
@@ -66,7 +74,9 @@
             <div class="title">
                 <p class="selected">Drafts</p>
             </div>
-            <p class="subText">You have no drafts.</p>
+            <div class="drafts-container">
+                <p class="subText">You have no drafts.</p>
+            </div>
         </div>
     </main>
     <aside id="sideBar">

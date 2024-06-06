@@ -141,7 +141,7 @@ a > img {
 }
 
 /* Styles for 'postChirp' class */
-.postChirp {
+.postChirp{
     min-width: 52px; /* Minimum width */
     border-color: rgba(0, 0, 0, 0); /* Border color */
     background-color: rgb(120, 86, 255); /* Background color */
@@ -157,13 +157,28 @@ a > img {
     transition: .2s linear; /* Transition */
 }
 
-.postChirp:hover {
+#saveDraftButton {
+    min-width: 52px; /* Minimum width */
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(120, 86, 255); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 8px; /* Border radius */
+    font-size: 1em; /* Font size */
+    padding: 8px; /* Padding */
+    transition: .2s linear; /* Transition */
+}
+
+.postChirp:hover, #saveDraftButton:hover {
     cursor: pointer; /* Pointer cursor */
     background-color: rgb(132, 101, 255); /* Background color on hover */
 }
 
 /* Styles for 'cancelChirp' class */
-.cancelChirp {
+.cancelChirp{
     border-color: rgba(0, 0, 0, 0); /* Border color */
     background-color: rgb(255, 45, 45); /* Background color */
     margin-bottom: 4px; /* Bottom margin */
@@ -179,7 +194,28 @@ a > img {
     text-decoration: none; /* No underline */
 }
 
+#discardDraftButton {
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(255, 45, 45); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: rgb(247, 247, 247); /* Text color */
+    border: none; /* No border */
+    border-radius: 8px; /* Border radius */
+    font-size: 1em; /* Font size */
+    padding: 8px; /* Padding */
+    transition: .2s linear; /* Transition */
+    text-decoration: none; /* No underline */
+}
+
 .cancelChirp:hover {
+    cursor: pointer; /* Pointer cursor */
+    background-color: rgb(255, 71, 71); /* Background color on hover */
+    text-decoration: none; /* No underline on hover */
+}
+
+ #discardDraftButton:hover {
     cursor: pointer; /* Pointer cursor */
     background-color: rgb(255, 71, 71); /* Background color on hover */
     text-decoration: none; /* No underline on hover */
@@ -428,8 +464,18 @@ div#iconChirp > img {
 
 #replyTo{
     display: flex;
-
+    align-items: center;
+    margin: auto;
 }
+
+#replyTo>.postChirp{
+    height: fit-content;
+    min-width: fit-content;
+    margin-left: 12px;
+    margin-right: 12px;
+    border-radius: 8px;
+} 
+
 
 #menuSettings>a{
     text-decoration: none;
@@ -450,9 +496,10 @@ div#iconChirp > img {
 }
 
 /* Styles for composer textarea */
-#replyTo > textarea {
+#replyTo> textarea {
     margin: 12px; /* Top margin */
     margin-top: 12px; /* Top margin */
+    margin-right: 0px;
     width: 100%; /* Width */
     height: 1.5em; /* Height */
     color-scheme: dark; /* Dark color scheme */
@@ -499,4 +546,39 @@ textarea:focus {
 
 #feed.thread{
     animation: swipeUp 0.25s forwards; /* Apply animation */
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: all .2s;
+    background-color: rgba(0, 0, 0, 0.8);
+    -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
+    backdrop-filter: blur(20px); /* Backdrop filter */
+}
+
+.modal-content {
+    background-color: #292929;
+    margin: 30vh auto; 
+    padding: 20px;
+    border: 1px solid #292929;
+    width: fit-content; 
+    border-radius: 12px;
+    text-align: center;
+}
+
+.modal-button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+#replytotext{
+    max-height: 10em;
 }

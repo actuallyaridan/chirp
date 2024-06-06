@@ -109,9 +109,7 @@ if ($obj !== null) {
                         </div>
                     </div>
                     <div id="replyTo">
-                        <textarea maxlength="240" placeholder="Reply to @chirp..."></textarea>
-                    </div>
-                    <div id="postReply">
+                        <textarea id="replytotext" maxlength="240" placeholder="Reply to @chirp..."></textarea>
                         <button class="postChirp">Reply</button>
                     </div>
                 </div>
@@ -126,9 +124,6 @@ if ($obj !== null) {
             </div>
         </div>
     </main>
-    <div class="mobileCompose">
-        <a class="chirpMoile" href="compose">Chirp</a>
-    </div>
     <aside id="sideBar">
         <div id="trends">
             <p>Trends for you</p>

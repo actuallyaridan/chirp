@@ -414,7 +414,7 @@ div#iconChirp > img {
 }
 
 /* Styles for chirp information paragraphs */
-.chirpInfo > p {
+.chirpInfo> div > p {
     margin: 0px; /* Margin */
     margin-left: 8px; /* Left margin */
 }

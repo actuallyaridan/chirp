@@ -27,8 +27,8 @@ if ($obj !== null) {
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
+    </script>
     <script src="/src/scripts/general.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -82,10 +82,61 @@ if ($obj !== null) {
                 <div class="chirp" id="1">
                     <a class="chirpClicker" href="chirp">
                         <div class="chirpInfo">
-                            <img class="profilePic" src="/src/images/profiles/chirp/profile.svg" alt="aridan">
                             <div>
-                                <p>Chirp <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                                <p class="subText">@chirp</p>
+                                <img class="profilePic" src="/src/images/profiles/chirp/profile.svg" alt="aridan">
+                                <div>
+                                    <p>Chirp <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                                    </p>
+                                    <p class="subText">@chirp</p>
+                                </div>
+                            </div>
+                            <div class="timestampTimeline">
+                                <p class="subText postedDate">
+                                    <script>
+                                    // Function to update the posted date every second
+                                    function updatePostedDate() {
+                                        const timestamp = "<?php echo $timestamp ?>";
+                                        const postDate = new Date(timestamp);
+                                        const now = new Date();
+                                        const diffInMilliseconds = now - postDate;
+                                        const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+                                        const diffInMinutes = Math.floor(diffInMilliseconds / 1000 / 60);
+                                        const diffInHours = Math.floor(diffInMinutes / 60);
+                                        const diffInDays = Math.floor(diffInHours / 24);
+
+                                        let relativeTime;
+
+                                        if (diffInSeconds < 60) {
+                                            relativeTime = diffInSeconds + "s ago";
+                                        } else if (diffInMinutes < 60) {
+                                            relativeTime = diffInMinutes + "m ago";
+                                        } else if (diffInHours < 24) {
+                                            relativeTime = diffInHours + "h ago";
+                                        } else if (diffInDays < 7) {
+                                            relativeTime = diffInDays + "d ago";
+                                        } else {
+                                            const options = {
+                                                year: 'numeric',
+                                                month: '2-digit',
+                                                day: '2-digit',
+                                                hour: '2-digit',
+                                                minute: '2-digit'
+                                            };
+                                            relativeTime = postDate.toLocaleString([], options);
+                                        }
+
+                                        // Update the postedDate element
+                                        document.querySelector('.postedDate').textContent = relativeTime;
+                                    }
+
+                                    // Update the posted date initially
+                                    updatePostedDate();
+
+                                    // Update the posted date every second
+                                    setInterval(updatePostedDate, 1000);
+                                    </script>
+                                </p>
+
                             </div>
                         </div>
                         <p><?php echo $status; ?></p>
@@ -95,6 +146,7 @@ if ($obj !== null) {
                                     src="/src/images/icons/rechirp.svg"> 0</button><button type="button"
                                 class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
                         </div>
+
                     </a>
                 </div>
             </div>
@@ -146,7 +198,8 @@ if ($obj !== null) {
                         src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                        </p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>

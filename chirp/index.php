@@ -82,11 +82,15 @@ if ($obj !== null) {
             <div id="chirps">
                 <div class="chirpThread" id="1">
                     <div class="chirpInfo">
-                        <img class="profilePic" src="/src/images/profiles/chirp/profile.svg" alt="aridan">
+                        <div>                        <img class="profilePic" src="/src/images/profiles/chirp/profile.svg" alt="aridan">
                         <div>
                             <p>Chirp <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                             <p class="subText">@chirp</p>
                         </div>
+</div>
+<div>
+</div>
+
                     </div>
                     <p><?php echo $status; ?></p>
                     <div class="chirpInteractThread">

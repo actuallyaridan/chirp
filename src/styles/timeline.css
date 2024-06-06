@@ -45,20 +45,22 @@
     /* Flex container */
     flex-direction: row;
     /* Arrange items horizontally */
+    justify-content: space-between;
 }
 
 /* Styles for nested div elements within 'chirpInfo' */
 .chirpInfo>div {
     display: flex;
     /* Flex container */
-    flex-direction: column;
+    flex-direction: row;
     /* Stack items vertically */
     margin: 0;
     /* Remove default margin */
+    justify-content: space-between;
 }
 
 /* Styles for paragraph elements within 'chirpInfo' */
-.chirpInfo>div>p {
+.chirpInfo>div>div>p {
     margin: 0;
     /* Remove default margin */
     padding-left: 8px;

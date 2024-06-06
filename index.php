@@ -1,3 +1,21 @@
+<?php
+$filename = "compose/chirp.json";
+$myfile = fopen($filename, "r") or die("Unable to open file!");
+$file_size = filesize($filename);
+$file_content = fread($myfile, $file_size);
+fclose($myfile);
+
+$obj = json_decode($file_content);
+
+if ($obj !== null) {
+    $user = $obj->user;
+    $timestamp = gmdate("Y-m-d\TH:i\Z", $obj->timestamp);
+    $status = $obj->status;
+} else {
+    echo "Error decoding JSON";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,77 +88,14 @@
                                 <p class="subText">@chirp</p>
                             </div>
                         </div>
-                        <p>This is a chirp, which is a post on this platform with short messages that are at most 240
-                            characters long.</p>
+                        <p><?php echo $status; ?></p>
                         <div class="chirpInteract">
                             <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                                9</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                    src="/src/images/icons/rechirp.svg"> 3</button><button type="button"
-                                class="like"><img alt="Like" src="/src/images/icons/liked.svg"> 14</button>
-                        </div>
-                        <div class="chirp" id="4">
-                            <p class="subText"><img src="/src/images/icons/special.svg" alt="Special"> Most popular reply
-                            </p>
-                            <div class="chirpInfo">
-                                <img class="profilePic" src="/src/images/profiles/actuallyaridan/profile.jpg"
-                                    alt="aridan">
-                                <div>
-                                    <p>aridan <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
-                                    </p>
-                                    <p class="subText">@actuallyaridan</p>
-                                </div>
-                            </div>
-                            <p>This is a reply to a chirp, which is a post on this platform with short messages that are
-                                at most 240 characters long.</p>
-                            <div class="chirpInteract">
-                                <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                                    1</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                        src="/src/images/icons/rechirp.svg"> 0</button><button type="button"
-                                    class="like"><img alt="Like" src="/src/images/icons/like.svg"> 3</button>
-                            </div>
+                                0</button><button type="button" class="rechirp"><img alt="Rechirp"
+                                    src="/src/images/icons/rechirp.svg"> 0</button><button type="button"
+                                class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
                         </div>
                     </a>
-                </div>
-                <div class="chirp" id="2">
-                    <p class="subText"><img alt="" src="/src/images/icons/rechipred.svg"> Tim Cook rechirped </p>
-                    <div class="chirpInfo">
-                        <img class="profilePic"
-                            src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png"
-                            alt="apple">
-                        <div>
-                            <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                            <p class="subText">@apple</p>
-                        </div>
-                    </div>
-                    <p>Introducing the brand new iPhone 69. With a camera you can't tell if it's any better than the
-                        iPhone 68 and Siri with AI features it's truly the best iPhone yet. Coming never.</p>
-                    <div class="chirpInteract">
-                        <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                            28</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                src="/src/images/icons/rechipred.svg"> 16</button><button type="button" class="like"><img
-                                alt="Like" src="/src/images/icons/liked.svg"> 87</button>
-                    </div>
-                </div>
-                <div class="chirp" id="3">
-                    <div class="chirpInfo">
-                        <img class="profilePic"
-                            src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                            alt="apple">
-                        <div>
-                            <p>President Biden (Parody)</p>
-                            <p class="subText">@POTUSParody</p>
-                        </div>
-                    </div>
-                    <p>Today, I am honored to welcome North Korea as NATO’s 82nd Ally.</p>
-                    <p class="subText chirpsee"><img src="/src/images/icons/warning.svg" alt="Warning"> Readers added
-                        context:<br>This is not the official @POTUS account and North Korea has not been granted NATO
-                        membership.</p>
-                    <div class="chirpInteract">
-                        <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg">
-                            3</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                src="/src/images/icons/rechirp.svg"> 1</button><button type="button" class="like"><img
-                                alt="Like" src="/src/images/icons/like.svg"> 6</button>
-                    </div>
                 </div>
             </div>
             <div id="noMoreChirps">

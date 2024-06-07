@@ -8,7 +8,7 @@ fclose($myfile);
 $obj = json_decode($file_content);
 
 if ($obj !== null) {
-    $user = $obj->user;
+    $user = $obj->username; 
     $timestamp = gmdate("Y-m-d\TH:i\Z", $obj->timestamp);
     $status = $obj->status;
 } else {
@@ -83,11 +83,11 @@ if ($obj !== null) {
                     <a class="chirpClicker" href="chirp">
                         <div class="chirpInfo">
                             <div>
-                                <img class="profilePic" src="/src/images/profiles/chirp/profile.svg" alt="aridan">
+                                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
                                 <div>
-                                    <p>Chirp <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                                    <p>Guest
                                     </p>
-                                    <p class="subText">@chirp</p>
+                                    <p class="subText">@guest</p>
                                 </div>
                             </div>
                             <div class="timestampTimeline">

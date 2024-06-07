@@ -113,7 +113,7 @@ if ($obj !== null) {
                         </div>
                     </div>
                     <div id="replyTo">
-                        <textarea id="replytotext" maxlength="240" placeholder="Reply to @chirp..."></textarea>
+                        <textarea id="replytotext" maxlength="240" placeholder="Reply to @guest..."></textarea>
                         <button class="postChirp">Reply</button>
                     </div>
                 </div>

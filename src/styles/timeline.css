@@ -18,7 +18,7 @@
 }
 
 /* Styles for elements with class 'chirp' */
-.chirp, .chirpThread, .draft {
+.chirp, .chirpThread, .draft, .account {
     padding: 12px;
     /* Padding around the chirp */
     border-radius: 8px;
@@ -27,11 +27,11 @@
 }
 
 .draft{
-    border-bottom: #8b8b8b2d 1px solid;
+    border: #8b8b8b2d 1px solid;
 }
 
 /* Styles for nested elements with class 'chirp' */
-.chirp>.chirp, .chirpThread>.chirp  {
+.chirp>.chirp, .chirpThread>.chirp, .account  {
     width: 95%;
     /* 95% width */
     margin: auto;
@@ -39,7 +39,7 @@
 }
 
 /* Styles for element with class 'chirpInfo' */
-.chirpInfo {
+.chirpInfo, .accountInfo {
     display: flex;
     font-family: Jost;
     /* Flex container */
@@ -49,7 +49,7 @@
 }
 
 /* Styles for nested div elements within 'chirpInfo' */
-.chirpInfo>div {
+.chirpInfo>div, .accountInfo>div {
     display: flex;
     /* Flex container */
     flex-direction: row;
@@ -60,7 +60,7 @@
 }
 
 /* Styles for paragraph elements within 'chirpInfo' */
-.chirpInfo>div>div>p {
+.chirpInfo>div>div>p, .accountInfo>div>div>p {
     margin: 0;
     /* Remove default margin */
     padding-left: 8px;
@@ -259,7 +259,6 @@ div#chirps {
 }
 
 div.drafts-container {
-    border: #8b8b8b2d 1px solid;
     width: 35vw;
 }
 

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (chirpContent.trim().length > 0) {
             cancelModal.style.display = "block";
         } else {
-            back();
+            slideDownPost();
         }
     };
 
@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (chirpContent.trim().length > 0) {
             saveDraft(chirpContent);
         }
-        back();
+        slideDownPost();
     };
 
     discardDraftButton.onclick = function () {
-        back();
+        slideDownPost();
     };
 
     window.onclick = function (event) {
@@ -52,20 +52,53 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const drafts = JSON.parse(localStorage.getItem('draftChirps')) || [];
         draftsContainer.innerHTML = '';
         if (drafts.length > 0) {
-            drafts.forEach(draft => {
+            drafts.forEach((draft, index) => {
                 const draftElement = document.createElement('div');
                 draftElement.classList.add('draft');
-                draftElement.innerText = draft.content;
+    
+                const draftText = document.createElement('p');
+                draftText.innerText = draft.content;
+                
+                draftElement.addEventListener('click', () => {
+                    const textarea = document.querySelector('textarea[name="chirpComposeText"]');
+                    textarea.value = draft.content;
+                    deleteDraft(index);
+                    displayDrafts();
+                });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Delete';
+                deleteButton.addEventListener('click', (event) => {
+                    event.stopPropagation(); // Prevent the click event from bubbling up to the draft element
+                    deleteDraft(index);
+                    displayDrafts(); // Refresh the display
+                });
+    
+                draftElement.appendChild(draftText);
+                draftElement.appendChild(deleteButton);
                 draftsContainer.appendChild(draftElement);
             });
         } else {
-            draftsContainer.innerHTML = '<p class="subText">You have no drafts.</p>';
+            const noDraftsElement = document.createElement('div');
+            const noDraftsText = document.createElement('p');
+            noDraftsText.classList.add('subText');
+            noDraftsText.innerText = 'You have no drafts.';
+            
+            noDraftsElement.appendChild(noDraftsText);
+            draftsContainer.appendChild(noDraftsElement);
         }
     }
 
+    function deleteDraft(index) {
+        let drafts = JSON.parse(localStorage.getItem('draftChirps')) || [];
+        drafts.splice(index, 1); // Remove the draft from the array
+        localStorage.setItem('draftChirps', JSON.stringify(drafts)); // Update localStorage
+    }
 
     displayDrafts();
 });
+
+
 
 
 
@@ -74,13 +107,11 @@ function showMenuSettings() {
     document.getElementById("settingsButtonWrapper").classList.toggle("clickedDown");
 }
 
-
-
 function slideDownPost() {
     var element = document.getElementById('feedCompose');
     element.classList.add('slideDown');
+    setTimeout(back, 400); // Waits for 2000 milliseconds (2 seconds) before running the back function
 }
-
 
 
 function back() {

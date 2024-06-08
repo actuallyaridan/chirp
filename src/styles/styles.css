@@ -587,3 +587,77 @@ h1, h2, h3, h4{
 #replytotext{
     max-height: 10em;
 }
+
+.profileBanner{
+    width: 100%;
+    aspect-ratio: 3 / 1;
+}
+
+button{
+    text-align: center;
+}
+
+#profileNav{
+    display: flex;
+    width: 100%;
+}
+
+#profileNav a{
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#profileNav a:hover{
+    background-color: #8b8b8b2d;
+}
+
+#accountStats{
+    display: flex;
+}
+
+#accountStats>p{
+    margin-right: 12px;
+}
+
+.draft{
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.drafts-container>div>p{
+    text-align: center;
+}
+
+.draft>p{
+    display: flex;
+    justify-content: space-between;
+    word-break: break-all;
+    width: 90%;
+    text-align: left !important;
+}
+
+.draft>button{
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: rgb(255, 45, 45); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: rgb(247, 247, 247); /* Text color */
+    border: none; /* No border */
+    border-radius: 12px; /* Border radius */
+    font-size: 1em; /* Font size */
+    padding: 8px; /* Padding */
+    transition: .2s linear; /* Transition */
+    text-decoration: none; /* No underline */
+}
+
+
+.draft>button:hover{
+    cursor: pointer; /* Pointer cursor */
+    background-color: rgb(255, 71, 71); /* Background color on hover */
+    text-decoration: none; /* No underline on hover */
+}

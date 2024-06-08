@@ -9,15 +9,15 @@
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
+    </script>
     <script src="/src/scripts/general.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Account Suspended / Chirp</title>
+    <title>Home / Chirp</title>
 </head>
 
 <body>
@@ -52,9 +52,51 @@
             <div id="iconChirp">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <div id="notFound">
-                <p>This account has been suspended</p>
-                <p class="subText">Chirp regularly suspends accounts that break <a href="rules">our rules</a>.</p>
+            <div id="timelineSelect">
+                <button id="back" class="selcted" onclick="back()"><img alt="" class="emoji"
+                        src="/src/images/icons/back.svg"> Back</button>
+            </div>
+            <div id="chirps">
+                <img class="profileBanner" src="/src/images/profiles/actuallyaridan/banner.jpg">
+                <div class="account">
+                    <div class="accountInfo">
+                        <div>
+                            <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                            <div>
+                                <p>Guest
+                                </p>
+                                <p class="subText">@guest</p>
+                            </div>
+                        </div>
+                        <div class="timestampTimeline">
+                            <a class="followButton">Edit profile</a>
+                        </div>
+                    </div>
+                    <p>
+                        This is a bio where you describe your account using at most 120 characters.
+                    </p>
+                    <div id="accountStats">
+                        <p class="subText">
+                            12 following
+                        </p>
+                        <p class="subText">
+                            2 followers
+                        </p>
+                    </div>
+                </div>
+                <div id="profileNav">
+                    <a id="chirpsNav" class="selcted">Chirps</a>
+                    <a id="repliesNav">Replies</a>
+                    <a id="likesNav">Likes</a>
+                </div>
+            </div>
+            <div id="noMoreChirps">
+                <div class="lds-ring">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
         </div>
     </main>
@@ -93,12 +135,14 @@
                         src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                        </p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
                 <a class="followButton">Follow</a>
             </div>
+        </div>
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X.</p>
@@ -110,7 +154,7 @@
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+            <a href="/profile" class="active"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

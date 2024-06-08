@@ -173,6 +173,10 @@
         width: 96%; /* 96% width */
     }
 
+    .drafts-container{
+        width: 90% !important;
+    }
+
     /* Styling for elements with ID 'timelineSelect' and class 'title' */
     #timelineSelect,
     .title {

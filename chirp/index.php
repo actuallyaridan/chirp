@@ -43,7 +43,7 @@ if ($obj !== null) {
     <header>
         <div id="desktopMenu">
             <nav>
-                <img src="/src/images/icons/chirp.svg" alt="Chirp">
+         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
@@ -68,8 +68,8 @@ if ($obj !== null) {
     </header>
     <main>
         <div id="feed" class="thread">
-            <div id="iconChirp">
-                <img src="/src/images/icons/chirp.svg" alt="Chirp">
+            <div id="iconChirp" onclick="playChirpSound()">
+         <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div id="timelineSelect">
                 <button id="back" class="selcted" onclick="back()"><img alt="" class="emoji"
@@ -173,7 +173,7 @@ if ($obj !== null) {
         </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>

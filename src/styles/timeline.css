@@ -23,7 +23,7 @@
     /* Padding around the chirp */
     border-radius: 8px;
     /* Rounded corners */
-    font-family: Satoshi, Jost;
+    font-family: Outfit, Jost, Arial, Helvetica, sans-serif;
 }
 
 .draft{

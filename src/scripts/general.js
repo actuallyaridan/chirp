@@ -152,3 +152,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial adjustment in case there is pre-filled content
     adjustHeight();
 });
+
+let chirpSound = null;
+
+
+function playChirpSound() {
+    if (chirpSound) {
+        chirpSound.pause();
+        chirpSound.currentTime = 0;
+    }
+    chirpSound = new Audio('/src/audio/whoLetTheBirdsOut.mp3');
+    chirpSound.play().catch(error => console.error('Error playing sound:', error));
+}

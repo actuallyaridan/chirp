@@ -19,7 +19,7 @@
 
 /* Font face */
 @font-face {
-    font-family: Satoshi; /* Font family */
+    font-family: Outfit; /* Font family */
     src: url(fonts/Satoshi.ttf); /* Font source */
 }
 
@@ -435,7 +435,7 @@ div#iconChirp > img {
     border: none; /* No border */
     padding: 8px; /* Padding */
     font-size: 1em; /* Font size */
-    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    font-family: Outfit, Jost, Arial, Helvetica, sans-serif; /* Font family */
     border-radius: 8px; /* Border radius */
 }
 

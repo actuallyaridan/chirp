@@ -74,6 +74,7 @@
 
 /* Styles for the header */
 header {
+    background-color: black;
     display: flex; /* Flex container */
     flex-direction: column; /* Stack items vertically */
     min-height: 100vh; /* Minimum height of viewport */

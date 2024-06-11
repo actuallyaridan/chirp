@@ -23,6 +23,10 @@
     src: url(fonts/Satoshi.ttf); /* Font source */
 }
 
+.showLayoutBounds *{
+    outline: 1px dotted red;
+}
+
 /* Global styles */
 html,
 body,
@@ -32,12 +36,12 @@ footer {
     background-color: black; /* Background color */
     color: white; /* Text color */
     scroll-behavior: smooth; /* Smooth scrolling */
-    transition: 0.2s linear; /* Transition */
     color-scheme: dark; /* Dark color scheme */
 }
 
 body {
     overflow-y: scroll; /* Vertical overflow */
+    overflow-x: hidden; /* Vertical overflow */
 }
 
 button {
@@ -393,11 +397,11 @@ div#iconChirp > img {
     padding-top: 4px; /* Top padding */
     flex-grow: 1; /* Flex grow */
     width: fit-content; /* Width based on content */
-    padding-left: 12px; /* Left padding */
+    padding-left: 18px; /* Left padding */
     padding-right: 18px; /* Right padding */
     padding-top: 8px; /* Top padding */
     margin: 0px; /* Margin */
-    border-radius: 24px; /* Border radius */
+    border-radius: 0px; /* Border radius */
     font-size: 24px; /* Font size */
     height: 1em; /* Height */
     width: 1em; /* Width */
@@ -660,4 +664,17 @@ button{
     cursor: pointer; /* Pointer cursor */
     background-color: rgb(255, 71, 71); /* Background color on hover */
     text-decoration: none; /* No underline on hover */
+}
+
+#timelineSelect, #timelineSelect>a{
+    transition: none;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
 }

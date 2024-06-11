@@ -1,21 +1,36 @@
 <?php
-$filename = "../compose/chirp.json";
-$myfile = fopen($filename, "r") or die("Unable to open file!");
-$file_size = filesize($filename);
-$file_content = fread($myfile, $file_size);
-fclose($myfile);
+try {
+    // Connect to the SQLite database
+    
+    $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
 
-$obj = json_decode($file_content);
+    // Check if an id parameter is present in the URL
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $postId = $_GET['id'];
+        
+        // Fetch the post with the given ID
+        $query = 'SELECT * FROM chirps WHERE ID = :id';
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
+        $stmt->execute();
+        $post = $stmt->fetch(PDO::FETCH_ASSOC);
+        
 
-if ($obj !== null) {
-    $user = $obj->user;
-    $timestamp = gmdate("Y-m-d\TH:i\Z", $obj->timestamp);
-    $status = $obj->status;
-} else {
-    echo "Error decoding JSON";
+        if ($post) {
+            $user = htmlspecialchars($post['user']);
+            $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
+            $status = htmlspecialchars($post['chirp']);
+        } else {
+            die("Post not found.");
+        }
+    } else {
+        die("Invalid post ID.");
+    }
+} catch (PDOException $e) {
+    die('Connection failed: ' . $e->getMessage());
 }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +58,7 @@ if ($obj !== null) {
     <header>
         <div id="desktopMenu">
             <nav>
-         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
@@ -53,11 +68,10 @@ if ($obj !== null) {
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
-
                 <a href="signin">🚪 Sign in</a>
             </div>
-            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="aridan">
+            <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
+                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
                 <div>
                     <p>Guest</p>
                     <p class="subText">@guest</p>
@@ -69,7 +83,7 @@ if ($obj !== null) {
     <main>
         <div id="feed" class="thread">
             <div id="iconChirp" onclick="playChirpSound()">
-         <img src="/src/images/icons/chirp.svg" alt="Chirp">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div id="timelineSelect">
                 <button id="back" class="selcted" onclick="back()"><img alt="" class="emoji"
@@ -80,21 +94,20 @@ if ($obj !== null) {
                     down, don't panic!</p>
             </div>
             <div id="chirps">
-                <div class="chirpThread" id="1">
+                <div class="chirpThread" id="<?php echo $postId; ?>">
                     <div class="chirpInfo">
-                        <div> <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                        <div>
+                            <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
                             <div>
-                                <p>Guest</p>
+                                <p><?php echo $user; ?></p>
                                 <p class="subText">@guest</p>
                             </div>
                         </div>
-                        <div>
-                        </div>
-
                     </div>
                     <p><?php echo $status; ?></p>
                     <div class="chirpInteractThread">
-                        <p class="subText postedDate">Posted at: <script>
+                        <p class="subText postedDate">Posted at:
+                            <script>
                             const options = {
                                 year: 'numeric',
                                 month: '2-digit',
@@ -107,9 +120,11 @@ if ($obj !== null) {
                         </p>
                         <div>
                             <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>0
-                                replies</button><button type="button" class="rechirp"><img alt="Rechirp"
-                                    src="/src/images/icons/rechirp.svg"><br>0 rechirps</button><button type="button"
-                                class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0 likes</button>
+                                replies</button>
+                            <button type="button" class="rechirp"><img alt="Rechirp"
+                                    src="/src/images/icons/rechirp.svg"><br>0 rechirps</button>
+                            <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0
+                                likes</button>
                         </div>
                     </div>
                     <div id="replyTo">
@@ -148,8 +163,7 @@ if ($obj !== null) {
             <p>Who to follow</p>
             <div>
                 <div>
-                    <img class="profilePic"
-                        src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
+                    <img class="profilePic" src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
                     <div>
                         <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@apple</p>
@@ -159,18 +173,14 @@ if ($obj !== null) {
             </div>
             <div>
                 <div>
-                    <img class="profilePic"
-                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                        alt="President Biden">
+                    <img class="profilePic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg" alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
-                        </p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
                 <a class="followButton">Follow</a>
             </div>
-        </div>
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>

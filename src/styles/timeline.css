@@ -25,6 +25,15 @@
     /* Rounded corners */
     font-family: Outfit, Jost, Arial, Helvetica, sans-serif;
 }
+.account {
+    display: flex;
+    align-items: space-between;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0px;
+    padding: 8px;
+    width: auto;
+}
 
 .draft{
     border: #8b8b8b2d 1px solid;
@@ -328,6 +337,7 @@ div.drafts-container {
 #back{
     width: 100% !important;
     color: white;
+    text-align: left !important;
 }
 
 .chirpClicker, .chirpClicker>p, .chirpClicker>button{

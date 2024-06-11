@@ -94,7 +94,7 @@
     /* Set width for elements with IDs 'feed' and 'feedCompose' */
     #feed,
     #feedCompose {
-        width: 90vw;
+        width: 100%;
     }
 
     /* Adjust styling for the header */
@@ -132,15 +132,22 @@
     #exploreer,
     #composer {
         width: 100%; /* Full width */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
     }
 
     /* Adjust styling for textarea elements inside elements with IDs 'composer' and 'exploreer' */
     #composer > textarea,
     #exploreer > textarea {
-        width: 86vw; /* 86% width */
+        width: 100%; /* 86% width */
         margin-top: 8px; /* Top margin */
         margin-left: auto; /* Auto left margin */
         margin-right: auto; /* Auto right margin */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Set width for element with ID 'notFound' */

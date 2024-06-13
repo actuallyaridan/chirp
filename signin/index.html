@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
+    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -17,14 +18,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Sign in / Chirp</title>
+    <title>Welcome back / Chirp</title>
 </head>
 
 <body>
     <header>
         <div id="desktopMenu">
             <nav>
-         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
@@ -49,24 +50,26 @@
     <main>
         <div id="feed">
             <div id="iconChirp" onclick="playChirpSound()">
-         <img src="/src/images/icons/chirp.svg" alt="Chirp">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div class="title">
                 <p class="selcted">Sign in</p>
             </div>
             <div id="signedOut">
                 <p>You're currently using a guest account</p>
-                <p class="subText">You can't interact with chirps or post any of your own. You can't follow accounts either.</p>
+                <p class="subText">You can't interact with chirps or post any of your own. You can't follow accounts
+                    either.</p>
                 <p class="subText">Chirp is invite only. If you were invited to Chirp, you can scan this QR code to sign
                     in:</p>
-                    <div id="noMoreChirps">
-                        <div class="lds-ring">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
+                <div id="noMoreChirps">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
+                </div>
+                <a class="subText" href="/signup/">Need to create an account instead?</a>
             </div>
         </div>
     </main>
@@ -105,7 +108,8 @@
                         src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                        </p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
@@ -113,7 +117,8 @@
             </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
+                Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>
@@ -125,6 +130,7 @@
             <a href="/profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
+    
 </body>
 
 </html>

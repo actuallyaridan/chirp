@@ -1,0 +1,77 @@
+{
+    "sv-SE": "Svenska (Swedish)",
+    "menuItems": {
+    "home": "Hem",
+    "explore": "Utforska",
+    "notifications": "Notiser",
+    "messages": "Meddelanden",
+    "profile": "Profil",
+    "settings": "Inställningar",
+    "signin": "Logga in"
+    },
+    "buttons": {
+    "cancel": "Avbryt",
+    "chirpAction": "Chirpa",
+    "likeAction": "Gilla",
+    "rechirpAction": "Rechira",
+    "replyAction": "Svara",
+    "back": "Tillbaka",
+    "searchAction": "Sök",
+    "editProfile": "Redigera profil",
+    "follow": "Följ"
+    },
+    "time":{
+    "shortSeconds": "s",
+    "shortMinutes": "m",
+    "shortHours": "t",
+    "shortDays": "d",
+    "ago": "sedan"
+    },
+    "drafts": "Utkast",
+    
+    "chirp": "chirp",
+    "chirps": "chirps", 
+    
+    "forYou": "För dig",
+    "following": "Följer",
+    "whoToFollow": "Vem du ska följa",
+    "like": "gilla",
+    "likes": "gillningar",
+    "rechirp": "rechira", 
+    "rechirps": "rechirps",
+    "replyTo": "Svara på",
+    "reply": "svar",
+    "replies": "svar",
+    "trendsForYou": "Trender för dig",
+    "highTrafficMessage": "Vi upplever just nu väldigt hög trafik. chirp gör sitt bästa, men om Chirp saktar ner, få inte panik!",
+    "inspiredByTwitter": "Inspirerad av Twitter/X. Ingen kod har hämtats från Twitter/X. Twemoji av Twitter Inc/X Corp är licensierad under CC-BY 4.0.",
+    "postedAt": "Publicerad",
+    
+    "placeholder": "Hitta ett meddelande...",
+    "AdvancedSearch": "Avancerad sökning",
+    "Trends": "Trender",
+    
+    "GetStartedChirping": "Börja chirpa!",
+    "LetsCreateAnAccount": "Låt oss skapa ett konto åt dig!",
+    "ChirpIsInviteOnly": "Chirp är endast för inbjudna just nu. Du behöver en inbjudningskod för att skapa ett konto.",
+    "DontHaveInviteCode": "Har du ingen inbjudningskod? Du kan få en genom att skicka ett DM på Twitter till @actuallyaridan eller @use_chirp.",
+    "InviteCodePlaceholder": "Inbjudningskod",
+    "Next": "Nästa",
+    "WelcomeBack": "Välkommen tillbaka",
+    "YoureCurrentlyUsing": "Du använder för närvarande ett gästkonto",
+    "YouCantInteract": "Du kan inte interagera med chirps eller publicera dina egna. Du kan inte heller följa konton.",
+    "NeedToCreateAnAccountInstead": "Behöver du skapa ett konto istället?",
+    "Content you see": "Innehåll du ser",
+    "suspendedMessage": "Det här kontot har spärrats. Chirp spärrar regelbundet konton som bryter mot våra regler.",
+    "rules": "Visa Chirps regler.",
+    "all": "Alla",
+    "mentions": "Omnämningar",
+    
+    "NotFound": "404 / Hittades ej",
+    "chirpHasSearched": "chirp har letat överallt men kan inte hitta det du letade efter.",
+    "MaybeItFlewAway": "Kanske flög den iväg?",
+    "noDrafts": "Du har inga utkast.",
+    "noMessagesText": "Verkar som du inte har några meddelanden! Gå interagera med någon!",
+    "noMoreChirps": "Om du vill använda fliken Följer måste du följa folk först! ",
+    "noNotifs": "Verkar som du inte har några notiser! Gå interagera med någon!"
+}

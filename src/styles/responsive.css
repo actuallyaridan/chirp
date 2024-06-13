@@ -185,11 +185,20 @@
     }
 
     /* Styling for elements with ID 'timelineSelect' and class 'title' */
-    #timelineSelect,
-    .title {
-        background-color: black; /* Black background */
-    }
     #back{
         text-align: left !important;
     }
+    #signedOut{
+        width: 80%;
+    }
+    .title{
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .title>p{
+        padding-top: 0px;
+        margin-block-start: 0px;
+    }
+    
 }

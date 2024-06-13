@@ -1,0 +1,78 @@
+{
+    "en-US": "English ",
+    "menuItems": {
+        "home": "Home",
+        "explore": "Explore",
+        "notifications": "Notifications",
+        "messages": "Messages",
+        "profile": "Profile", "_comment": "You can also use the word 'Account' if it fits better in your language",
+        "settings": "Settings",
+        "signin": "Sign in"
+    },
+    "buttons": {
+        "cancel": "Cancel",
+        "chirpAction": "Chirp", "_comment": "This is a verb. Example: _Chirp_ this. Do not translate it to the sound a bird makes.",
+        "likeAction": "Like", "_comment": "This is a verb. Example: _Like_ this post",
+        "rechirpAction": "Rechirp", "_comment": "This is a verb. Example: _Rechirp_ this post",
+        "replyAction": "Reply", "_comment": "This is a verb. Example: _Reply_ to this tweet",
+        "back": "Back",
+        "searchAction": "Search", 
+        "editProfile": "Edit profile",
+        "follow": "Follow"
+    },
+    "time":{
+        "shortSeconds": "s",
+        "shortMinutes": "m",
+        "shortHours": "h",
+        "shortDays": "d",
+        "ago": "ago"
+    },
+    "drafts": "Drafts",
+
+    "chirp": "chirp",    "_comment": "This is an ammount. Example: 1 _chirp_ Do not translate it to the sound a bird makes." ,
+    "chirps": "chirps" , "_comment": "This is an ammount. Example: 12 _chirps_ Do not translate it to the sound a bird makes." ,
+
+    "forYou": "For you",
+    "following": "Following",
+    "whoToFollow": "Who to follow",
+    "like": "like", "_comment": "This is an ammount. Example: 1 _like_",
+    "likes": "likes",
+    "rechirp": "rechirp", "_comment": "This is an ammount. Example: 1 _rechirp_",
+    "rechirps": "rechirps",
+    "replyTo": "Reply to",
+    "reply": "reply", "_comment": "This is an ammount. Example: 1 _reply_",
+    "replies": "replies",
+    "trendsForYou": "Trends for you",
+    "highTrafficMessage": "We're experiencing very high traffic right now.\nchirp is trying his best, but if Chirp slows down, don't panic!",
+    "inspiredByTwitter": "Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.",
+    "postedAt": "Posted at",
+
+    "placeholder": "Find a message...",
+    "AdvancedSearch": "Advanced search",
+    "Trends": "Trends",
+
+    "GetStartedChirping": "Get started chirping!", "_comment": "Do not translte this to the sound a bird makes. Keep 'chirp' a verb but make sure it sounds good in your languge",
+    "LetsCreateAnAccount": "Let's create an account for you!",
+    "ChirpIsInviteOnly": "Chirp is invite only for the time being. You'll need an invite code to create an account.",
+    "DontHaveInviteCode": "Don't have an invite code? You can get one by sending a DM on Twitter to @actuallyaridan or @use_chirp.",
+    "InviteCodePlaceholder": "Invite code",
+    "Next": "Next",
+    "WelcomeBack": "Welcome back",
+    "YoureCurrentlyUsing": "You're currently using a guest account",
+    "YouCantInteract": "You can't interact with chirps or post any of your own. You can't follow accounts either.",
+    "NeedToCreateAnAccountInstead": "Need to create an account instead?",
+    "Content you see": "Content you see",
+    "suspendedMessage": "This account has been suspended. Chirp regularly suspends accounts that break our rules.",
+    "rules": "View Chirps rules.",
+    "all": "All",
+    "mentions": "Mentions",
+
+    
+    "NotFound": "404 / Not Found",
+    "chirpHasSearched": "Chirpie has searched everywhere but can't find what you were looking for.",
+    "MaybeItFlewAway": "Maybe it flew away?",
+    "noDrafts": "You have no drafts.",
+    "noMessagesText": "Seems like you don't have any messages!\nWhy don't you go interact with someone?",
+    "noMoreChirps": "If you want to use the Following tab you need to follow people first! 😝",
+    "noNotifs": "Seems like you don't have any notifications! Why don't you go interact with someone?"
+}

@@ -135,6 +135,8 @@ a > img {
     width: 100%; /* Full width */
     display: flex; /* Flex container */
     justify-content: space-between; /* Space between */
+    margin-top: 4px;
+    margin-bottom: 12px;
 }
 #postReply {
     width: 100%; /* Full width */
@@ -241,8 +243,12 @@ main {
     width: 100%; /* Full width */
     position: sticky; /* Sticky position */
     top: 0; /* Top position */
-    background-color: black; /* Background color */
+    background-color: #00000080; /* Background color */
+    -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
+    backdrop-filter: blur(20px); /* Backdrop filter */
     z-index: 12; /* Z-index */
+    padding: 8px;
+    padding-bottom: 0px;
 }
 
 /* Styles for links within timeline selection */

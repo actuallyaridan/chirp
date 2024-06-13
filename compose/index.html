@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
+    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -24,7 +25,7 @@
     <header>
         <div id="desktopMenu">
             <nav>
-         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
@@ -47,17 +48,18 @@
         </div>
     </header>
     <main>
+        <div id="cancelModal" class="modal">
+            <div class="modal-content">
+                <h2>Save as draft?</h2>
+                <p>It seems like you've written something without chirping it.<br>Do you want Chirpie to hold on to what
+                    you wrote and store it as a draft on your device?</p>
+                <button id="saveDraftButton" class="modal-button">Save as draft</button>
+                <button id="discardDraftButton" class="modal-button">No</button>
+            </div>
+        </div>
         <div id="feedCompose">
             <div id="iconChirp" onclick="playChirpSound()">
-         <img src="/src/images/icons/chirp.svg" alt="Chirp">
-            </div>
-            <div id="cancelModal" class="modal">
-                <div class="modal-content">
-                    <h2>Save as draft?</h2>
-                    <p>It seems like you've written something without chirping it.<br>Do you want Chirpie to hold on to what you wrote and store it as a draft on your device?</p>
-                    <button id="saveDraftButton" class="modal-button">Save as draft</button>
-                    <button id="discardDraftButton" class="modal-button">No</button>
-                </div>
+                <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div class="title">
                 <p class="selected">Compose a Chirp</p>
@@ -122,7 +124,8 @@
         </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
+                Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>

@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
+    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -55,14 +56,18 @@
             <div class="title">
                 <p class="selcted">Settings</p>
             </div>
-            <div id="exploreer">
-                <textarea maxlength="240" placeholder="Find a setting..."></textarea>
-            </div>
-            <ul>
-                <li>
-                    <a href="settings/content-you-see">Content you see</a>
-                </li>
-            </ul>
+   <div id="exploreer">
+        <textarea maxlength="240" placeholder="Find a setting..."></textarea>
+      </div>
+      <ul>
+        <li>
+          <a href="settings/content-you-see">Content you see</a>
+          <select id="language-picker">
+            <option value="en">English</option>
+            <option value="sv-se">Svenska</option>
+            </select>
+        </li>
+      </ul>
         </div>
     </main>
     <aside id="sideBar">

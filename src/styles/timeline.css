@@ -277,6 +277,8 @@ div.drafts-container {
     display: flex;
     /* Flex container */
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     /* Arrange items horizontally */
     width: 100%;
     /* Full width */
@@ -457,4 +459,20 @@ div.drafts-container {
     100% {
         transform: rotate(360deg);
     }
+}
+
+#code{
+    margin-top: 12px;
+    width: 100%;
+    max-width: 200px;
+    height: 1.5em;
+    color-scheme: dark;
+    background-color: #8b8b8b2d;
+    resize: none;
+    border: none;
+    padding: 8px;
+    font-size: 1em;
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    border-radius: 8px;
+    margin-bottom: 12px;
 }

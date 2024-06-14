@@ -104,8 +104,10 @@
     display: none;
     /* Hide element by default */
     position: fixed;
+    align-items: end;
+    justify-content: end;
     /* Fixed positioning */
-    bottom: 64px;
+    bottom:  calc(64px + env(safe-area-inset-bottom));
     /* Distance from the bottom */
     right: 18px;
     /* Distance from the right */

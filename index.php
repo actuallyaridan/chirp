@@ -12,6 +12,8 @@ try {
 
     // Fetch each row as an associative array
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        // Convert newlines to <br> tags in chirp content
+        $row['chirp'] = nl2br(htmlspecialchars($row['chirp']));
         $chirps[] = $row;
     }
 } catch (PDOException $e) {
@@ -31,7 +33,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
     <script src="/src/scripts/general.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -79,7 +81,7 @@ try {
             <div id="chirps">
                 <?php foreach ($chirps as $chirp): ?>
                 <div class="chirp" id="<?php echo $chirp['id']; ?>">
-                <a class="chirpClicker" href="/chirp/?id=<?php echo $chirp['id']; ?>">
+                    <a class="chirpClicker" href="/chirp/?id=<?php echo $chirp['id']; ?>">
                         <div class="chirpInfo">
                             <div>
                                 <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
@@ -92,7 +94,8 @@ try {
                                 <p class="subText postedDate" data-timestamp="<?php echo $chirp['timestamp']; ?>"></p>
                             </div>
                         </div>
-                        <p><?php echo htmlspecialchars($chirp['chirp']); ?></p>
+                        <!-- Display chirp content with line breaks -->
+                        <p><?php echo $chirp['chirp']; ?></p>
                         <div class="chirpInteract">
                             <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
                             <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
@@ -112,9 +115,7 @@ try {
             </div>
         </div>
     </main>
-    <div class="mobileCompose">
-        <a class="chirpMoile" href="compose">Chirp</a>
-    </div>
+
     <aside id="sideBar">
         <div id="trends">
             <p>Trends for you</p>
@@ -159,6 +160,9 @@ try {
         </div>
     </aside>
     <footer>
+    <div class="mobileCompose">
+        <a class="chirpMoile" href="compose">Chirp</a>
+    </div>
         <div>
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>

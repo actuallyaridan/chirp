@@ -1,15 +1,18 @@
 window.onload = function () {
     twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
-    document.querySelector('#feedCompose').classList.add('swipe-up');
+    if(document.querySelector('#feedCompose')){
+        document.querySelector('#feedCompose').classList.add('swipe-up');
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const cancelChirpButton = document.querySelector('.cancelChirp');
+    if(document.querySelector('#feedCompose')){
+        const cancelChirpButton = document.querySelector('.cancelChirp');
     const saveDraftButton = document.getElementById('saveDraftButton');
     const discardDraftButton = document.getElementById('discardDraftButton');
     const cancelModal = document.getElementById('cancelModal');
     const draftsContainer = document.querySelector('.drafts-container');
-
+    
     cancelChirpButton.onclick = function () {
         const chirpContent = document.querySelector('textarea[name="chirpComposeText"]').value;
         if (chirpContent.trim().length > 0) {
@@ -82,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     displayDrafts();
+    }
 });
 
 function showMenuSettings() {
@@ -104,25 +108,28 @@ function back() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var textarea = document.getElementById('replytotext');
-    var minHeight = textarea.scrollHeight; // Capture the initial height
 
-    // Function to adjust the height of the textarea
-    function adjustHeight() {
-        textarea.style.height = '1.5em'; // Reset the height to auto to shrink if needed
-        var newHeight = Math.max(minHeight, textarea.scrollHeight) + 'px'; // Ensure the height is at least the initial height
-        if(newHeight === '40px'){
-            textarea.style.height = '1.5em'; // Set the height based on the scroll height or min height
-        }else{
-            textarea.style.height = newHeight; // Set the height based on the scroll height or min height
+    if(document.getElementById('replytotext')){
+        var textarea = document.getElementById('replytotext');
+        var minHeight = textarea.scrollHeight; // Capture the initial height
+    
+        // Function to adjust the height of the textarea
+        function adjustHeight() {
+            textarea.style.height = '1.5em'; // Reset the height to auto to shrink if needed
+            var newHeight = Math.max(minHeight, textarea.scrollHeight) + 'px'; // Ensure the height is at least the initial height
+            if(newHeight === '40px'){
+                textarea.style.height = '1.5em'; // Set the height based on the scroll height or min height
+            }else{
+                textarea.style.height = newHeight; // Set the height based on the scroll height or min height
+            }
         }
+    
+        // Add an input event listener to adjust the height on every input
+        textarea.addEventListener('input', adjustHeight);
+    
+        // Initial adjustment in case there is pre-filled content
+        adjustHeight();
     }
-
-    // Add an input event listener to adjust the height on every input
-    textarea.addEventListener('input', adjustHeight);
-
-    // Initial adjustment in case there is pre-filled content
-    adjustHeight();
 });
 
 let chirpSound = null;

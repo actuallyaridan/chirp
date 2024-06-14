@@ -1,8 +1,10 @@
 <?php
 try {
     // Connect to the SQLite database
-    
     $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
+
+    // Initialize default title
+    $title = "Chirp";
 
     // Check if an id parameter is present in the URL
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -15,19 +17,30 @@ try {
         $stmt->execute();
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
         
-
         if ($post) {
+            $title = htmlspecialchars($post['user']) . " on Chirp: \"" . htmlspecialchars($post['chirp']) . "\" / Chirp";
             $user = htmlspecialchars($post['user']);
             $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
-            $status = htmlspecialchars($post['chirp']);
+            // Convert newlines to <br> tags
+            $status = nl2br(htmlspecialchars($post['chirp']));
         } else {
             die("Post not found.");
         }
-    } else {
-        die("Invalid post ID.");
     }
 } catch (PDOException $e) {
     die('Connection failed: ' . $e->getMessage());
+}
+
+// Escaping function for HTML output
+function h($text) {
+    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+}
+
+// If a specific post is not found, this ensures default values are set
+if (!isset($user)) {
+    $user = "Guest";
+    $status = "This is a default chirp.";
+    $timestamp = gmdate("Y-m-d\TH:i\Z");
 }
 
 ?>
@@ -37,8 +50,9 @@ try {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#00001" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -47,12 +61,12 @@ try {
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
     </script>
     <script src="/src/scripts/general.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Chirp / Chirp</title>
+    <title><?php echo $title; ?></title>
 </head>
 
 <body>
@@ -105,6 +119,7 @@ try {
                             </div>
                         </div>
                     </div>
+                    <!-- Display chirp content with line breaks -->
                     <p><?php echo $status; ?></p>
                     <div class="chirpInteractThread">
                         <p class="subText postedDate">Posted at:
@@ -164,7 +179,8 @@ try {
             <p>Who to follow</p>
             <div>
                 <div>
-                    <img class="profilePic" src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
+                    <img class="profilePic"
+                        src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
                     <div>
                         <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@apple</p>
@@ -174,9 +190,12 @@ try {
             </div>
             <div>
                 <div>
-                    <img class="profilePic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg" alt="President Biden">
+                    <img class="profilePic"
+                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
+                        alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                        </p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
@@ -184,7 +203,8 @@ try {
             </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
+                Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>

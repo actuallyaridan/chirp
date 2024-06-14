@@ -77,6 +77,21 @@
     #highTraffic {
         width: 96%;
     }
+    #feed,
+    #feedCompose, #exploreer, #composer {
+        width: 50vw;
+    }
+
+    #composer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+    }
+
+    #composer>textarea{
+        width: 100%;
+    }
 }
 
 /* Media query for screens narrower than 890px */
@@ -88,7 +103,7 @@
 
     /* Reset margin for the main content */
     main {
-        margin: 0;
+        margin: 4px;
     }
 
     /* Set width for elements with IDs 'feed' and 'feedCompose' */
@@ -201,4 +216,7 @@
         margin-block-start: 0px;
     }
     
+    .profileBanner{
+        border-radius: 0px 0px 4px 4px;
+    }
 }

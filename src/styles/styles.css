@@ -364,6 +364,7 @@ footer {
     -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
     backdrop-filter: blur(20px); /* Backdrop filter */
     z-index: 11; /* Z-index */
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
 }
 
 /* Styles for footer div */
@@ -409,8 +410,8 @@ div#iconChirp > img {
     margin: 0px; /* Margin */
     border-radius: 0px; /* Border radius */
     font-size: 24px; /* Font size */
-    height: 1em; /* Height */
-    width: 1em; /* Width */
+    height: 1.2em; /* Height */
+    width: 1.2em; /* Width */
     margin: 0 .05em 0 .1em; /* Margins */
     vertical-align: -0.1em; /* Vertical alignment */
     pointer-events: none; /* No pointer events */
@@ -683,4 +684,44 @@ form{
     justify-content: center;
     margin: auto;
     width: 100%;
+}
+
+.outdated{
+ text-align: left !important;
+ align-items: start !important;
+ justify-content: start !important;
+ margin: 24px;
+ padding: 24px;
+ width: auto !important; 
+}
+
+.buttonsOutdated{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+}
+
+
+.buttonsOutdated>a{
+    margin-right: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.chirpLegacy{
+    background-color: rgb(0, 107, 5);
+}
+
+.chirpLegacy:hover{
+    background-color: rgb(0, 90, 5);
+}
+
+.helpCenter{
+    background-color: rgb(120, 86, 255);
+}
+
+.helpCenter:hover{
+    background-color: rgb(87, 59, 197);
 }

@@ -528,8 +528,8 @@ div#notFound {
     display: flex; /* Flex container */
     justify-content: center; /* Center justify content */
     align-items: center; /* Center align items */
-    height: 90vh; /* 90% viewport height */
-    width: 20vw; /* Width */
+    height: 100%; /* 90% viewport height */
+    width: 35vw;
     flex-direction: column; /* Column direction */
 }
 
@@ -724,4 +724,9 @@ form{
 
 .helpCenter:hover{
     background-color: rgb(87, 59, 197);
+}
+
+pre{
+    font-family: Outfit, Jost, Arial, Helvetica, sans-serif; /* Font family */
+    white-space: normal;
 }

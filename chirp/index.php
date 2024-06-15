@@ -6,41 +6,32 @@ try {
     // Initialize default title
     $title = "Chirp";
 
+    // Initialize default values
+    $user = "Loading";
+    $status = "If this stays here for a prolonged period of time, reload this page.";
+    $timestamp = gmdate("Y-m-d\TH:i\Z");
+
     // Check if an id parameter is present in the URL
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $postId = $_GET['id'];
-        
+
         // Fetch the post with the given ID
         $query = 'SELECT * FROM chirps WHERE ID = :id';
         $stmt = $db->prepare($query);
         $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
         $stmt->execute();
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($post) {
             $title = htmlspecialchars($post['user']) . " on Chirp: \"" . htmlspecialchars($post['chirp']) . "\" / Chirp";
             $user = htmlspecialchars($post['user']);
             $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
             // Convert newlines to <br> tags
             $status = nl2br(htmlspecialchars($post['chirp']));
-        } else {
-            die("Post not found.");
         }
     }
 } catch (PDOException $e) {
     die('Connection failed: ' . $e->getMessage());
-}
-
-// Escaping function for HTML output
-function h($text) {
-    return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
-}
-
-// If a specific post is not found, this ensures default values are set
-if (!isset($user)) {
-    $user = "Guest";
-    $status = "This is a default chirp.";
-    $timestamp = gmdate("Y-m-d\TH:i\Z");
 }
 
 ?>
@@ -108,54 +99,64 @@ if (!isset($user)) {
                 <p>We're experiencing very high traffic right now.<br>Chirpie is trying his best, but if Chirp slows
                     down, don't panic!</p>
             </div>
-            <div id="chirps">
-                <div class="chirpThread" id="<?php echo $postId; ?>">
-                    <div class="chirpInfo">
-                        <div>
-                            <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+            <?php if (!$post || empty($postId)) : ?>
+                <!-- If post is not found or no ID provided, show this -->
+                <div id="notFound">
+                    <p>Chirp not found</p>
+                    <p class="subText">That chirp does not exist.</p>
+                </div>
+            <?php else : ?>
+                <!-- Display the fetched post -->
+                <div id="chirps">
+                    <div class="chirpThread" id="<?php echo $postId; ?>">
+                        <div class="chirpInfo">
                             <div>
-                                <p><?php echo $user; ?></p>
-                                <p class="subText">@guest</p>
+                                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                                <div>
+                                    <p><?php echo $user; ?></p>
+                                    <p class="subText">@guest</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- Display chirp content with line breaks -->
-                    <p><?php echo $status; ?></p>
-                    <div class="chirpInteractThread">
-                        <p class="subText postedDate">Posted at:
-                            <script>
-                            const options = {
-                                year: 'numeric',
-                                month: '2-digit',
-                                day: '2-digit',
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            };
-                            document.write(new Date("<?php echo $timestamp ?>").toLocaleString([], options));
-                            </script>
-                        </p>
-                        <div>
-                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"><br>0
-                                replies</button>
-                            <button type="button" class="rechirp"><img alt="Rechirp"
-                                    src="/src/images/icons/rechirp.svg"><br>0 rechirps</button>
-                            <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0
-                                likes</button>
+                        <!-- Display chirp content with line breaks -->
+                        <pre><?php echo $status; ?></pre>
+                        <div class="chirpInteractThread">
+                            <p class="subText postedDate">Posted at:
+                                <script>
+                                const options = {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                };
+                                document.write(new Date("<?php echo $timestamp ?>").toLocaleString([], options));
+                                </script>
+                            </p>
+                            <div>
+                                <button type="button" class="reply"><img alt="Reply"
+                                        src="/src/images/icons/reply.svg"><br>0 replies</button>
+                                <button type="button" class="rechirp"><img alt="Rechirp"
+                                        src="/src/images/icons/rechirp.svg"><br>0 rechirps</button>
+                                <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"><br>0
+                                    likes</button>
+                            </div>
+                        </div>
+                        <div id="replyTo">
+                            <textarea id="replytotext" maxlength="240" placeholder="Reply to @guest..."></textarea>
+                            <button class="postChirp">Reply</button>
                         </div>
                     </div>
-                    <div id="replyTo">
-                        <textarea id="replytotext" maxlength="240" placeholder="Reply to @guest..."></textarea>
-                        <button class="postChirp">Reply</button>
-                    </div>
                 </div>
-            </div>
-            <div id="noMoreChirps">
+                <div id="noMoreChirps">
                 <div class="lds-ring">
                     <div></div>
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
+            </div>
+            <?php endif; ?>
             </div>
         </div>
     </main>

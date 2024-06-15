@@ -1,21 +1,6 @@
 <?php
 try {
-    // Connect to the SQLite database
     $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
-
-    // Fetch all chirps from the database
-    $query = 'SELECT * FROM chirps ORDER BY timestamp DESC';
-    $result = $db->query($query);
-
-    // Initialize an array to store chirps
-    $chirps = [];
-
-    // Fetch each row as an associative array
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        // Convert newlines to <br> tags in chirp content
-        $row['chirp'] = nl2br(htmlspecialchars($row['chirp']));
-        $chirps[] = $row;
-    }
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
 }
@@ -33,7 +18,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
     <script src="/src/scripts/general.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -65,7 +50,7 @@ try {
                 <p class="settingsButton">⚙️</p>
             </button>
         </div>
-    </header>
+        </header>
     <main>
         <div id="feed">
             <div id="iconChirp" onclick="playChirpSound()">
@@ -78,34 +63,10 @@ try {
             <div id="highTraffic">
                 <p>We're experiencing very high traffic right now.<br>Chirpie is trying his best, but if Chirp slows down, don't panic!</p>
             </div>
-            <div id="chirps">
-                <?php foreach ($chirps as $chirp): ?>
-                <div class="chirp" id="<?php echo $chirp['id']; ?>">
-                    <a class="chirpClicker" href="/chirp/?id=<?php echo $chirp['id']; ?>">
-                        <div class="chirpInfo">
-                            <div>
-                                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
-                                <div>
-                                    <p><?php echo htmlspecialchars($chirp['user']); ?></p>
-                                    <p class="subText">@guest</p>
-                                </div>
-                            </div>
-                            <div class="timestampTimeline">
-                                <p class="subText postedDate" data-timestamp="<?php echo $chirp['timestamp']; ?>"></p>
-                            </div>
-                        </div>
-                        <!-- Display chirp content with line breaks -->
-                        <p><?php echo $chirp['chirp']; ?></p>
-                        <div class="chirpInteract">
-                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
-                            <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
-                            <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
-                        </div>
-                    </a>
-                </div>
-                <?php endforeach; ?>
+            <div id="chirps" data-offset="0">
+                <!-- Chirps will be loaded here -->
             </div>
-            <div id="noMoreChirps">
+            <div id="noMoreChirps" style="display: none;">
                 <div class="lds-ring">
                     <div></div>
                     <div></div>
@@ -172,50 +133,120 @@ try {
         </div>
     </footer>
     <script>
-        // Function to update the posted date for all chirps
-        function updatePostedDates() {
-            const chirps = document.querySelectorAll('.chirp .postedDate');
-            chirps.forEach(function (chirp) {
-                const timestamp = chirp.getAttribute('data-timestamp');
-                const postDate = new Date(parseInt(timestamp) * 1000); // Convert timestamp to milliseconds
-                const now = new Date();
-                const diffInMilliseconds = now - postDate;
-                const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
-                const diffInMinutes = Math.floor(diffInSeconds / 60);
-                const diffInHours = Math.floor(diffInMinutes / 60);
-                const diffInDays = Math.floor(diffInHours / 24);
+    let loadingChirps = false; // Flag to track if chirps are currently being loaded
 
-                let relativeTime;
+    function updatePostedDates() {
+        const chirps = document.querySelectorAll('.chirp .postedDate');
+        chirps.forEach(function (chirp) {
+            const timestamp = chirp.getAttribute('data-timestamp');
+            const postDate = new Date(parseInt(timestamp) * 1000);
+            const now = new Date();
+            const diffInMilliseconds = now - postDate;
+            const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+            const diffInMinutes = Math.floor(diffInSeconds / 60);
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            const diffInDays = Math.floor(diffInHours / 24);
 
-                if (diffInSeconds < 60) {
-                    relativeTime = diffInSeconds + "s ago";
-                } else if (diffInMinutes < 60) {
-                    relativeTime = diffInMinutes + "m ago";
-                } else if (diffInHours < 24) {
-                    relativeTime = diffInHours + "h ago";
-                } else if (diffInDays < 7) {
-                    relativeTime = diffInDays + "d ago";
-                } else {
-                    const options = {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    };
-                    relativeTime = postDate.toLocaleString([], options);
-                }
+            let relativeTime;
 
-                // Update the postedDate element
-                chirp.textContent = relativeTime;
-            });
+            if (diffInSeconds < 60) {
+                relativeTime = diffInSeconds + "s ago";
+            } else if (diffInMinutes < 60) {
+                relativeTime = diffInMinutes + "m ago";
+            } else if (diffInHours < 24) {
+                relativeTime = diffInHours + "h ago";
+            } else if (diffInDays < 7) {
+                relativeTime = diffInDays + "d ago";
+            } else {
+                const options = {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                relativeTime = postDate.toLocaleString([], options);
+            }
+
+            chirp.textContent = relativeTime;
+        });
+    }
+
+    function showLoadingSpinner() {
+        document.getElementById('noMoreChirps').style.display = 'block';
+    }
+
+    function hideLoadingSpinner() {
+        document.getElementById('noMoreChirps').style.display = 'none';
+    }
+
+    function loadChirps() {
+        if (loadingChirps) return; // If already loading, exit
+
+        const chirpsContainer = document.getElementById('chirps');
+        const offset = parseInt(chirpsContainer.getAttribute('data-offset'));
+
+        loadingChirps = true; // Set loading flag
+        showLoadingSpinner(); // Show loading spinner
+
+        setTimeout(() => {
+            fetch(`/fetch_chirps.php?offset=${offset}`)
+                .then(response => response.json())
+                .then(chirps => {
+                    chirps.forEach(chirp => {
+                        const chirpDiv = document.createElement('div');
+                        chirpDiv.className = 'chirp';
+                        chirpDiv.id = chirp.id;
+                        chirpDiv.innerHTML = `
+                            <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
+                                <div class="chirpInfo">
+                                    <div>
+                                        <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                                        <div>
+                                            <p>${chirp.user}</p>
+                                            <p class="subText">@guest</p>
+                                        </div>
+                                    </div>
+                                    <div class="timestampTimeline">
+                                        <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
+                                    </div>
+                                </div>
+                                <pre>${chirp.chirp}</pre>
+                                <div class="chirpInteract">
+                                    <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
+                                    <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
+                                    <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
+                                </div>
+                            </a>
+                        `;
+                        chirpsContainer.appendChild(chirpDiv);
+                    });
+
+                    chirpsContainer.setAttribute('data-offset', offset + 6);
+
+                    updatePostedDates();
+
+                    twemoji.parse(chirpsContainer);
+                })
+                .catch(error => {
+                    console.error('Error fetching chirps:', error);
+                })
+                .finally(() => {
+                    loadingChirps = false; // Reset loading flag
+                    hideLoadingSpinner(); // Hide loading spinner
+                });
+        }, 1000);
+    }
+
+    loadChirps();
+
+    window.addEventListener('scroll', () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            loadChirps();
         }
+    });
 
-        // Update the posted dates initially
-        updatePostedDates();
-
-        // Update the posted dates every second
-        setInterval(updatePostedDates, 1000);
-    </script>
+    setInterval(updatePostedDates, 1000);
+</script>
 </body>
 </html>

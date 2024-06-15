@@ -5,20 +5,27 @@ try {
     $db = new PDO('sqlite:../chirp.db');
 
     // Define rate limiting parameters
-    define('COOLDOWN_SECONDS', 10); // Example: 10 seconds cooldown between chirps
     define('MAX_CHARS', 240); // Maximum characters allowed for a chirp
 
-    // Check if the last submission time is stored in the session
+    // Check if the last submission time and attempt count are stored in the session
     $lastSubmissionTime = isset($_SESSION['last_submission_time']) ? $_SESSION['last_submission_time'] : 0;
+    $attemptCount = isset($_SESSION['attempt_count']) ? $_SESSION['attempt_count'] : 0;
     $currentTime = time();
 
+    // Calculate cooldown period based on attempt count
+    $cooldownSeconds = min(10 + ($attemptCount * 10), 1800); // 10 seconds base, increase by 10s per attempt, max 30 minutes (1800 seconds)
+
     // Check if cooldown period has elapsed
-    if ($currentTime - $lastSubmissionTime < COOLDOWN_SECONDS) {
-        // Rate limit exceeded, redirect back to compose page or show an error message
+    if ($currentTime - $lastSubmissionTime < $cooldownSeconds) {
+        // Rate limit exceeded, increment attempt count
+        $_SESSION['attempt_count'] = ++$attemptCount;
         $_SESSION['error_message'] = "You are posting too quickly. Slow down!";
         header('Location: /');
         exit;
     }
+
+    // Reset attempt count on successful submission
+    $_SESSION['attempt_count'] = 0;
 
     // Check if chirp text exceeds maximum allowed characters
     $chirpText = $_POST['chirpComposeText'];

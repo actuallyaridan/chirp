@@ -729,4 +729,5 @@ form{
 pre{
     font-family: Outfit, Jost, Arial, Helvetica, sans-serif; /* Font family */
     white-space: normal;
+    word-wrap: break-word;
 }

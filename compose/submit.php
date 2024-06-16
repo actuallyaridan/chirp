@@ -27,8 +27,14 @@ try {
     // Reset attempt count on successful submission
     $_SESSION['attempt_count'] = 0;
 
-    // Check if chirp text exceeds maximum allowed characters
-    $chirpText = $_POST['chirpComposeText'];
+    // Check if chirp text is empty or exceeds maximum allowed characters
+    $chirpText = trim($_POST['chirpComposeText']);
+    if (empty($chirpText)) {
+        $_SESSION['error_message'] = "Chirp cannot be empty.";
+        header('Location: /');
+        exit;
+    }
+
     if (strlen($chirpText) > MAX_CHARS) {
         $_SESSION['error_message'] = "Chirp exceeds maximum character limit of " . MAX_CHARS . " characters.";
         header('Location: /');

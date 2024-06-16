@@ -14,7 +14,7 @@ try {
      * also, there may need to be good sanitization done with this, not too sure though.
     */
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
-    $allowedHosts = ['']; // add hosts to the variable as you see fit.
+    $allowedHosts = ['beta.chirpsocial.net','127.0.0.1:5500', '192.168.1.230:5500']; // add hosts to the variable as you see fit.
     /* ===== Dexrn =====
      * ^ This should probably be moved to somewhere with a more global scope, if possible.
      * same with the $host var.

@@ -127,7 +127,7 @@
     /* Top margin */
     text-align: center;
     /* Center-align text */
-    color: white;
+    color: var(--text-color); /* Text color */
     /* Text color */
     border: none;
     /* No border */
@@ -143,7 +143,8 @@
 
 /* Styles for anchor elements within 'mobileCompose' on hover */
 .mobileCompose>a:hover {
-    background-color: rgb(132, 101, 255);
+    background-color: var(--hover-color);
+    transition: .2s background-color;
     /* Background color on hover */
 }
 
@@ -370,11 +371,18 @@ div.drafts-container {
 }
 
 #loadNew{
-    width: 100.2% !important;
-    background-color: rgb(19, 19, 19) !important;
-    border-bottom: none !important;
-    border-left: #8b8b8b2d 1px solid !important;
-    border-right: #8b8b8b2d 1px solid !important;
+    background-color: var(--accent-color);
+    -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
+    backdrop-filter: blur(20px); /* Backdrop filter */
+    border: none;
+    padding: 8px;
+    font-size: 1em;
+    color: var(--text-color);
+    border-radius: 8px;
+    top: 62px;
+    position: fixed;
+    width: fit-content;
+    z-index: 999;
 }
 
 #loadNew:hover{

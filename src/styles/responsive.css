@@ -32,6 +32,10 @@
         display: none;
     }
 
+    body{
+        width: 100%;
+    }
+
     /* Hide element with ID 'iconChirp' */
     div#iconChirp {
         display: none;

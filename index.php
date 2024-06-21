@@ -63,9 +63,7 @@ try {
                 <a id="forYou" class="selected" href="/">For you</a>
                 <a id="following" href="following">Following</a>
                 </div>
-                <button id="loadNew">Show 12 new chirps</button>
             </div>
-
             <div id="highTraffic">
                 <p>We're experiencing very high traffic right now.<br>Chirpie is trying his best, but if Chirp slows
                     down, don't panic!</p>

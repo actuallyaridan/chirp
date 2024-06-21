@@ -24,13 +24,20 @@
 }
 
 :root{
-    --accent-color: #FC2C6A;
-    --accent-color: #FF8B1F;
+    --red: #FC2C6A;
+    --red-hover: #D4004D;
+    --orange: #FF8B1F;
+    --orange-hover: #D57100;
+    --green: #1AD063;
+    --green-hover: #128E3C; 
+    --blue: #10BDF3;
+    --blue-hover: #0A85BA; 
+    --purple: #7A2BFC;
+    --purple-hover: #5B1ECC;
+
     --accent-color: #1AD063;
-    --accent-color: #10BDF3;
-    --accent-color: #7A2BFC;
-
-
+    --hover-color: #128E3C;
+    --text-color: black;
 }
 
 .showLayoutBounds *{
@@ -52,6 +59,7 @@ footer {
 body {
     overflow-y: scroll; /* Vertical overflow */
     overflow-x: hidden; /* Vertical overflow */
+    width: auto;
 }
 
 button {
@@ -126,11 +134,11 @@ a > img {
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
-    color: white; /* Text color */
+    color: var(--text-color); /* Text color */
 }
 
 .newchirp:hover {
-    background-color: rgb(132, 101, 255); /* Background color on hover */
+    background-color: var(--hover-color);/* Background color on hover */
 }
 
 /* Styles for 'postChirpButton' */
@@ -164,7 +172,7 @@ a > img {
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
-    color: white; /* Text color */
+    color: var(--text-color); /* Text color */
     border: none; /* No border */
     border-radius: 8px; /* Border radius */
     font-size: 1em; /* Font size */
@@ -190,7 +198,7 @@ a > img {
 
 .postChirp:hover, #saveDraftButton:hover {
     cursor: pointer; /* Pointer cursor */
-    background-color: rgb(132, 101, 255); /* Background color on hover */
+    background-color: var(--hover-color);/* Background color on hover */
 }
 
 /* Styles for 'cancelChirp' class */
@@ -319,10 +327,17 @@ a.followButton {
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
-    color: white; /* Text color */
+    color: var(--text-color); /* Text color */
     border-radius: 8px; /* Border radius */
     padding: 8px; /* Padding */
     height: fit-content; /* Height based on content */
+}
+
+a.followButton:hover {
+    background-color: var(--hover-color);
+    transition: .2s linear;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 button.followButton {
@@ -331,7 +346,7 @@ button.followButton {
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
-    color: white; /* Text color */
+    color: var(--text-color); /* Text color */
     border-radius: 12px; /* Border radius */
     padding: 8px; /* Padding */
     height: fit-content; /* Height based on content */
@@ -339,7 +354,7 @@ button.followButton {
 }
 
 button.followButton:hover {
-    background-color: rgb(132, 101, 255);
+    background-color: var(--hover-color);
     transition: .2s linear;
     cursor: pointer;
 }

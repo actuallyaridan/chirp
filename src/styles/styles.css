@@ -23,6 +23,16 @@
     src: url(fonts/Satoshi.ttf); /* Font source */
 }
 
+:root{
+    --accent-color: #FC2C6A;
+    --accent-color: #FF8B1F;
+    --accent-color: #1AD063;
+    --accent-color: #10BDF3;
+    --accent-color: #7A2BFC;
+
+
+}
+
 .showLayoutBounds *{
     outline: 1px dotted red;
 }
@@ -111,7 +121,7 @@ a > img {
 .newchirp {
     min-width: 52px; /* Minimum width */
     border-color: rgba(0, 0, 0, 0); /* Border color */
-    background-color: rgb(120, 86, 255); /* Background color */
+    background-color: var(--accent-color); /* Background color */
     width: 90%; /* Width */
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
@@ -150,13 +160,13 @@ a > img {
 .postChirp{
     min-width: 52px; /* Minimum width */
     border-color: rgba(0, 0, 0, 0); /* Border color */
-    background-color: rgb(120, 86, 255); /* Background color */
+    background-color: var(--accent-color); /* Background color */
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
     color: white; /* Text color */
     border: none; /* No border */
-    border-radius: 12px; /* Border radius */
+    border-radius: 8px; /* Border radius */
     font-size: 1em; /* Font size */
     padding: 8px; /* Padding */
     display: flex; /* Flex container */
@@ -166,7 +176,7 @@ a > img {
 #saveDraftButton {
     min-width: 52px; /* Minimum width */
     border-color: rgba(0, 0, 0, 0); /* Border color */
-    background-color: rgb(120, 86, 255); /* Background color */
+    background-color: var(--accent-color); /* Background color */
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
@@ -192,7 +202,7 @@ a > img {
     text-align: center; /* Center alignment */
     color: rgb(247, 247, 247); /* Text color */
     border: none; /* No border */
-    border-radius: 12px; /* Border radius */
+    border-radius: 8px; /* Border radius */
     font-size: 1em; /* Font size */
     padding: 8px; /* Padding */
     display: flex; /* Flex container */
@@ -235,8 +245,6 @@ main {
     width: 100vw; /* Full width */
 }
 
-/* Styles for timeline selection and title */
-#timelineSelect,
 .title {
     display: flex; /* Flex container */
     flex-direction: row; /* Row direction */
@@ -251,8 +259,26 @@ main {
     padding-bottom: 0px;
 }
 
+/* Styles for timeline selection and title */
+#timelineSelect{
+    display: flex; /* Flex container */
+    flex-direction: column; /* Row direction */
+    width: 100%; /* Full width */
+    position: sticky; /* Sticky position */
+    top: 0; /* Top position */
+    background-color: #00000080; /* Background color */
+    -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
+    backdrop-filter: blur(20px); /* Backdrop filter */
+    z-index: 12; /* Z-index */
+    padding: 8px;
+    padding-bottom: 0px;
+    align-items: center;
+    justify-content: center;
+}
+
+
 /* Styles for links within timeline selection */
-#timelineSelect > a,
+#timelineSelect > div > a,
 .title > a {
     text-align: center; /* Center alignment */
     width: 50%; /* 50% width */
@@ -262,7 +288,7 @@ main {
 }
 
 /* Styles for links within timeline selection on hover */
-#timelineSelect > a:hover {
+#timelineSelect > div > a:hover {
     background-color: #8b8b8b2d; /* Background color on hover */
     cursor: pointer; /* Pointer cursor */
     text-decoration: none; /* No underline */
@@ -270,7 +296,7 @@ main {
 
 /* Selected style */
 .selcted {
-    border-bottom: 2px rgb(120, 86, 255) solid !important; /* Selected border */
+    border-bottom: 2px var(--accent-color) solid !important; /* Selected border */
 }
 
 /* Hover style for chirp */
@@ -289,7 +315,19 @@ main {
 /* Styles for follow button links */
 a.followButton {
     border-color: rgba(0, 0, 0, 0); /* Border color */
-    background-color: rgb(120, 86, 255); /* Background color */
+    background-color: var(--accent-color); /* Background color */
+    margin-bottom: 4px; /* Bottom margin */
+    margin-top: 4px; /* Top margin */
+    text-align: center; /* Center alignment */
+    color: white; /* Text color */
+    border-radius: 8px; /* Border radius */
+    padding: 8px; /* Padding */
+    height: fit-content; /* Height based on content */
+}
+
+button.followButton {
+    border-color: rgba(0, 0, 0, 0); /* Border color */
+    background-color: var(--accent-color); /* Background color */
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
@@ -297,6 +335,13 @@ a.followButton {
     border-radius: 12px; /* Border radius */
     padding: 8px; /* Padding */
     height: fit-content; /* Height based on content */
+    font-size: 1em;
+}
+
+button.followButton:hover {
+    background-color: rgb(132, 101, 255);
+    transition: .2s linear;
+    cursor: pointer;
 }
 
 /* Styles for menu settings */
@@ -391,7 +436,7 @@ footer > div > a:hover {
 
 /* Active style for footer links */
 footer > div > a.active {
-    box-shadow: 0 -2px 0 rgb(120, 86, 255); /* Box shadow */
+    box-shadow: 0 -2px 0 var(--accent-color); /* Box shadow */
     outline-offset: 12px; /* Outline offset */
     border-radius: 0px 0px 8px 8px; /* Border radius */
 }
@@ -719,7 +764,7 @@ form{
 }
 
 .helpCenter{
-    background-color: rgb(120, 86, 255);
+    background-color: var(--accent-color);
 }
 
 .helpCenter:hover{
@@ -733,4 +778,54 @@ pre{
     max-width: 85vw;
     margin-left: auto;
     margin-right: auto;
+}
+
+#signUp, #signUp>form>div{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#signUp{
+    width: 35vw;
+}
+
+input{
+    margin-top: 12px;
+    width: 100%;
+    max-width: 200px;
+    height: 1.5em;
+    color-scheme: dark;
+    background-color: #8b8b8b2d;
+    resize: none;
+    border: none;
+    padding: 8px;
+    font-size: 1em;
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+#inviteCode{
+    display: flex;
+}
+
+#nameUser, #pwordUser {
+    display: none;
+}
+
+#errors{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 12px;
+}
+
+#errors>p{
+    background-color: red;
+    padding: 8px;
+    color: white;
+    border-radius: 4px;
+    display: none;
 }

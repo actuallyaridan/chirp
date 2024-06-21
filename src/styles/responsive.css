@@ -219,4 +219,8 @@
     .profileBanner{
         border-radius: 0px 0px 4px 4px;
     }
+
+    div#signUp{
+        width: 100%;
+    }
 }

@@ -3,17 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#00001" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-  
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
         crossorigin="anonymous"></script>
     <script src="/src/scripts/general.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -53,21 +53,52 @@
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div class="title">
-                <p class="selcted">Sign up</p>
+                <p class="selected">Sign up</p>
             </div>
-            <div id="signedOut">
+            <div id="signUp">
                 <p>Let's create an account for you!</p>
-                <p class="subText">Chirp is invite only for the time being. You'll need an invite code to create an account.</p>
-                <p class="subText">Don't have an invite code? You can get one by sending a DM on Twitter to @actuallyaridan or @use_chirp.</p>
-                <input type="text" id="code" name="code" placeholder="Invite code">
-                <a class="followButton" href="compose">Next</a>
-                <div id="noMoreChirps">
-                    <div class="lds-ring">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                <form id="signupForm" method="post" action="/signup/signup.php">
+                    <div id="inviteCode">
+                        <p class="subText">Chirp is invite only for the time being. You'll need an invite code to create
+                            an
+                            account.</p>
+                        <p class="subText">Don't have an invite code? You can get one by sending a DM on Twitter to
+                            @actuallyaridan or @use_chirp.</p>
+                        <div id="inputSignup">
+                            <input type="text" id="code" name="code" placeholder="Invite code" required>
+                            <button type="button" class="followButton" onclick="showNextSection('nameUser')">Next</button>
+                        </div>
                     </div>
+                    <div id="nameUser">
+                        <p class="subText">Great! Now Chirpie just needs to get to know you and he'll set up your
+                            account in
+                            no time!</p>
+                            <div id="inputSignup">
+                                <div id="inputName">
+                                    <input type="text" id="name" name="name" placeholder="Name" required>
+                                    <input type="text" id="username" name="username" placeholder="Username" required>
+                                </div>
+                                <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                                <button type="button" class="followButton" onclick="showNextSection('pwordUser')">Next</button>
+                            </div>
+                    </div>
+                    <div id="pwordUser">
+                        <p class="subText">Amazing! Now we just need to set up a password for you and you'll be all
+                            done!
+                        </p>
+                        <div id="inputSignup">
+                            <div id="inputName">
+                            <input type="password" id="pword" name="pword" placeholder="Password" required>
+                            <input type="password" id="pwordConfirm" name="pwordConfirm" placeholder="Confirm password" required>
+                            </div>
+                        <button type="submit" class="followButton">Complete</button>
+                        </div>
+                    </div>
+                </form>
+                <div id="errors">
+                    <p id="invalidCodeError">Invalid invite code</p>
+                    <p id="usernameTakenError">Username already in use</p>
+                    <p id="passwordMismatchError">Passwords do not match</p>
                 </div>
             </div>
         </div>
@@ -129,6 +160,53 @@
             <a href="/profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
+    <script>
+    function showNextSection(nextSectionId) {
+        const sections = ['inviteCode', 'nameUser', 'pwordUser'];
+
+        // Hide all sections first
+        sections.forEach(sectionId => {
+            document.getElementById(sectionId).style.display = 'none';
+        });
+
+        // Display the next section based on nextSectionId
+        if (nextSectionId) {
+            document.getElementById(nextSectionId).style.display = 'block';
+        }
+    }
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = this;
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            // Display error message
+            document.getElementById('errors').style.display = 'block';
+            document.getElementById('invalidCodeError').style.display = 'none';
+            document.getElementById('usernameTakenError').style.display = 'none';
+            document.getElementById('passwordMismatchError').style.display = 'none';
+
+            if (data.error === 'Invalid invite code') {
+                document.getElementById('invalidCodeError').style.display = 'block';
+            } else if (data.error === 'Username already in use') {
+                document.getElementById('usernameTakenError').style.display = 'block';
+            } else if (data.error === 'Passwords do not match') {
+                document.getElementById('passwordMismatchError').style.display = 'block';
+            }
+        } else if (data.success) {
+            // Handle success scenario, maybe redirect to a success page
+            window.location.href = '/signup-success.html'; // Example redirect
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+    </script>
 </body>
 
 </html>

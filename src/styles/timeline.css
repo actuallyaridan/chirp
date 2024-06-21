@@ -119,7 +119,7 @@
     /* Remove underline */
     border-color: rgba(0, 0, 0, 0);
     /* Transparent border color */
-    background-color: rgb(120, 86, 255);
+    background-color: var(--accent-color);
     /* Background color */
     margin-bottom: 4px;
     /* Bottom margin */
@@ -131,7 +131,7 @@
     /* Text color */
     border: none;
     /* No border */
-    border-radius: 12px;
+    border-radius: 8px;
     /* Rounded corners */
     font-size: 1em;
     /* Font size */
@@ -269,13 +269,70 @@ div#chirps {
     /* 35% of viewport width */
 }
 
+div#signUp{
+    width: 35vw;
+}
+
+#inputSignup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#inputSignup>button{
+    margin-left: 12px;
+}
+
+
+#inputSignup>button{
+    margin-left: 12px;
+}
+
+
+#inputSignup>button{
+    margin-left: 12px;
+}
+
 div.drafts-container {
     width: 35vw;
 }
 
+#inputName{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+
+#inputName>input{
+    width: 50%;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#timelineSelect{
+    display: flex;
+    /* Flex container */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Arrange items horizontally */
+    width: 100%;
+    /* Full width */
+    position: sticky;
+    /* Sticky positioning */
+    top: 0;
+    /* Stick to the top */
+    background-color: #00000080;
+    /* Black background */
+    z-index: 12;
+    /* Stack order */
+}
+
 /* Styles for elements with ID 'timelineSelect' and class 'title' */
-#timelineSelect,
-.title {
+.title, #timelineSelect>div {
     display: flex;
     /* Flex container */
     flex-direction: row;
@@ -312,6 +369,18 @@ div.drafts-container {
     /* No top border */
 }
 
+#loadNew{
+    width: 100.2% !important;
+    background-color: rgb(19, 19, 19) !important;
+    border-bottom: none !important;
+    border-left: #8b8b8b2d 1px solid !important;
+    border-right: #8b8b8b2d 1px solid !important;
+}
+
+#loadNew:hover{
+    background-color: rgb(27, 27, 27) !important;
+}
+
 /* Styles for anchor elements within 'timelineSelect' on hover */
 #timelineSelect>a:hover, #timelineSelect>button:hover {
     background-color: #8b8b8b2d;
@@ -324,7 +393,7 @@ div.drafts-container {
 
 /* Styles for element with class 'selected' */
 .selected {
-    border-bottom: 2px rgb(120, 86, 255) solid !important;
+    border-bottom: 2px var(--accent-color) solid !important;
     /* Bottom border with increased thickness */
 }
 
@@ -414,7 +483,7 @@ div.drafts-container {
 .lds-ring div {
     box-sizing: border-box;
     /* Border box model */
-    color: rgb(120, 86, 255);
+    color: var(--accent-color);
     /* Color */
 }
 

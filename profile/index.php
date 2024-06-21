@@ -58,15 +58,15 @@
                         src="/src/images/icons/back.svg"> Back</button>
             </div>
             <div id="chirps">
-                <img class="profileBanner" src="/src/images/profiles/actuallyaridan/banner.jpg">
+                <img class="profileBanner" src="/src/images/profiles/chirp/banner.png">
                 <div class="account">
                     <div class="accountInfo">
                         <div>
-                            <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                            <img class="profilePic" src="/src/images/profiles/chirp/profile.svg" alt="Guest">
                             <div>
-                                <p>Guest
+                                <p>Chirp
                                 </p>
-                                <p class="subText">@guest</p>
+                                <p class="subText">@chirp</p>
                             </div>
                         </div>
                         <div class="timestampTimeline">
@@ -88,6 +88,7 @@
                 <div id="profileNav">
                     <a id="chirpsNav" class="selcted">Chirps</a>
                     <a id="repliesNav">Replies</a>
+                    <a id="mediaNav">Media</a>
                     <a id="likesNav">Likes</a>
                 </div>
             </div>

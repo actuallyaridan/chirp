@@ -22,21 +22,21 @@
 
 /* Additional styles for items inside the sidebar and another container */
 #sideBar > div,
-#exploreTrends > div {
+#exploreTrends > div, #whoToFollowExplore>div {
     width: 100%; /* Full width */
     margin-bottom: 24px; /* Bottom margin */
-    border-radius: 12px; /* Rounded corners */
+    border-radius: 8px; /* Rounded corners */
     background-color: #8b8b8b2d; /* Semi-transparent background */
 }
 
 /* Styles for paragraph elements inside the sidebar items */
-#sideBar > div > p {
+#sideBar > div > p, #whoToFollowExplore>div>p{
     margin-top: 0; /* Remove top margin */
     margin-bottom: 0; /* Remove bottom margin */
 }
 
 /* Styles for div elements inside the sidebar items */
-#sideBar > div > div {
+#sideBar > div > div, #whoToFollowExplore>div>div {
     padding: 12px; /* Padding around nested divs */
 }
 
@@ -184,4 +184,9 @@ p.settingsButton {
 /* Styles for settings button hover state */
 p.settingsButton:hover {
     background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+}
+
+#whoToFollowExplore{
+    display: flex;
+    width: 100%;
 }

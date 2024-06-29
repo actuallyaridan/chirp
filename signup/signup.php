@@ -7,7 +7,7 @@ try {
         // Validate inputs
         $code = $_POST['code'];
         $name = $_POST['name'];
-        $username = strtolower($_POST['username']); // Convert username to lowercase
+        $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['pword'];
         $passwordConfirm = $_POST['pwordConfirm'];
@@ -35,12 +35,12 @@ try {
         $reservedForCount = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($reservedForCount['count'] > 0 && $invite['reservedFor'] !== $username) {
-            echo json_encode(['error' => 'Username is reserved for a specific invite code']);
+            echo json_encode(['error' => 'This username is reserved.']);
             exit;
         }
 
-        // Check if username already exists (case-insensitive)
-        $stmt = $db->prepare("SELECT id FROM users WHERE LOWER(username) = LOWER(:username)");
+        // Check if username already exists
+        $stmt = $db->prepare("SELECT id FROM users WHERE username = :username");
         $stmt->execute(['username' => $username]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 

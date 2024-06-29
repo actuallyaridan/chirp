@@ -333,7 +333,7 @@ div.drafts-container {
 }
 
 /* Styles for elements with ID 'timelineSelect' and class 'title' */
-.title, #timelineSelect>div {
+.title {
     display: flex;
     /* Flex container */
     flex-direction: row;
@@ -347,6 +347,24 @@ div.drafts-container {
     top: 0;
     /* Stick to the top */
     background-color: #00000080;
+    /* Black background */
+    z-index: 12;
+    /* Stack order */
+}
+
+#timelineSelect>div {
+    display: flex;
+    /* Flex container */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* Arrange items horizontally */
+    width: 100%;
+    /* Full width */
+    position: sticky;
+    /* Sticky positioning */
+    top: 0;
+    /* Stick to the top */
     /* Black background */
     z-index: 12;
     /* Stack order */
@@ -454,13 +472,13 @@ div.drafts-container {
     /* Center-align text */
     margin-top: 12px;
     /* Top margin */
-    transition: .2s linear;
     /* Smooth transition */
     color: white;
     /* Text color */
     border-radius: 8px;
     /* Rounded corners */
     color: #6b6b6b;
+    transition: .2s linear;
 }
 
 /* Styles for buttons within 'chirpInteract' on hover */
@@ -469,6 +487,11 @@ div.drafts-container {
     /* Semi-transparent background on hover */
     cursor: pointer;
     /* Cursor pointer on hover */
+    transition: .2s linear;
+}
+
+.chirpInteract>a{
+    flex: 1;
 }
 
 /* Styles for nested img elements within 'chirpInteract' and 'subText' */

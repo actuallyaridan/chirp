@@ -30,7 +30,7 @@
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="/profile"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <a href="/user"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -39,7 +39,7 @@
                 <a href="signin">🚪 Sign in</a>
             </div>
             <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="aridan">
+                <img class="userPic" src="/src/images/users/guest/user.svg" alt="aridan">
                 <div>
                     <p>Guest</p>
                     <p class="subText">@guest</p>
@@ -56,56 +56,77 @@
             <div class="title">
                 <p class="selcted">Messages</p>
             </div>
-            <div id="exploreer">
-                <textarea maxlength="240" placeholder="Find a message..."></textarea>
-            </div>
-            <div id="postChirpButton">
-                <button class="postChirp">Search</button>
-            </div>
+            <form id="searchMenu">
+                <div id="exploreer">
+                    <textarea maxlength="240" placeholder="Find a message..."></textarea>
+                </div>
+                <div id="exploreChirp">
+                    <button type="submit" class="postChirp">Search</button>
+                </div>
+            </form>
             <p class="noMoreChirps">Seems like you don't have any messages!<br>Why don't you go interact with someone?
             </p>
         </div>
         </div>
     </main>
     <aside id="sideBar">
+        <div id="trends">
+            <p>Trends for you</p>
+            <div>
+                <a>gay people</a>
+                <p class="subText">12 chirps</p>
+            </div>
+            <div>
+                <a>twitter</a>
+                <p class="subText">47 chirps</p>
+            </div>
+            <div>
+                <a>iphone 69</a>
+                <p class="subText">62 chirps</p>
+            </div>
+        </div>
         <div id="whotfollow">
             <p>Who to follow</p>
             <div>
                 <div>
-                    <img class="profilePic"
-                        src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
+                    <img class="userPic"
+                        src="https://pbs.twimg.com/user_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
                     <div>
                         <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@apple</p>
                     </div>
                 </div>
-                <a class="followButton">Follow</a>
+                <a class="followButton following">Following</a>
             </div>
             <div>
                 <div>
-                    <img class="profilePic"
-                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
+                    <img class="userPic"
+                        src="https://pbs.twimg.com/user_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                        </p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
                 <a class="followButton">Follow</a>
             </div>
         </div>
-        </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
+                Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>
+        <div class="mobileCompose">
+            <a class="chirpMoile" href="compose">New message</a>
+        </div>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages" class="active"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+            <a href="/user"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

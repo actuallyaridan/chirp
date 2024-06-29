@@ -5,7 +5,7 @@
         "explore": "Explore",
         "notifications": "Notifications",
         "messages": "Messages",
-        "profile": "Profile", "_comment": "You can also use the word 'Account' if it fits better in your language",
+        "user": "user", "_comment": "You can also use the word 'Account' if it fits better in your language",
         "settings": "Settings",
         "signin": "Sign in"
     },
@@ -17,7 +17,7 @@
         "replyAction": "Reply", "_comment": "This is a verb. Example: _Reply_ to this tweet",
         "back": "Back",
         "searchAction": "Search", 
-        "editProfile": "Edit profile",
+        "edituser": "Edit profile",
         "follow": "Follow"
     },
     "time":{

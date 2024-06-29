@@ -36,7 +36,7 @@ try {
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="/profile"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <a href="/user"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -44,7 +44,7 @@ try {
                 <a href="signin">🚪 Sign in</a>
             </div>
             <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                <img class="userPic" src="/src/images/users/guest/user.svg" alt="Guest">
                 <div>
                     <p>Guest</p>
                     <p class="subText">@guest</p>
@@ -60,8 +60,8 @@ try {
             </div>
             <div id="timelineSelect">
                 <div>
-                <a id="forYou" class="selected" href="/">For you</a>
-                <a id="following" href="following">Following</a>
+                    <a id="forYou" class="selected" href="/">For you</a>
+                    <a id="following" href="following">Following</a>
                 </div>
             </div>
             <div id="highTraffic">
@@ -102,19 +102,19 @@ try {
             <p>Who to follow</p>
             <div>
                 <div>
-                    <img class="profilePic"
-                        src="https://pbs.twimg.com/profile_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
+                    <img class="userPic"
+                        src="https://pbs.twimg.com/user_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
                     <div>
                         <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@apple</p>
                     </div>
                 </div>
-                <a class="followButton">Follow</a>
+                <a class="followButton following">Following</a>
             </div>
             <div>
                 <div>
-                    <img class="profilePic"
-                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
+                    <img class="userPic"
+                        src="https://pbs.twimg.com/user_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
                         <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
@@ -139,7 +139,7 @@ try {
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/profile"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+            <a href="/user"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
     <script>
@@ -211,7 +211,7 @@ try {
                             <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
                                 <div class="chirpInfo">
                                     <div>
-                                        <img class="profilePic" src="/src/images/profiles/guest/profile.svg" alt="Guest">
+                                        <img class="userPic" src="/src/images/users/guest/user.svg" alt="Guest">
                                         <div>
                                             <p>${chirp.user}</p>
                                             <p class="subText">@guest</p>
@@ -222,12 +222,15 @@ try {
                                     </div>
                                 </div>
                                 <pre>${chirp.chirp}</pre>
-                                <div class="chirpInteract">
-                                    <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
-                                    <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
-                                    <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
-                                </div>
                             </a>
+                            <div class="chirpInteract">
+                                <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
+                                <a href="/chirp/?id=${chirp.id}"></a>
+                                <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
+                                <a href="/chirp/?id=${chirp.id}"></a>
+                                <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
+                            </div>
+
                         `;
                         chirpsContainer.appendChild(chirpDiv);
                     });

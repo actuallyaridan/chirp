@@ -81,6 +81,11 @@
     #highTraffic {
         width: 96%;
     }
+
+    #searchMenu{
+        width: 100%;
+    }
+
     #feed,
     #feedCompose, #exploreer, #composer {
         width: 50vw;
@@ -161,7 +166,7 @@
     #composer > textarea,
     #exploreer > textarea {
         width: 100%; /* 86% width */
-        margin-top: 8px; /* Top margin */
+        margin-top: 0px; /* Top margin */
         margin-left: auto; /* Auto left margin */
         margin-right: auto; /* Auto right margin */
         display: flex;
@@ -212,15 +217,13 @@
     }
     .title{
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
     }
     .title>p{
         padding-top: 0px;
         margin-block-start: 0px;
     }
     
-    .profileBanner{
+    .userBanner{
         border-radius: 0px 0px 4px 4px;
     }
 

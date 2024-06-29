@@ -5,7 +5,7 @@
     "explore": "Utforska",
     "notifications": "Notiser",
     "messages": "Meddelanden",
-    "profile": "Profil",
+    "user": "Profil",
     "settings": "Inställningar",
     "signin": "Logga in"
     },
@@ -17,7 +17,7 @@
     "replyAction": "Svara",
     "back": "Tillbaka",
     "searchAction": "Sök",
-    "editProfile": "Redigera profil",
+    "edituser": "Redigera profil",
     "follow": "Följ"
     },
     "time":{

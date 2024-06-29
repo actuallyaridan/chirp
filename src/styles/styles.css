@@ -104,8 +104,8 @@ body {
     flex-direction: row; /* Row direction */
 }
 
-/* Styles for profile pictures */
-img.profilePic {
+/* Styles for user pictures */
+img.userPic {
     width: 48px; /* Width */
     height: 48px; /* Height */
     border-radius: 50%; /* Border radius */
@@ -150,11 +150,9 @@ a > img {
 
 /* Styles for 'exploreChirp' */
 #exploreChirp {
-    width: 100%; /* Full width */
     display: flex; /* Flex container */
-    justify-content: space-between; /* Space between */
-    margin-top: 4px;
-    margin-bottom: 12px;
+    justify-content: right; /* Space between */
+    margin: 8px;
 }
 #postReply {
     width: 100%; /* Full width */
@@ -198,6 +196,7 @@ a > img {
 
 .postChirp:hover, #saveDraftButton:hover {
     cursor: pointer; /* Pointer cursor */
+    transition: none; /* Transition */
     background-color: var(--hover-color);/* Background color on hover */
 }
 
@@ -329,8 +328,10 @@ a.followButton {
     text-align: center; /* Center alignment */
     color: var(--text-color); /* Text color */
     border-radius: 8px; /* Border radius */
-    padding: 8px; /* Padding */
+    padding: 6px; /* Padding */
     height: fit-content; /* Height based on content */
+    transition: .2s linear;
+    border: 2px solid var(--accent-color); ; /* Border color */
 }
 
 a.followButton:hover {
@@ -348,7 +349,7 @@ button.followButton {
     text-align: center; /* Center alignment */
     color: var(--text-color); /* Text color */
     border-radius: 12px; /* Border radius */
-    padding: 8px; /* Padding */
+    padding: 6px; /* Padding */
     height: fit-content; /* Height based on content */
     font-size: 1em;
 }
@@ -357,6 +358,21 @@ button.followButton:hover {
     background-color: var(--hover-color);
     transition: .2s linear;
     cursor: pointer;
+}
+
+.following {
+    border: 2px solid var(--accent-color) !important; /* Border color */
+    background-color: rgba(0, 0, 0, 0) !important; /* Background color */
+    color: var(--accent-color) !important;
+}
+
+.following:hover {
+    background-color: rgb(68, 68, 68) !important; /* Background color */
+}
+
+.disabled{
+    border: 2px solid rgb(48, 48, 48) !important; /* Border color */
+    background-color: rgb(68, 68, 68) !important; /* Background color */
 }
 
 /* Styles for menu settings */
@@ -510,16 +526,24 @@ div#iconChirp > img {
     border-radius: 8px; /* Border radius */
 }
 
+#searchMenu{
+    display: flex; /* Flex container */
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 35vw;
+}
+
 /* Styles for exploreer div */
 #exploreer {
     display: flex; /* Flex container */
-    width: 35vw; /* Width */
+    width: 100%;
     margin-bottom: 8px; /* Bottom margin */
 }
 
 /* Styles for exploreer textarea */
 #exploreer > textarea {
-    margin-top: 12px; /* Top margin */
+    margin-top: 8px; /* Top margin */
     width: 100%; /* Full width */
     height: 1.5em; /* Height */
     color-scheme: dark
@@ -532,6 +556,8 @@ div#iconChirp > img {
     font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
     border-radius: 8px; /* Border radius */
 }
+
+
 
 #replyTo{
     display: flex;
@@ -659,7 +685,7 @@ h1, h2, h3, h4{
     max-height: 10em;
 }
 
-.profileBanner{
+.userBanner{
     width: 100%;
     aspect-ratio: 3 / 1;
 }
@@ -668,19 +694,19 @@ button{
     text-align: center;
 }
 
-#profileNav{
+#userNav{
     display: flex;
     width: 100%;
 }
 
-#profileNav a{
+#userNav a{
     flex: 1;
     padding: 12px;
     text-align: center;
     text-decoration: none;
 }
 
-#profileNav a:hover{
+#userNav a:hover{
     background-color: #8b8b8b2d;
 }
 
@@ -843,4 +869,9 @@ input{
     color: white;
     border-radius: 4px;
     display: none;
+}
+
+
+.chirpClicker{
+    position: relative;
 }

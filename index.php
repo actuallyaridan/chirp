@@ -1,4 +1,5 @@
 <?php
+session_start();
 try {
     $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
 } catch (PDOException $e) {
@@ -41,13 +42,21 @@ try {
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
-                <a href="signin">🚪 Sign in</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                <a href="/signout.php">🚪 Sign Out</a>
+                <?php else: ?>
+                <a href="/signin/">🚪 Sign In</a>
+                <?php endif; ?>
             </div>
-            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="userPic" src="/src/images/users/guest/user.svg" alt="Guest">
+            <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
+                <img class="userPic"
+                    src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
+                    alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p>Guest</p>
-                    <p class="subText">@guest</p>
+                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="subText">
+                        @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
+                    </p>
                 </div>
                 <p class="settingsButton">⚙️</p>
             </button>
@@ -208,30 +217,31 @@ try {
                         chirpDiv.className = 'chirp';
                         chirpDiv.id = chirp.id;
                         chirpDiv.innerHTML = `
-                            <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
-                                <div class="chirpInfo">
+                        <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
+                            <div class="chirpInfo">
+                                <div>
+                                    <img class="userPic"
+                                        src="${chirp.profilePic ? chirp.profilePic : '/src/images/users/guest/user.svg'}"
+                                        alt="${chirp.name ? chirp.name : 'Guest'}">
                                     <div>
-                                        <img class="userPic" src="/src/images/users/guest/user.svg" alt="Guest">
-                                        <div>
-                                            <p>${chirp.user}</p>
-                                            <p class="subText">@guest</p>
-                                        </div>
-                                    </div>
-                                    <div class="timestampTimeline">
-                                        <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
+                                        <p>${chirp.name ? chirp.name : 'Guest'}</p>
+                                        <p class="subText">@${chirp.username ? chirp.username : 'guest'}</p>
                                     </div>
                                 </div>
-                                <pre>${chirp.chirp}</pre>
-                            </a>
-                            <div class="chirpInteract">
-                                <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
-                                <a href="/chirp/?id=${chirp.id}"></a>
-                                <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
-                                <a href="/chirp/?id=${chirp.id}"></a>
-                                <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
+                                                                    <div class="timestampTimeline">
+                                        <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
+                                    </div>
                             </div>
-
-                        `;
+                            <pre>${chirp.chirp}</pre>
+                        </a>
+                        <div class="chirpInteract">
+                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
+                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
+                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
+                        </div>
+                    `;
                         chirpsContainer.appendChild(chirpDiv);
                     });
 

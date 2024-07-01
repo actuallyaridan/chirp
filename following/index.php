@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +22,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Settings / Chirp</title>
+    <title>Following / Chirp</title>
 </head>
 
 <body>
@@ -35,14 +39,21 @@
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
-
-                <a href="signin">🚪 Sign in</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                <a href="/signout.php">🚪 Sign Out</a>
+                <?php else: ?>
+                <a href="/signin/">🚪 Sign In</a>
+                <?php endif; ?>
             </div>
-            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="userPic" src="/src/images/users/guest/user.svg" alt="aridan">
+            <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
+                <img class="userPic"
+                    src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
+                    alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p>Guest</p>
-                    <p class="subText">@guest</p>
+                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="subText">
+                        @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
+                    </p>
                 </div>
                 <p class="settingsButton">⚙️</p>
             </button>
@@ -53,24 +64,31 @@
             <div id="iconChirp" onclick="playChirpSound()">
          <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <div class="title">
-                <p class="selcted">Settings</p>
+            <div id="timelineSelect">
+                <a id="forYou" href="/">For you</a>
+                <a id="following" class="selcted" href="following">Following</a>
             </div>
-   <div id="exploreer">
-        <textarea maxlength="240" placeholder="Find a setting..."></textarea>
-      </div>
-      <ul>
-        <li>
-          <a href="settings/content-you-see">Content you see</a>
-          <select id="language-picker">
-            <option value="en">English</option>
-            <option value="sv-se">Svenska</option>
-            </select>
-        </li>
-      </ul>
+            <div id="chirps">
+            </div>
+            <p class="noMoreChirps">If you want to use the Following tab you need to follow people first! 😝</p>
         </div>
     </main>
     <aside id="sideBar">
+        <div id="trends">
+            <p>Trends for you</p>
+            <div>
+                <a>gay people</a>
+                <p class="subText">12 chirps</p>
+            </div>
+            <div>
+                <a>twitter</a>
+                <p class="subText">47 chirps</p>
+            </div>
+            <div>
+                <a>iphone 69</a>
+                <p class="subText">62 chirps</p>
+            </div>
+        </div>
         <div id="whotfollow">
             <p>Who to follow</p>
             <div>
@@ -97,14 +115,16 @@
                 <a class="followButton">Follow</a>
             </div>
         </div>
-        </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>
+        <div class="mobileCompose">
+            <a class="chirpMoile" href="compose">Chirp</a>
+        </div>
         <div>
-            <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
+            <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>

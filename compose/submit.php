@@ -2,30 +2,38 @@
 session_start();
 
 try {
-    /* ===== Dexrn =====
-     * This stuff should be turned into an API instead, so you can communicate from the frontend using JS...
-     * Especially the header redirect at the bottom... shouldn't the client do that upon OK????
-     * Additionally, you could set up API keys, which in my opinion should be free to all, with SOME measures in place to prevent spam and other malicious acts.
-     * also I am working on little sleep so some of this code might be shoddy.
-    */
-
-    /* ===== Dexrn =====
-     * This could very well be not the greatest place to put this (especially with how this codebase is)... but I am gonna put it here, hopefully temporarily.
-     * also, there may need to be good sanitization done with this, not too sure though.
-    */
+    // Check if the host is allowed
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
-    $allowedHosts = ['beta.chirpsocial.net','127.0.0.1:5500', '192.168.1.230:5500']; // add hosts to the variable as you see fit.
-    /* ===== Dexrn =====
-     * ^ This should probably be moved to somewhere with a more global scope, if possible.
-     * same with the $host var.
-    */
-    
+    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500']; // add hosts to the variable as you see fit.
     if ($host === "none" || !in_array($host, $allowedHosts)) {
-        header($_SERVER['SERVER_PROTOCOL'].' 400 Bad Request');
+        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request');
         exit;
     }
-    
+
+    // Check if the user is logged in
+    if (!isset($_SESSION['username'])) {
+        $_SESSION['error_message'] = "You need to be logged in to post.";
+        header('Location: /signin.php');
+        exit;
+    }
+
     $db = new PDO('sqlite:../chirp.db');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Get the user ID from the users table
+    $username = $_SESSION['username'];
+    $userStmt = $db->prepare('SELECT id FROM users WHERE username = :username');
+    $userStmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $userStmt->execute();
+    $user = $userStmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        $_SESSION['error_message'] = "User not found.";
+        header('Location: /signin.php');
+        exit;
+    }
+
+    $userId = $user['id'];
 
     // Define rate limiting parameters
     define('MAX_CHARS', 240); // Maximum characters allowed for a chirp
@@ -69,11 +77,10 @@ try {
     $stmt = $db->prepare($sql);
 
     // Bind parameters
-    $user = '@guest';
     $timestamp = time();
 
     $stmt->bindParam(':chirp', $chirpText);
-    $stmt->bindParam(':user', $user);
+    $stmt->bindParam(':user', $userId);
     $stmt->bindParam(':timestamp', $timestamp);
 
     // Execute the SQL statement
@@ -87,7 +94,7 @@ try {
 
     // Redirect to the chirp details page with the chirp ID
     header('Location: /chirp/index.php?id=' . $chirpId);
-    exit;
+    exit();
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
 }

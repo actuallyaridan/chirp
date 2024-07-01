@@ -1,32 +1,35 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-
+  
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
         crossorigin="anonymous"></script>
     <script src="/src/scripts/general.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Welcome back / Chirp</title>
+    <title>Notifications / Chirp</title>
 </head>
 
 <body>
     <header>
         <div id="desktopMenu">
             <nav>
-                <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
+         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
@@ -36,13 +39,21 @@
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
-                <a href="signin">🚪 Sign in</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                <a href="/signout.php">🚪 Sign Out</a>
+                <?php else: ?>
+                <a href="/signin/">🚪 Sign In</a>
+                <?php endif; ?>
             </div>
-            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="userPic" src="/src/images/users/guest/user.svg" alt="aridan">
+            <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
+                <img class="userPic"
+                    src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
+                    alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p>Guest</p>
-                    <p class="subText">@guest</p>
+                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="subText">
+                        @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
+                    </p>
                 </div>
                 <p class="settingsButton">⚙️</p>
             </button>
@@ -51,29 +62,18 @@
     <main>
         <div id="feed">
             <div id="iconChirp" onclick="playChirpSound()">
-                <img src="/src/images/icons/chirp.svg" alt="Chirp">
+         <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <div class="title">
-                <p class="selcted">Sign in</p>
+            <div id="timelineSelect">
+                <div>
+                    <a id="forYou" class="selcted" href="notifications.html">All</a>
+                    <a id="following">Mentions</a>
+                </div>
             </div>
-            <div id="signedOut">
-                <p>You're currently using a guest account</p>
-                <p class="subText">You can't interact with chirps or post any of your own. You can't follow accounts
-                    either.</p>
-                <p class="subText">If you have an account, you can sign in here:</p>
-                <form id="signInForm" method="post" action="/signup/signup.php">
-                    <div id="signIn">
-                        <div id="inputSignin">
-                            <div>
-                                <input type="text" id="username" name="username" placeholder="Username" required>
-                                <input type="password" id="pWord" name="pWord" placeholder="Password" required>
-                            </div>
-                            <button type="submit" class="followButton">Sign in</button>
-                        </div>
-                    </div>
-                </form>
-                <a class="subText" href="/signup/">Need to create an account instead?</a>
+            <div id="chirps">
             </div>
+            <p class="noMoreChirps">Seems like you don't have any notifications!<br>Why don't you go interact with
+                someone?</p>
         </div>
     </main>
     <aside id="sideBar">
@@ -111,8 +111,7 @@
                         src="https://pbs.twimg.com/user_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
-                        </p>
+                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@POTUS</p>
                     </div>
                 </div>
@@ -120,20 +119,18 @@
             </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
-                Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
         </div>
     </aside>
     <footer>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
-            <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
+            <a href="/notifications" class="active"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
             <a href="/user"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
-
 </body>
 
 </html>

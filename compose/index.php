@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,14 +38,21 @@
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
-
-                <a href="signin">🚪 Sign in</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                <a href="/signout.php">🚪 Sign Out</a>
+                <?php else: ?>
+                <a href="/signin/">🚪 Sign In</a>
+                <?php endif; ?>
             </div>
-            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="userPic" src="/src/images/users/guest/user.svg" alt="aridan">
+            <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
+                <img class="userPic"
+                    src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
+                    alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p>Guest</p>
-                    <p class="subText">@guest</p>
+                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="subText">
+                        @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
+                    </p>
                 </div>
                 <p class="settingsButton">⚙️</p>
             </button>
@@ -68,7 +79,7 @@
                 <div id="composer">
                     <textarea name="chirpComposeText" maxlength="240" placeholder="What's on your mind?"></textarea>
                 </div>
-                <div id="exploreChirp">
+                <div id="exploreChirp" class="searchButtons">
                     <button type="button" class="cancelChirp" onclick="slideDown()">Cancel</button>
                     <button type="submit" class="postChirp" onclick="slideDownPost()">Chirp</button>
                 </div>

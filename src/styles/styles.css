@@ -875,3 +875,8 @@ input{
 .chirpClicker{
     position: relative;
 }
+
+.searchButtons{
+    width: 100%;
+    justify-content: space-between !important;
+}

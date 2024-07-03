@@ -30,7 +30,7 @@
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="/user"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+            <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -61,7 +61,7 @@
     </main>
     <aside id="sideBar">
         <div id="trends">
-            <p>Trends for you</p>
+            <p>Trends</p>
             <div>
                 <a>gay people</a>
                 <p class="subText">12 chirps</p>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div id="whotfollow">
-            <p>Who to follow</p>
+            <p>Suggested accounts</p>
             <div>
                 <div>
                     <img class="userPic"
@@ -102,7 +102,8 @@
             </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
+<br><br>You're running: Chirp Beta 0.0.1b</p>
         </div>
     </aside>
     <footer>
@@ -111,7 +112,7 @@
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/user"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+    <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

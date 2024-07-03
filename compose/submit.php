@@ -13,7 +13,7 @@ try {
     // Check if the user is logged in
     if (!isset($_SESSION['username'])) {
         $_SESSION['error_message'] = "You need to be logged in to post.";
-        header('Location: /signin.php');
+        header('Location: /signin/');
         exit;
     }
 
@@ -29,7 +29,7 @@ try {
 
     if (!$user) {
         $_SESSION['error_message'] = "User not found.";
-        header('Location: /signin.php');
+        header('Location: /signin/');
         exit;
     }
 

@@ -880,3 +880,14 @@ input{
     width: 100%;
     justify-content: space-between !important;
 }
+
+p.usernameMenu{
+    display: flex !important;
+    align-items: center;
+    justify-content: left;
+}
+
+p.usernameMenu > img{
+    display: flex !important;
+    padding-left: 4px;
+}

@@ -34,7 +34,7 @@
 
     "forYou": "For you",
     "following": "Following",
-    "whoToFollow": "Who to follow",
+    "whoToFollow": "Suggested accounts",
     "like": "like", "_comment": "This is an ammount. Example: 1 _like_",
     "likes": "likes",
     "rechirp": "rechirp", "_comment": "This is an ammount. Example: 1 _rechirp_",
@@ -42,9 +42,13 @@
     "replyTo": "Reply to",
     "reply": "reply", "_comment": "This is an ammount. Example: 1 _reply_",
     "replies": "replies",
-    "trendsForYou": "Trends for you",
+    "trendsForYou": "Trends",
     "highTrafficMessage": "We're experiencing very high traffic right now.\nchirp is trying his best, but if Chirp slows down, don't panic!",
-    "inspiredByTwitter": "Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.",
+    "inspiredByTwitter": "Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
+
+You're running: Chirp Beta 0.0.1b .
+
+You're running: Chirp Beta 0.0.1b ",
     "postedAt": "Posted at",
 
     "placeholder": "Find a message...",

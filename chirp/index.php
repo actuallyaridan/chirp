@@ -24,7 +24,7 @@ try {
         if ($post) {
             // Fetch user details from users table
             $userId = $post['user'];
-            $userQuery = 'SELECT username, name, profilePic FROM users WHERE id = :id';
+            $userQuery = 'SELECT username, name, profilePic, isVerified FROM users WHERE id = :id';
             $userStmt = $db->prepare($userQuery);
             $userStmt->bindParam(':id', $userId, PDO::PARAM_INT);
             $userStmt->execute();
@@ -32,11 +32,19 @@ try {
 
             if ($userData) {
                 $user = htmlspecialchars($userData['username']);
-                $profilePic = htmlspecialchars($userData['profilePic']);
+                $profilePic = !empty($userData['profilePic']) ? htmlspecialchars($userData['profilePic']) : '/src/images/users/guest/user.svg';
                 $name = htmlspecialchars($userData['name']);
+                
+                // Plain text name for the title (without verification tick)
+                $plainName = $name;
+
+                // Check if the user is verified and add the verification icon in the content
+                if ($userData['isVerified']) {
+                    $name .= ' <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">';
+                }
             }
 
-            $title = "$name on Chirp: \"" . htmlspecialchars($post['chirp']) . "\" / Chirp";
+            $title = "$plainName on Chirp: \"" . htmlspecialchars($post['chirp']) . "\" / Chirp";
             $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
             // Convert newlines to <br> tags
             $status = nl2br(htmlspecialchars($post['chirp']));
@@ -54,16 +62,15 @@ try {
     <title><?php echo isset($title) ? $title : 'Chirp'; ?></title>
     <meta charset="UTF-8">
     <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-  
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
         crossorigin="anonymous"></script>
     <script src="/src/scripts/general.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -79,7 +86,7 @@ try {
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="/user"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+            <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -95,7 +102,11 @@ try {
                     src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
                     alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="usernameMenu"><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
+                        <?php if (isset($_SESSION['is_verified']) && $_SESSION['is_verified']): ?>
+                            <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
+                        <?php endif; ?>
+                    </p>
                     <p class="subText">
                         @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
                     </p>
@@ -130,7 +141,7 @@ try {
                                 src="<?php echo isset($profilePic) ? htmlspecialchars($profilePic) : '/src/images/users/guest/user.svg'; ?>"
                                 alt="<?php echo isset($user) ? htmlspecialchars($user) : 'Guest'; ?>">
                             <div>
-                                <p><?php echo isset($name) ? htmlspecialchars($name) : 'Guest'; ?></p>
+                                <p><?php echo isset($name) ? $name : 'Guest'; ?></p>
                                 <p class="subText">@<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>
                                 </p>
                             </div>
@@ -172,7 +183,7 @@ try {
 
     <aside id="sideBar">
         <div id="trends">
-            <p>Trends for you</p>
+            <p>Trends</p>
             <div>
                 <a>gay people</a>
                 <p class="subText">12 chirps</p>
@@ -187,7 +198,7 @@ try {
             </div>
         </div>
         <div id="whotfollow">
-            <p>Who to follow</p>
+            <p>Suggested accounts</p>
             <div>
                 <div>
                     <img class="userPic"
@@ -215,7 +226,9 @@ try {
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
-                Corp is licensed under CC-BY 4.0.</p>
+                Corp is licensed under CC-BY 4.0.
+
+<br><br>You're running: Chirp Beta 0.0.1b</p>
         </div>
     </aside>
     <footer>
@@ -227,7 +240,7 @@ try {
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/user"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+    <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
     <script src="/src/scripts/general.js"></script>

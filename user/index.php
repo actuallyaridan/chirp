@@ -1,5 +1,33 @@
 <?php
 session_start();
+
+// Check if 'id' parameter is provided in the URL
+if (!isset($_GET['id'])) {
+    // Handle error if id parameter is missing
+    echo "User ID not specified.";
+    exit;
+}
+
+// Sanitize the input to prevent SQL injection
+$id = htmlspecialchars($_GET['id']);
+
+// Establish a connection to SQLite database
+$db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
+
+// Prepare SQL statement to fetch user details based on username
+$stmt = $db->prepare('SELECT * FROM users WHERE username = :username');
+$stmt->bindParam(':username', $id);
+$stmt->execute();
+
+// Fetch user data
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Check if user exists
+if (!$user) {
+    // Handle case where user is not found
+    echo "User not found.";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +51,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Home / Chirp</title>
+    <title>Profile / Chirp</title>
 </head>
 
 <body>
@@ -35,7 +63,7 @@ session_start();
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="/user"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -51,7 +79,11 @@ session_start();
                     src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
                     alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="usernameMenu"><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
+                        <?php if (isset($_SESSION['is_verified']) && $_SESSION['is_verified']): ?>
+                            <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
+                        <?php endif; ?>
+                    </p>
                     <p class="subText">
                         @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
                     </p>
@@ -70,30 +102,33 @@ session_start();
                         src="/src/images/icons/back.svg"> Back</button>
             </div>
             <div id="chirps">
-                <img class="userBanner" src="/src/images/users/chirp/banner.png">
+                <img class="userBanner"
+                    src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['userBanner']) : '/src/images/users/chirp/banner.png'; ?>">
                 <div class="account">
                     <div class="accountInfo">
                         <div>
-                            <img class="userPic" src="/src/images/users/chirp/user.svg" alt="Guest">
+                            <img class="userPic"
+                                src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>"
+                                alt="<?php echo htmlspecialchars($user['name']); ?>">
                             <div>
-                                <p>Chirp
-                                </p>
-                                <p class="subText">@chirp</p>
+                                <p><?php echo htmlspecialchars($user['name']); ?></p>
+                                <p class="subText">@<?php echo htmlspecialchars($user['username']); ?></p>
                             </div>
                         </div>
                         <div class="timestampTimeline">
+                            <!-- Edit profile button or other actions -->
                             <a class="followButton">Edit profile</a>
                         </div>
                     </div>
                     <p>
-                        This is a bio where you describe your account using at most 120 characters.
+                        <?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'This is a bio where you describe your account using at most 120 characters.'; ?>
                     </p>
                     <div id="accountStats">
                         <p class="subText">
-                            12 following
+                            <?php echo isset($user['following']) ? htmlspecialchars($user['following']) . ' following' : '0 following'; ?>
                         </p>
                         <p class="subText">
-                            2 followers
+                            <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
                         </p>
                     </div>
                 </div>
@@ -160,7 +195,9 @@ session_start();
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
-                Corp is licensed under CC-BY 4.0.</p>
+                Corp is licensed under CC-BY 4.0.
+
+<br><br>You're running: Chirp Beta 0.0.1b</p>
         </div>
     </aside>
     <footer>
@@ -172,7 +209,7 @@ session_start();
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/user" class="active"><img src="/src/images/icons/person.svg" alt="user"></a>
+            <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

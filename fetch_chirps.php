@@ -5,7 +5,7 @@ try {
     $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
     $limit = 6;
 
-    $query = 'SELECT chirps.*, users.username, users.name, users.profilePic 
+    $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 
               FROM chirps 
               INNER JOIN users ON chirps.user = users.id 
               ORDER BY chirps.timestamp DESC 
@@ -22,6 +22,7 @@ try {
         $row['username'] = htmlspecialchars($row['username']);
         $row['name'] = htmlspecialchars($row['name']);
         $row['profilePic'] = htmlspecialchars($row['profilePic']);
+        $row['isVerified'] = (bool)$row['isVerified'];
         $chirps[] = $row;
     }
 

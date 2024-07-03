@@ -34,7 +34,7 @@ session_start();
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-                <a href="/user"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+            <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -50,7 +50,11 @@ session_start();
                     src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
                     alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?></p>
+                    <p class="usernameMenu"><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
+                        <?php if (isset($_SESSION['is_verified']) && $_SESSION['is_verified']): ?>
+                            <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
+                        <?php endif; ?>
+                    </p>
                     <p class="subText">
                         @<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>
                     </p>
@@ -75,7 +79,7 @@ session_start();
     </main>
     <aside id="sideBar">
         <div id="trends">
-            <p>Trends for you</p>
+            <p>Trends</p>
             <div>
                 <a>gay people</a>
                 <p class="subText">12 chirps</p>
@@ -90,7 +94,7 @@ session_start();
             </div>
         </div>
         <div id="whotfollow">
-            <p>Who to follow</p>
+            <p>Suggested accounts</p>
             <div>
                 <div>
                     <img class="userPic"
@@ -116,7 +120,8 @@ session_start();
             </div>
         </div>
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.</p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
+<br><br>You're running: Chirp Beta 0.0.1b</p>
         </div>
     </aside>
     <footer>
@@ -128,7 +133,7 @@ session_start();
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-            <a href="/user"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+    <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

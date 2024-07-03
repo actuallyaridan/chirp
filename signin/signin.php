@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['profile_pic'] = $user['profilePic']; // Fetch profile pic path
+            $_SESSION['is_verified'] = $user['isVerified']; // Fetch verification status
             
             // Redirect to the home page or user dashboard
             header('Location: /');

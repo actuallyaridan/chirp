@@ -389,6 +389,19 @@ button.followButton:hover {
     margin-bottom: 72px; /* Bottom margin */
 }
 
+.settingsList {
+    
+    list-style-type: none; /* List style type */
+    margin-left: 0;
+    border: none;
+    flex-direction: column; /* Column direction */
+    background-color: #8b8b8b2d; /* Background color */
+    padding: 12px; /* Padding */
+    border-radius: 12px; /* Border radius */
+    width: 100%; /* Width */
+    margin-bottom: 8px; /* Bottom margin */
+}
+
 /* Visible style */
 .visible {
     display: flex !important; /* Display as flex */
@@ -890,4 +903,12 @@ p.usernameMenu{
 p.usernameMenu > img{
     display: flex !important;
     padding-left: 4px;
+}
+
+#language-picker {
+    display: flex;
+    border: none;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 4px;
 }

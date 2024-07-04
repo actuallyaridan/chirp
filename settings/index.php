@@ -74,13 +74,16 @@ session_start();
    <div id="exploreer">
         <textarea maxlength="240" placeholder="Find a setting..."></textarea>
       </div>
-      <ul>
+      <ul class="settingsList">
         <li>
-          <a href="settings/content-you-see">Content you see</a>
-          <select id="language-picker">
+        
+        <a href="settings/content-you-see">Content you see</a>
+        <hr>
+                        <select id="language-picker">
             <option value="en">English</option>
             <option value="sv-se">Svenska</option>
             </select>
+          
         </li>
       </ul>
         </div>

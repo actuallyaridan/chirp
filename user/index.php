@@ -153,7 +153,7 @@ $db = null;
                     <a id="likesNav">Likes</a>
                 </div>
             </div>
-            <div id="chirps" data-offset="0">
+            <div id="posts" data-offset="0">
                 <!-- Chirps will be loaded here -->
             </div>
             <div id="noMoreChirps">
@@ -283,7 +283,7 @@ $db = null;
     function loadChirps() {
     if (loadingChirps) return; // If already loading, exit
 
-    const chirpsContainer = document.getElementById('chirps');
+    const chirpsContainer = document.getElementById('posts');
     const offset = parseInt(chirpsContainer.getAttribute('data-offset'));
 
     loadingChirps = true; // Set loading flag
@@ -328,7 +328,7 @@ $db = null;
                     chirpsContainer.appendChild(chirpDiv);
                 });
 
-                chirpsContainer.setAttribute('data-offset', offset + 12); // Correctly increment the offset
+                chirpsContainer.setAttribute('data-offset', offset + 12);
 
                 updatePostedDates();
                 twemoji.parse(chirpsContainer);

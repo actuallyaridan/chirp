@@ -24,7 +24,7 @@ try {
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $array = json_decode($result[$column], true);
+    $array = json_decode($result[$column], true) ?: [];
 
     if (in_array($userId, $array)) {
         // Remove user ID from the array
@@ -45,11 +45,7 @@ try {
     $stmt->execute();
 
     // Fetch updated counts
-    $stmt = $db->prepare("SELECT COUNT(*) FROM chirps WHERE id = :chirpId AND JSON_CONTAINS($column, :userId, '$')");
-    $stmt->bindParam(':chirpId', $chirpId, PDO::PARAM_INT);
-    $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
-    $stmt->execute();
-    $count = $stmt->fetchColumn();
+    $count = count($array);
 
     // Prepare response
     $response = [

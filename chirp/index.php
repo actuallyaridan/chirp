@@ -199,32 +199,33 @@ try {
                             <div>
                                 <button type="button" class="reply">
                                     <img alt="Reply" src="/src/images/icons/reply.svg"><br>
-                                    <?php echo $reply_count; ?> replies
+                                    <?php echo ($reply_count == 1) ? '1 reply' : $reply_count . ' replies'; ?>
                                 </button>
-                                
+
                                 <?php if ($rechirped): ?>
                                 <button type="button" class="rechirp">
                                     <img alt="Rechirped" src="/src/images/icons/rechirped.svg"><br>
-                                    <?php echo $rechirp_count; ?> rechirps
+                                    <?php echo ($rechirp_count == 1) ? '1 rechirp' : $rechirp_count . ' rechirps'; ?>
                                 </button>
                                 <?php else: ?>
                                 <button type="button" class="rechirp">
                                     <img alt="Rechirp" src="/src/images/icons/rechirp.svg"><br>
-                                    <?php echo $rechirp_count; ?> rechirps
+                                    <?php echo ($rechirp_count == 1) ? '1 rechirp' : $rechirp_count . ' rechirps'; ?>
                                 </button>
                                 <?php endif; ?>
 
                                 <?php if ($liked): ?>
                                 <button type="button" class="like">
                                     <img alt="Liked" src="/src/images/icons/liked.svg"><br>
-                                    <?php echo $like_count; ?> likes
+                                    <?php echo ($like_count == 1) ? '1 like' : $like_count . ' likes'; ?>
                                 </button>
                                 <?php else: ?>
                                 <button type="button" class="like">
                                     <img alt="Like" src="/src/images/icons/like.svg"><br>
-                                    <?php echo $like_count; ?> likes
+                                    <?php echo ($like_count == 1) ? '1 like' : $like_count . ' likes'; ?>
                                 </button>
                                 <?php endif; ?>
+
                             </div>
                         </div>
                         <form method="POST" action="/chirp/submit.php?id=<?php echo htmlspecialchars($postId); ?>"

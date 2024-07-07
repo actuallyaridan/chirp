@@ -6,8 +6,7 @@ try {
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
     $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500']; // add hosts to the variable as you see fit.
     if ($host === "none" || !in_array($host, $allowedHosts)) {
-        $_SESSION['error_message'] = "Invalid host.";
-        header('Location: /');
+        header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request');
         exit;
     }
 
@@ -60,12 +59,6 @@ try {
     $_SESSION['attempt_count'] = 0;
 
     // Check if chirp text is empty or exceeds maximum allowed characters
-    if (!isset($_POST['chirpComposeText'])) {
-        $_SESSION['error_message'] = "Invalid form submission.";
-        header('Location: /');
-        exit;
-    }
-
     $chirpText = trim($_POST['chirpComposeText']);
     if (empty($chirpText)) {
         $_SESSION['error_message'] = "Chirp cannot be empty.";
@@ -80,14 +73,17 @@ try {
     }
 
     // Prepare SQL statement for inserting chirp into database
-    $sql = "INSERT INTO chirps (chirp, user, timestamp) VALUES (:chirp, :user, :timestamp)";
+    $sql = "INSERT INTO chirps (chirp, user, timestamp, isReply) VALUES (:chirp, :user, :timestamp, :isReply)";
     $stmt = $db->prepare($sql);
 
     // Bind parameters
     $timestamp = time();
+    $isReply = 'yes'; // Set isReply to 'yes' for the reply
+
     $stmt->bindParam(':chirp', $chirpText);
     $stmt->bindParam(':user', $userId);
     $stmt->bindParam(':timestamp', $timestamp);
+    $stmt->bindParam(':isReply', $isReply);
 
     // Execute the SQL statement
     $stmt->execute();
@@ -98,16 +94,41 @@ try {
     // Update last submission time in session
     $_SESSION['last_submission_time'] = $currentTime;
 
+    // Retrieve the ID of the main post from query parameters
+    $mainPostId = isset($_GET['id']) ? $_GET['id'] : null;
+
+    if ($mainPostId === null) {
+        $_SESSION['error_message'] = "Main post ID not provided.";
+        header('Location: /');
+        exit;
+    }
+
+    // Fetch current replies array from the main post
+    $fetchStmt = $db->prepare('SELECT replies FROM chirps WHERE id = :id');
+    $fetchStmt->bindParam(':id', $mainPostId, PDO::PARAM_INT);
+    $fetchStmt->execute();
+    $currentReplies = $fetchStmt->fetchColumn();
+
+    // Decode JSON array of replies (assuming 'replies' column is JSON formatted)
+    $repliesArray = json_decode($currentReplies);
+
+    // Add the new reply ID to the array
+    $repliesArray[] = $chirpId;
+
+    // Encode back to JSON
+    $updatedReplies = json_encode($repliesArray);
+
+    // Update the main post with the updated replies array
+    $updateStmt = $db->prepare('UPDATE chirps SET replies = :replies WHERE id = :id');
+    $updateStmt->bindParam(':replies', $updatedReplies, PDO::PARAM_STR);
+    $updateStmt->bindParam(':id', $mainPostId, PDO::PARAM_INT);
+    $updateStmt->execute();
+
     // Redirect to the chirp details page with the chirp ID
     header('Location: /chirp/index.php?id=' . $chirpId);
     exit();
+
 } catch (PDOException $e) {
-    $_SESSION['error_message'] = 'Database error: ' . $e->getMessage();
-    header('Location: /');
-    exit();
-} catch (Exception $e) {
-    $_SESSION['error_message'] = 'General error: ' . $e->getMessage();
-    header('Location: /');
-    exit();
+    echo 'Connection failed: ' . $e->getMessage();
 }
 ?>

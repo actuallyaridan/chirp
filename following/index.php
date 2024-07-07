@@ -22,7 +22,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Following / Chirp</title>
+    <title>Following - Chirp</title>
 </head>
 
 <body>
@@ -34,15 +34,17 @@ session_start();
                 <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
-            <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <a
+                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                    src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
-                <a href="/signout.php">🚪 Sign Out</a>
+                <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
-                <a href="/signin/">🚪 Sign In</a>
+                <a href="/signin/">🚪 Sign in</a>
                 <?php endif; ?>
             </div>
             <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
@@ -64,13 +66,19 @@ session_start();
         </div>
     </header>
     <main>
-        <div id="feed">
+    <div id="feed">
             <div id="iconChirp" onclick="playChirpSound()">
-         <img src="/src/images/icons/chirp.svg" alt="Chirp">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div id="timelineSelect">
-                <a id="forYou" href="/">For you</a>
-                <a id="following" class="selcted" href="following">Following</a>
+                <div>
+                    <a id="forYou" href="/">For you</a>
+                    <a id="following" class="selected" href="following">Following</a>
+                </div>
+            </div>
+            <div id="highTraffic">
+                <p>We're experiencing very high traffic right now.<br>Chirpie is trying his best, but if Chirp slows
+                    down, don't panic!</p>
             </div>
             <div id="chirps">
             </div>
@@ -98,7 +106,7 @@ session_start();
             <div>
                 <div>
                     <img class="userPic"
-                        src="https://pbs.twimg.com/user_images/1717013664954499072/2dcJ0Unw_400x400.png" alt="Apple">
+                        src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png" alt="Apple">
                     <div>
                         <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
                         <p class="subText">@apple</p>
@@ -109,7 +117,7 @@ session_start();
             <div>
                 <div>
                     <img class="userPic"
-                        src="https://pbs.twimg.com/user_images/1380530524779859970/TfwVAbyX_400x400.jpg"
+                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
                         alt="President Biden">
                     <div>
                         <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
@@ -121,7 +129,7 @@ session_start();
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
-<br><br>You're running: Chirp Beta 0.0.1b</p>
+<br><br>You're running: Chirp Beta 0.0.4b</p>
         </div>
     </aside>
     <footer>
@@ -133,7 +141,9 @@ session_start();
             <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
-    <a href="/user/?id=<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>"><img src="/src/images/icons/person.svg" alt="Profile"></a>
+            <a
+                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                    src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
 </body>

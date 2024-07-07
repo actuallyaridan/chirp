@@ -12,8 +12,11 @@ try {
         $password = $_POST['pword'];
         $passwordConfirm = $_POST['pwordConfirm'];
 
+        // Convert invite code to uppercase
+        $code = strtoupper($code);
+
         // Fetch invite details including reservedFor
-        $stmt = $db->prepare("SELECT id, reservedFor FROM invites WHERE invite = :code");
+        $stmt = $db->prepare("SELECT id, reservedFor FROM invites WHERE UPPER(invite) = :code");
         $stmt->execute(['code' => $code]);
         $invite = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -24,23 +27,23 @@ try {
         }
 
         // Check if the invite is reserved for a specific username
-        if ($invite['reservedFor'] !== null && $invite['reservedFor'] !== $username) {
+        if ($invite['reservedFor'] !== null && strtolower($invite['reservedFor']) !== strtolower($username)) {
             echo json_encode(['error' => 'Invite not reserved for this username']);
             exit;
         }
 
         // Check if username is in the reservedFor column for any invite
-        $stmt = $db->prepare("SELECT COUNT(*) as count FROM invites WHERE reservedFor = :username");
+        $stmt = $db->prepare("SELECT COUNT(*) as count FROM invites WHERE LOWER(reservedFor) = LOWER(:username)");
         $stmt->execute(['username' => $username]);
         $reservedForCount = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($reservedForCount['count'] > 0 && $invite['reservedFor'] !== $username) {
+        if ($reservedForCount['count'] > 0 && strtolower($invite['reservedFor']) !== strtolower($username)) {
             echo json_encode(['error' => 'This username is reserved.']);
             exit;
         }
 
         // Check if username already exists
-        $stmt = $db->prepare("SELECT id FROM users WHERE username = :username");
+        $stmt = $db->prepare("SELECT id FROM users WHERE LOWER(username) = LOWER(:username)");
         $stmt->execute(['username' => $username]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 

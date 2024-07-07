@@ -1,4 +1,13 @@
 <?php
+// Set session cookie parameters
+session_set_cookie_params([
+    'lifetime' => 604800, // 7 days in seconds
+    'path' => '/', // Will use the same path
+    'domain' => '', // Will use the same domain
+    'secure' => true, 
+    'httponly' => true, // Protects against XSS attacks
+    'samesite' => 'Lax' 
+]);
 session_start();
 
 // Function to connect to the database
@@ -14,6 +23,7 @@ function verifyPassword($password, $hash) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve and trim user input
     $username = trim($_POST['username']);
     $password = trim($_POST['pWord']);
 
@@ -22,18 +32,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Please fill in both fields.');
     }
 
+    // Convert username to lowercase for case-insensitive comparison
+    $usernameLower = strtolower($username);
+
     // Connect to the database
     try {
         $db = getDatabaseConnection();
 
-        // Prepare and execute the query
-        $stmt = $db->prepare('SELECT * FROM users WHERE username = :username');
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        // Prepare and execute the query with case-insensitive comparison
+        $stmt = $db->prepare('SELECT * FROM users WHERE LOWER(username) = :username');
+        $stmt->bindParam(':username', $usernameLower, PDO::PARAM_STR);
         $stmt->execute();
 
+        // Fetch user data from the database
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Check if the user exists and the password is correct
+        // Check if the user exists and if the password is correct
         if ($user && verifyPassword($password, $user['password_hash'])) {
             // Password is correct, start a new session
             $_SESSION['user_id'] = $user['id'];
@@ -50,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo 'Invalid username or password.';
         }
     } catch (PDOException $e) {
+        // Handle database errors
         echo 'Database error: ' . $e->getMessage();
     }
 } else {

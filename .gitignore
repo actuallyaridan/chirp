@@ -21,3 +21,4 @@ Temporary Items
 .apdisk
 .vscode
 *.db
+/src/images/users/*

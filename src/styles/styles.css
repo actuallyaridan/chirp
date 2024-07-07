@@ -290,7 +290,7 @@ main {
     text-align: center; /* Center alignment */
     width: 50%; /* 50% width */
     padding: 12px; /* Padding */
-    border-bottom: 1px rgb(56, 56, 56) solid; /* Bottom border */
+    border-bottom: 2px rgb(56, 56, 56) solid; /* Bottom border */
     border-top: none; /* No top border */
 }
 
@@ -563,6 +563,7 @@ div#iconChirp > img {
     display: flex;
     align-items: center;
     margin: auto;
+    flex-direction: row !important;
 }
 
 #replyTo>.postChirp{
@@ -704,6 +705,7 @@ button{
     padding: 12px;
     text-align: center;
     text-decoration: none;
+    border-bottom: 2px solid #8b8b8b2d;
 }
 
 #userNav a:hover{

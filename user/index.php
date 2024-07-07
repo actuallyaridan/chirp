@@ -281,83 +281,115 @@ $db = null;
     }
 
     function loadChirps() {
-        if (loadingChirps) return; // If already loading, exit
+    if (loadingChirps) return; // If already loading, exit
 
-        const chirpsContainer = document.getElementById('chirps');
-        let offset = parseInt(chirpsContainer.getAttribute('data-offset'));
+    const chirpsContainer = document.getElementById('chirps');
+    const offset = parseInt(chirpsContainer.getAttribute('data-offset'));
 
-        // Check if offset is a valid number, if not, initialize it to 0
-        if (isNaN(offset)) {
-            offset = 0;
-        }
+    loadingChirps = true; // Set loading flag
+    showLoadingSpinner(); // Show loading spinner
 
-        loadingChirps = true; // Set loading flag
-        showLoadingSpinner(); // Show loading spinner
-
-        setTimeout(() => {
-            fetch(`/user/fetch_chirps.php?offset=${offset}&user=<?php echo $user['id']; ?>`)
-                .then(response => response.json())
-                .then(chirps => {
-                    chirps.forEach(chirp => {
-                        const chirpDiv = document.createElement('div');
-                        chirpDiv.className = 'chirp';
-                        chirpDiv.id = chirp.id;
-                        chirpDiv.innerHTML = `
-                    <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
-                        <div class="chirpInfo">
-                            <div>
-                                <img class="userPic"
-                                    src="${chirp.profilePic ? chirp.profilePic : '/src/images/users/guest/user.svg'}"
-                                    alt="${chirp.name ? chirp.name : 'Guest'}">
+    setTimeout(() => {
+        fetch(`/user/fetch_chirps.php?offset=${offset}&user=<?php echo $user['id']; ?>`)
+            .then(response => response.json())
+            .then(chirps => {
+                chirps.forEach(chirp => {
+                    const chirpDiv = document.createElement('div');
+                    chirpDiv.className = 'chirp';
+                    chirpDiv.id = chirp.id;
+                    chirpDiv.innerHTML = `
+                        <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
+                            <div class="chirpInfo">
                                 <div>
-                                    <p>${chirp.name ? chirp.name : 'Guest'}
-                                        ${chirp.isVerified ? '<img class="verified" src="/src/images/icons/verified.svg" alt="Verified">' : ''}
-                                    </p>
-                                    <p class="subText">@${chirp.username ? chirp.username : 'guest'}</p>
+                                    <img class="userPic"
+                                        src="${chirp.profilePic ? chirp.profilePic : '/src/images/users/guest/user.svg'}"
+                                        alt="${chirp.name ? chirp.name : 'Guest'}">
+                                    <div>
+                                        <p>${chirp.name ? chirp.name : 'Guest'}
+                                            ${chirp.isVerified ? '<img class="verified" src="/src/images/icons/verified.svg" alt="Verified">' : ''}
+                                        </p>
+                                        <p class="subText">@${chirp.username ? chirp.username : 'guest'}</p>
+                                    </div>
+                                </div>
+                                <div class="timestampTimeline">
+                                    <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
                                 </div>
                             </div>
-                            <div class="timestampTimeline">
-                                <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
-                            </div>
+                            <pre>${chirp.chirp}</pre>
+                        </a>
+                        <div class="chirpInteract">
+                            <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> ${chirp.reply_count}</button>
+                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <button type="button" class="rechirp" onClick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> ${chirp.rechirp_count}</button>
+                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <button type="button" class="like" onClick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> ${chirp.like_count}</button>
                         </div>
-                        <pre>${chirp.chirp}</pre>
-                    </a>
-                    <div class="chirpInteract">
-                        <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> 0</button>
-                        <a href="/chirp/?id=${chirp.id}"></a>
-                        <button type="button" class="rechirp"><img alt="Rechirp" src="/src/images/icons/rechirp.svg"> 0</button>
-                        <a href="/chirp/?id=${chirp.id}"></a>
-                        <button type="button" class="like"><img alt="Like" src="/src/images/icons/like.svg"> 0</button>
-                    </div>
-                `;
-                        chirpsContainer.appendChild(chirpDiv);
-                    });
-
-                    chirpsContainer.setAttribute('data-offset', offset + 12); // Increment the offset by 12
-
-                    updatePostedDates();
-
-                    twemoji.parse(chirpsContainer);
-                })
-                .catch(error => {
-                    console.error('Error fetching chirps:', error);
-                })
-                .finally(() => {
-                    loadingChirps = false; // Reset loading flag
-                    hideLoadingSpinner(); // Hide loading spinner
+                    `;
+                    chirpsContainer.appendChild(chirpDiv);
                 });
-        }, 750);
-    }
 
-    loadChirps();
+                chirpsContainer.setAttribute('data-offset', offset + 12); // Correctly increment the offset
 
-    window.addEventListener('scroll', () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            loadChirps();
+                updatePostedDates();
+                twemoji.parse(chirpsContainer);
+            })
+            .catch(error => {
+                console.error('Error fetching chirps:', error);
+            })
+            .finally(() => {
+                loadingChirps = false; // Reset loading flag
+                hideLoadingSpinner(); // Hide loading spinner
+            });
+    }, 450);
+}
+
+function updateChirpInteraction(chirpId, action, button) {
+    fetch(`/interact_chirp.php`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ chirpId, action })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const countElement = button.querySelector('span');
+            const currentCount = parseInt(countElement.textContent);
+            if (action === 'like') {
+                button.querySelector('img').src = data.liked ? '/src/images/icons/liked.svg' : '/src/images/icons/like.svg';
+                countElement.textContent = data.like_count;
+            } else if (action === 'rechirp') {
+                button.querySelector('img').src = data.rechirped ? '/src/images/icons/rechirped.svg' : '/src/images/icons/rechirp.svg';
+                countElement.textContent = data.rechirp_count;
+            }
+        } else if (data.error === 'not_signed_in') {
+            window.location.href = '/signin/';
         }
+    })
+    .catch(error => {
+        console.error('Error updating interaction:', error);
     });
+}
 
-    setInterval(updatePostedDates, 1000);
+loadChirps();
+
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        loadChirps();
+    }
+});
+
+setInterval(updatePostedDates, 1000);
+
+<?php
+if (isset($_SESSION['error_message'])) {
+    echo 'console.error(' . json_encode($_SESSION['error_message']) . ');';
+    unset($_SESSION['error_message']); // Clear the error message after displaying it
+}
+?>
+
+
     </script>
 
 </body>

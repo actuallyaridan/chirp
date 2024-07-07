@@ -15,6 +15,7 @@ try {
               FROM chirps 
               INNER JOIN users ON chirps.user = users.id 
               WHERE chirps.user = :user_id 
+              AND COALESCE(chirps.isReply, "") != "yes" 
               ORDER BY chirps.timestamp DESC 
               LIMIT :limit OFFSET :offset';
     $stmt = $db->prepare($query);
@@ -31,6 +32,20 @@ try {
         $row['name'] = htmlspecialchars($row['name']);
         $row['profilePic'] = htmlspecialchars($row['profilePic']);
         $row['isVerified'] = (bool)$row['isVerified'];
+        
+        // Count likes, rechirps, and replies
+        $likes = json_decode($row['likes'], true);
+        $rechirps = json_decode($row['rechirps'], true);
+
+        $row['like_count'] = count($likes);
+        $row['rechirp_count'] = count($rechirps);
+        $row['reply_count'] = count(json_decode($row['replies'], true));
+        
+        // Check if current user liked or rechirped
+        $currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        $row['liked_by_current_user'] = $currentUserId && in_array($currentUserId, $likes);
+        $row['rechirped_by_current_user'] = $currentUserId && in_array($currentUserId, $rechirps);
+
         $chirps[] = $row;
     }
 

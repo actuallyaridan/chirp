@@ -271,7 +271,7 @@ try {
                 loadingChirps = false; // Reset loading flag
                 hideLoadingSpinner(); // Hide loading spinner
             });
-    }, 750);
+    }, 450);
 }
 
 function updateChirpInteraction(chirpId, action, button) {

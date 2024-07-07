@@ -28,13 +28,16 @@ try {
         $row['profilePic'] = htmlspecialchars($row['profilePic']);
         $row['isVerified'] = (bool)$row['isVerified'];
         
+        // Decode likes and rechirps
         $likes = json_decode($row['likes'], true);
         $rechirps = json_decode($row['rechirps'], true);
 
+        // Count likes, rechirps, and replies
         $row['like_count'] = count($likes);
         $row['rechirp_count'] = count($rechirps);
         $row['reply_count'] = count(json_decode($row['replies'], true));
         
+        // Check if current user liked or rechirped
         $row['liked_by_current_user'] = $currentUserId && in_array($currentUserId, $likes);
         $row['rechirped_by_current_user'] = $currentUserId && in_array($currentUserId, $rechirps);
 

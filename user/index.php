@@ -2,7 +2,7 @@
 session_start();
 
 // Check if 'id' parameter is provided in the URL
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 if (!$id) {
     // Handle error if id parameter is missing or invalid
     echo "User ID not specified or invalid.";

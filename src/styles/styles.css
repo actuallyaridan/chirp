@@ -15,12 +15,14 @@
 @font-face {
     font-family: Jost; /* Font family */
     src: url(fonts/Jost.ttf); /* Font source */
+    font-display: swap;
 }
 
 /* Font face */
 @font-face {
     font-family: Outfit; /* Font family */
     src: url(fonts/Satoshi.ttf); /* Font source */
+    font-display: swap;
 }
 
 :root{

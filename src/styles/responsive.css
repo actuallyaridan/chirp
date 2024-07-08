@@ -68,7 +68,7 @@
     }
 
     /* Set width for element with ID 'chirps' */
-    div#chirps, div#posts {
+    div#chirps, div#posts,  div#replies{
         width: 50vw;
     }
 
@@ -128,7 +128,7 @@
     }
 
     /* Set width for element with ID 'chirps' and adjust border */
-    div#chirps,div#posts {
+    div#chirps,div#posts,  div#replies {
         width: 100%; /* Full width */
         border: none; /* Remove border */
         border-bottom: #8b8b8b2d 1px solid; /* Add bottom border with semi-transparent color */

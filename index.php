@@ -145,7 +145,7 @@ try {
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
                 Corp is licensed under CC-BY 4.0.
 
-                <br><br>You're running: Chirp Beta 0.0.4b
+                <br><br>You're running: Chirp Beta 0.0.5b
             </p>
         </div>
     </aside>
@@ -249,7 +249,7 @@ try {
                             <pre>${chirp.chirp}</pre>
                         </a>
                         <div class="chirpInteract">
-                                <button type="button" class="reply"><img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span></button>
+                            <button type="button" class="reply" onclick="location.href='/chirp/?id=${chirp.id}'"><img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span></button>
                             <a href="/chirp/?id=${chirp.id}"></a>
                                <button type="button" class="rechirp" onclick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span></button>
                             <a href="/chirp/?id=${chirp.id}"></a>
@@ -274,6 +274,22 @@ try {
                 });
         }, 450);
     }
+
+    // Function to handle button click animation
+function handleButtonClick(button) {
+    button.classList.add('button-clicked'); // Add the animation class
+    setTimeout(() => {
+        button.classList.remove('button-clicked'); // Remove the animation class after 100ms
+    }, 100);
+}
+
+// Add event listeners to each button
+document.querySelectorAll('.reply, .rechirp, .like').forEach(button => {
+    button.addEventListener('click', () => {
+        handleButtonClick(button); // Call the animation function
+    });
+});
+
 
     function updateChirpInteraction(chirpId, action, button) {
         fetch(`/interact_chirp.php`, {
@@ -320,6 +336,8 @@ try {
     });
 
     setInterval(updatePostedDates, 1000);
+
+    
 
     <?php
 if (isset($_SESSION['error_message'])) {

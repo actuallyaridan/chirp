@@ -301,7 +301,7 @@ try {
                     Inc/X
                     Corp is licensed under CC-BY 4.0.
 
-                    <br><br>You're running: Chirp Beta 0.0.4b
+                    <br><br>You're running: Chirp Beta 0.0.5b
                 </p>
             </div>
         </aside>
@@ -320,6 +320,171 @@ try {
             </div>
         </footer>
         <script src="/src/scripts/general.js"></script>
+        <script>
+        let loadingChirps = false; // Flag to track if chirps are currently being loaded
+
+        function updatePostedDates() {
+            const chirps = document.querySelectorAll('.chirp .postedDate');
+            chirps.forEach(function(chirp) {
+                const timestamp = chirp.getAttribute('data-timestamp');
+                const postDate = new Date(parseInt(timestamp) * 1000);
+                const now = new Date();
+                const diffInMilliseconds = now - postDate;
+                const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+                const diffInMinutes = Math.floor(diffInSeconds / 60);
+                const diffInHours = Math.floor(diffInMinutes / 60);
+                const diffInDays = Math.floor(diffInHours / 24);
+
+                let relativeTime;
+
+                if (diffInSeconds < 60) {
+                    relativeTime = diffInSeconds + "s ago";
+                } else if (diffInMinutes < 60) {
+                    relativeTime = diffInMinutes + "m ago";
+                } else if (diffInHours < 24) {
+                    relativeTime = diffInHours + "h ago";
+                } else if (diffInDays < 7) {
+                    relativeTime = diffInDays + "d ago";
+                } else {
+                    const options = {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    };
+                    relativeTime = postDate.toLocaleString([], options);
+                }
+
+                chirp.textContent = relativeTime;
+            });
+        }
+
+        function showLoadingSpinner() {
+            document.getElementById('noMoreChirps').style.display = 'block';
+        }
+
+        function hideLoadingSpinner() {
+            document.getElementById('noMoreChirps').style.display = 'none';
+        }
+
+        function loadChirps() {
+            if (loadingChirps) return; // If already loading, exit
+
+            const chirpsContainer = document.getElementById('replies');
+            const offset = parseInt(chirpsContainer.getAttribute('data-offset'));
+
+            loadingChirps = true; // Set loading flag
+            showLoadingSpinner(); // Show loading spinner
+
+            setTimeout(() => {
+                fetch(`/chirp/fetch_replies.php?offset=${offset}&for=<?php echo $postId; ?>`)
+                    .then(response => response.json())
+                    .then(chirps => {
+                        chirps.forEach(chirp => {
+                            const chirpDiv = document.createElement('div');
+                            chirpDiv.className = 'chirp';
+                            chirpDiv.id = chirp.id;
+                            chirpDiv.innerHTML = `
+                        <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
+                            <div class="chirpInfo">
+                                <div>
+                                    <img class="userPic"
+                                        src="${chirp.profilePic ? chirp.profilePic : '/src/images/users/guest/user.svg'}"
+                                        alt="${chirp.name ? chirp.name : 'Guest'}">
+                                    <div>
+                                        <p>${chirp.name ? chirp.name : 'Guest'}
+                                            ${chirp.isVerified ? '<img class="verified" src="/src/images/icons/verified.svg" alt="Verified">' : ''}
+                                        </p>
+                                        <p class="subText">@${chirp.username ? chirp.username : 'guest'}</p>
+                                    </div>
+                                </div>
+                                <div class="timestampTimeline">
+                                    <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
+                                </div>
+                            </div>
+                            <pre>${chirp.chirp}</pre>
+                        </a>
+                        <div class="chirpInteract">
+                              <button type="button" class="reply" onclick="location.href='/chirp/?id=${chirp.id}'"><img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span></button>
+                            <a href="/chirp/?id=${chirp.id}"></a>
+                               <button type="button" class="rechirp" onclick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span></button>
+                            <a href="/chirp/?id=${chirp.id}"></a>
+                                 <button type="button" class="like" onclick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span></button>
+                        </div>
+                    `;
+                            chirpsContainer.appendChild(chirpDiv);
+                        });
+
+                        chirpsContainer.setAttribute('data-offset', offset +
+                            12); // Correctly increment the offset
+
+                        updatePostedDates();
+                        twemoji.parse(chirpsContainer);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching chirps:', error);
+                    })
+                    .finally(() => {
+                        loadingChirps = false; // Reset loading flag
+                        hideLoadingSpinner(); // Hide loading spinner
+                    });
+            }, 450);
+        }
+
+        function updateChirpInteraction(chirpId, action, button) {
+            fetch(`/interact_chirp.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chirpId,
+                        action
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const countElement = button.querySelector(`.${action}-count`);
+                        const currentCount = parseInt(countElement.textContent.trim());
+
+                        if (action === 'like') {
+                            button.querySelector('img').src = data.like ? '/src/images/icons/liked.svg' :
+                                '/src/images/icons/like.svg';
+                            countElement.textContent = data.like_count;
+                        } else if (action === 'rechirp') {
+                            button.querySelector('img').src = data.rechirp ? '/src/images/icons/rechirped.svg' :
+                                '/src/images/icons/rechirp.svg';
+                            countElement.textContent = data.rechirp_count;
+                        }
+                    } else if (data.error === 'not_signed_in') {
+                        window.location.href = '/signin/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating interaction:', error);
+                });
+        }
+
+
+        loadChirps();
+
+        window.addEventListener('scroll', () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                loadChirps();
+            }
+        });
+
+        setInterval(updatePostedDates, 1000);
+
+        <?php
+if (isset($_SESSION['error_message'])) {
+    echo 'console.error(' . json_encode($_SESSION['error_message']) . ');';
+    unset($_SESSION['error_message']); // Clear the error message after displaying it
+}
+?>
+        </script>
     </body>
 
 </html>

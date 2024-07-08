@@ -895,3 +895,11 @@ p.usernameMenu > img{
     display: flex !important;
     padding-left: 4px;
 }
+
+.reply, .rechirp, .like {
+    transition: transform 0.2s ease-out; /* Smooth transition */
+}
+
+.reply:active, .rechirp:active, .like:active {
+    transform: scale(0.85); /* Scale down the button slightly on click */
+}

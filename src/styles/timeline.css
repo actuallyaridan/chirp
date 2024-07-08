@@ -259,7 +259,7 @@ img.verified {
 }
 
 /* Styles for element with ID 'chirps' */
-div#chirps, div#posts {
+div#chirps, div#posts,  div#replies {
     border-left: #8b8b8b2d 1px solid;
     /* Left border */
     border-right: #8b8b8b2d 1px solid;

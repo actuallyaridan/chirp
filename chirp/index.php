@@ -114,11 +114,11 @@ try {
                 <nav>
                     <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                     <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                    <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
+                    <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                     <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                    <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
+                    <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                     <a
-                        href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                        href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                             src="/src/images/icons/person.svg" alt=""> Profile</a>
                     <a href="/compose" class="newchirp">Chirp</a>
                 </nav>
@@ -199,34 +199,34 @@ try {
                             <div>
                                 <button type="button" class="reply">
                                     <img alt="Reply" src="/src/images/icons/reply.svg"><br>
-                                    <?php echo ($reply_count == 1) ? '1 reply' : $reply_count . ' replies'; ?>
+                                    <?php echo ($reply_count == 1) ? '1 <span class="interactWithPostLabel">reply</span>' : $reply_count . ' <span class="interactWithPostLabel">replies</span>'; ?>
                                 </button>
 
                                 <?php if ($rechirped): ?>
                                 <button type="button" class="rechirp">
                                     <img alt="Rechirped" src="/src/images/icons/rechirped.svg"><br>
-                                    <?php echo ($rechirp_count == 1) ? '1 rechirp' : $rechirp_count . ' rechirps'; ?>
+                                    <?php echo ($rechirp_count == 1) ? '1 <span class="interactWithPostLabel">rechirp</span>' : $rechirp_count . ' <span class="interactWithPostLabel">rechirps</span>'; ?>
                                 </button>
                                 <?php else: ?>
                                 <button type="button" class="rechirp">
                                     <img alt="Rechirp" src="/src/images/icons/rechirp.svg"><br>
-                                    <?php echo ($rechirp_count == 1) ? '1 rechirp' : $rechirp_count . ' rechirps'; ?>
+                                    <?php echo ($rechirp_count == 1) ? '1 <span class="interactWithPostLabel">rechirp</span>' : $rechirp_count . ' <span class="interactWithPostLabel">rechirps</span>'; ?>
                                 </button>
                                 <?php endif; ?>
 
                                 <?php if ($liked): ?>
                                 <button type="button" class="like">
                                     <img alt="Liked" src="/src/images/icons/liked.svg"><br>
-                                    <?php echo ($like_count == 1) ? '1 like' : $like_count . ' likes'; ?>
+                                    <?php echo ($like_count == 1) ? '1 <span class="interactWithPostLabel">like</span>' : $like_count . ' <span class="interactWithPostLabel">likes</span>'; ?>
                                 </button>
                                 <?php else: ?>
                                 <button type="button" class="like">
                                     <img alt="Like" src="/src/images/icons/like.svg"><br>
-                                    <?php echo ($like_count == 1) ? '1 like' : $like_count . ' likes'; ?>
+                                    <?php echo ($like_count == 1) ? '1 <span class="interactWithPostLabel">like</span>' : $like_count . ' <span class="interactWithPostLabel">likes</span>'; ?>
                                 </button>
                                 <?php endif; ?>
-
                             </div>
+
                         </div>
                         <form method="POST" action="/chirp/submit.php?id=<?php echo htmlspecialchars($postId); ?>"
                             id="replyTo">
@@ -252,58 +252,7 @@ try {
         </main>
 
         <aside id="sideBar">
-            <div id="trends">
-                <p>Trends</p>
-                <div>
-                    <a>gay people</a>
-                    <p class="subText">12 chirps</p>
-                </div>
-                <div>
-                    <a>twitter</a>
-                    <p class="subText">47 chirps</p>
-                </div>
-                <div>
-                    <a>iphone 69</a>
-                    <p class="subText">62 chirps</p>
-                </div>
-            </div>
-            <div id="whotfollow">
-                <p>Suggested accounts</p>
-                <div>
-                    <div>
-                        <img class="userPic"
-                            src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png"
-                            alt="Apple">
-                        <div>
-                            <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                            <p class="subText">@apple</p>
-                        </div>
-                    </div>
-                    <a class="followButton following">Following</a>
-                </div>
-                <div>
-                    <div>
-                        <img class="userPic"
-                            src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                            alt="President Biden">
-                        <div>
-                            <p>President Biden <img class="verified" src="/src/images/icons/verified.svg"
-                                    alt="Verified">
-                            </p>
-                            <p class="subText">@POTUS</p>
-                        </div>
-                    </div>
-                    <a class="followButton">Follow</a>
-                </div>
-            </div>
-            <div>
-                <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter
-                    Inc/X
-                    Corp is licensed under CC-BY 4.0.
-
-                    <br><br>You're running: Chirp Beta 0.0.5b
-                </p>
-            </div>
+            <?php include '../include/sideBar.php';?>
         </aside>
         <footer>
             <div class="mobileCompose">
@@ -311,14 +260,34 @@ try {
             </div>
             <div>
                 <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
-                <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
+                <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
+                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
                 <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                         src="/src/images/icons/person.svg" alt="Profile"></a>
             </div>
         </footer>
+        <div id="likeModal" class="interaction-modal" style="display: none;">
+            <ul class="interaction-modal-content">
+                <li><button onclick="showLikes()"><img src="/src/images/icons/stats.svg" class="emoji">Show
+                        likes</button></li>
+                <li><button id="likeButton" onclick="toggleLike()"><img src="/src/images/icons/like.svg"
+                            class="emoji">Like</button></li>
+            </ul>
+        </div>
+
+        <div id="rechirpModal" class="interaction-modal" style="display: none;">
+            <ul class="interaction-modal-content">
+
+                <li><button onclick="showRechirps()"><img src="/src/images/icons/stats.svg" class="emoji">Show
+                        rechirps</button></li>
+                <li><button onclick="quoteChirp()"><img src="/src/images/icons/write.svg" class="emoji">Quote</button>
+                </li>
+                <li><button id="rechirpButton" onclick="toggleRechirp()"><img src="/src/images/icons/rechirp.svg"
+                            class="emoji">Rechirp</button></li>
+            </ul>
+        </div>
         <script src="/src/scripts/general.js"></script>
         <script>
         let loadingChirps = false; // Flag to track if chirps are currently being loaded
@@ -386,7 +355,7 @@ try {
                             chirpDiv.className = 'chirp';
                             chirpDiv.id = chirp.id;
                             chirpDiv.innerHTML = `
-                        <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
+                        <a class="chirpClicker" href="/chirp?id=${chirp.id}">
                             <div class="chirpInfo">
                                 <div>
                                     <img class="userPic"
@@ -407,9 +376,9 @@ try {
                         </a>
                         <div class="chirpInteract">
                               <button type="button" class="reply" onclick="location.href='/chirp/?id=${chirp.id}'"><img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span></button>
-                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <a href="/chirp?id=${chirp.id}"></a>
                                <button type="button" class="rechirp" onclick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span></button>
-                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <a href="/chirp?id=${chirp.id}"></a>
                                  <button type="button" class="like" onclick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span></button>
                         </div>
                     `;
@@ -429,7 +398,7 @@ try {
                         loadingChirps = false; // Reset loading flag
                         hideLoadingSpinner(); // Hide loading spinner
                     });
-            }, 450);
+            }, 650);
         }
 
         function updateChirpInteraction(chirpId, action, button) {
@@ -477,6 +446,88 @@ try {
         });
 
         setInterval(updatePostedDates, 1000);
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const likeModal = document.getElementById("likeModal");
+            const rechirpModal = document.getElementById("rechirpModal");
+            const likeButton = document.getElementById("likeButton");
+            const rechirpButton = document.getElementById("rechirpButton");
+
+            function openModal(modalId) {
+                document.getElementById(modalId).style.display = "block";
+            }
+
+
+            window.onclick = function(event) {
+                if (event.target == likeModal) {
+                    likeModal.style.display = "none";
+                } else if (event.target == rechirpModal) {
+                    rechirpModal.style.display = "none";
+                }
+            }
+
+            document.querySelector(".like").addEventListener("click", function() {
+                openModal("likeModal");
+                updateLikeButton();
+            });
+
+            document.querySelector(".rechirp").addEventListener("click", function() {
+                openModal("rechirpModal");
+                updateRechirpButton();
+            });
+
+            function showLikes() {
+                console.log("Show likes functionality");
+                // Add your logic to show likes
+            }
+
+            function toggleLike() {
+                console.log("Toggle like functionality");
+                // Add your logic to like or unlike the post
+                // Update the button text
+                updateLikeButton();
+            }
+
+            function updateLikeButton() {
+                if (<?php echo json_encode($liked); ?>) {
+                    likeButton.innerHTML = '<img src="/src/images/icons/liked.svg" class="emoji">Undo like';
+                } else {
+                    likeButton.innerHTML = '<img src="/src/images/icons/like.svg" class="emoji">Like';
+                }
+            }
+
+            function showRechirps() {
+                console.log("Show rechirps functionality");
+                // Add your logic to show rechirps
+            }
+
+            function quoteChirp() {
+                console.log("Quote chirp functionality");
+                // Add your logic to quote the chirp
+            }
+
+            function toggleRechirp() {
+                console.log("Toggle rechirp functionality");
+                // Add your logic to rechirp or undo rechirp the post
+                // Update the button text
+                updateRechirpButton();
+            }
+
+            function updateRechirpButton() {
+                if (<?php echo json_encode($rechirped); ?>) {
+                    rechirpButton.innerHTML =
+                        '<img src="/src/images/icons/rechirped.svg" class="emoji">Undo rechirp';
+                } else {
+                    rechirpButton.innerHTML = '<img src="/src/images/icons/rechirp.svg" class="emoji">Rechirp';
+                }
+            }
+
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = "none";
+            }
+        });
 
         <?php
 if (isset($_SESSION['error_message'])) {

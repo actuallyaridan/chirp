@@ -31,11 +31,11 @@ session_start();
             <nav>
          <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
+                <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
+                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
@@ -86,51 +86,7 @@ session_start();
         </div>
     </main>
     <aside id="sideBar">
-        <div id="trends">
-            <p>Trends</p>
-            <div>
-                <a>gay people</a>
-                <p class="subText">12 chirps</p>
-            </div>
-            <div>
-                <a>twitter</a>
-                <p class="subText">47 chirps</p>
-            </div>
-            <div>
-                <a>iphone 69</a>
-                <p class="subText">62 chirps</p>
-            </div>
-        </div>
-        <div id="whotfollow">
-            <p>Suggested accounts</p>
-            <div>
-                <div>
-                    <img class="userPic"
-                        src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png" alt="Apple">
-                    <div>
-                        <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                        <p class="subText">@apple</p>
-                    </div>
-                </div>
-                <a class="followButton following">Following</a>
-            </div>
-            <div>
-                <div>
-                    <img class="userPic"
-                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                        alt="President Biden">
-                    <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                        <p class="subText">@POTUS</p>
-                    </div>
-                </div>
-                <a class="followButton">Follow</a>
-            </div>
-        </div>
-        <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
-<br><br>You're running: Chirp Beta 0.0.5b</p>
-        </div>
+    <?php include '../include/sideBar.php';?>
     </aside>
     <footer>
         <div class="mobileCompose">
@@ -138,11 +94,11 @@ session_start();
         </div>
         <div>
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>
-            <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
+            <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
-            <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
+            <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
             <a
-                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>

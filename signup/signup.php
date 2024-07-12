@@ -15,6 +15,12 @@ try {
         // Convert invite code to uppercase
         $code = strtoupper($code);
 
+        // Validate username: only letters and numbers allowed
+        if (!preg_match('/^[A-Za-z0-9]+$/', $username)) {
+            echo json_encode(['error' => 'Invalid username. Only letters and numbers are allowed.']);
+            exit;
+        }
+
         // Fetch invite details including reservedFor
         $stmt = $db->prepare("SELECT id, reservedFor FROM invites WHERE UPPER(invite) = :code");
         $stmt->execute(['code' => $code]);

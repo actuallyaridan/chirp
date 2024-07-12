@@ -22,7 +22,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Explore - Chirp</title>
+    <title>Discover - Chirp</title>
 </head>
 
 <body>
@@ -31,11 +31,11 @@ session_start();
             <nav>
          <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
+                <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
+                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
@@ -145,17 +145,17 @@ session_start();
     <aside id="sideBar">
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
-<br><br>You're running: Chirp Beta 0.0.5b</p>
+<br><br>You're running: Chirp Beta 0.0.7b</p>
         </div>
     </aside>
     <footer>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
-            <a href="explore" class="active"><img src="/src/images/icons/search.svg" alt="Explore"></a>
+            <a href="explore" class="active"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
-            <a href="messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
+            <a href="messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
             <a
-                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>

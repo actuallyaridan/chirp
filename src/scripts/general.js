@@ -142,3 +142,5 @@ function playChirpSound() {
     chirpSound = new Audio('/src/audio/whoLetTheBirdsOut.mp3');
     chirpSound.play().catch(error => console.error('Error playing sound:', error));
 }
+
+

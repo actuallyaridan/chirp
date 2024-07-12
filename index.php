@@ -34,11 +34,11 @@ try {
             <nav>
                 <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                <a href="/explore"><img src="/src/images/icons/search.svg" alt=""> Explore</a>
+                <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Messages</a>
+                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                         src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
@@ -99,55 +99,7 @@ try {
     </main>
 
     <aside id="sideBar">
-        <div id="trends">
-            <p>Trends</p>
-            <div>
-                <a>gay people</a>
-                <p class="subText">12 chirps</p>
-            </div>
-            <div>
-                <a>twitter</a>
-                <p class="subText">47 chirps</p>
-            </div>
-            <div>
-                <a>iphone 69</a>
-                <p class="subText">62 chirps</p>
-            </div>
-        </div>
-        <div id="whotfollow">
-            <p>Suggested accounts</p>
-            <div>
-                <div>
-                    <img class="userPic"
-                        src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png" alt="Apple">
-                    <div>
-                        <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                        <p class="subText">@apple</p>
-                    </div>
-                </div>
-                <a class="followButton following">Following</a>
-            </div>
-            <div>
-                <div>
-                    <img class="userPic"
-                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                        alt="President Biden">
-                    <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
-                        </p>
-                        <p class="subText">@POTUS</p>
-                    </div>
-                </div>
-                <a class="followButton">Follow</a>
-            </div>
-        </div>
-        <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
-                Corp is licensed under CC-BY 4.0.
-
-                <br><br>You're running: Chirp Beta 0.0.5b
-            </p>
-        </div>
+        <?php include 'include/sideBar.php';?>
     </aside>
     <footer>
         <div class="mobileCompose">
@@ -155,11 +107,11 @@ try {
         </div>
         <div>
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>
-            <a href="/explore"><img src="/src/images/icons/search.svg" alt="Explore"></a>
+            <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
-            <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Messages"></a>
+            <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
             <a
-                href="<?php echo isset($_SESSION['username']) ? '/user/?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
@@ -229,7 +181,7 @@ try {
                         chirpDiv.className = 'chirp';
                         chirpDiv.id = chirp.id;
                         chirpDiv.innerHTML = `
-                        <a class="chirpClicker" href="/chirp/?id=${chirp.id}">
+                        <a class="chirpClicker" href="/chirp?id=${chirp.id}">
                             <div class="chirpInfo">
                                 <div>
                                     <img class="userPic"
@@ -250,17 +202,28 @@ try {
                         </a>
                         <div class="chirpInteract">
                             <button type="button" class="reply" onclick="location.href='/chirp/?id=${chirp.id}'"><img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span></button>
-                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <a href="/chirp?id=${chirp.id}"></a>
                                <button type="button" class="rechirp" onclick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span></button>
-                            <a href="/chirp/?id=${chirp.id}"></a>
+                            <a href="/chirp?id=${chirp.id}"></a>
                                  <button type="button" class="like" onclick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span></button>
                         </div>
                     `;
                         chirpsContainer.appendChild(chirpDiv);
+
+                        // Set initial styles based on initial state
+                        const likeButton = chirpDiv.querySelector('.like');
+                        if (chirp.liked_by_current_user) {
+                            likeButton.style.color = '#D92D20'; // Set liked color
+                        }
+
+                        const rechirpButton = chirpDiv.querySelector('.rechirp');
+                        if (chirp.rechirped_by_current_user) {
+                            rechirpButton.style.color = '#12B76A'; // Set rechirped color
+                        }
                     });
 
                     chirpsContainer.setAttribute('data-offset', offset +
-                    12); // Correctly increment the offset
+                        12); // Correctly increment the offset
 
                     updatePostedDates();
                     twemoji.parse(chirpsContainer);
@@ -272,23 +235,23 @@ try {
                     loadingChirps = false; // Reset loading flag
                     hideLoadingSpinner(); // Hide loading spinner
                 });
-        }, 450);
+        }, 650);
     }
 
     // Function to handle button click animation
-function handleButtonClick(button) {
-    button.classList.add('button-clicked'); // Add the animation class
-    setTimeout(() => {
-        button.classList.remove('button-clicked'); // Remove the animation class after 100ms
-    }, 100);
-}
+    function handleButtonClick(button) {
+        button.classList.add('button-clicked'); // Add the animation class
+        setTimeout(() => {
+            button.classList.remove('button-clicked'); // Remove the animation class after 100ms
+        }, 100);
+    }
 
-// Add event listeners to each button
-document.querySelectorAll('.reply, .rechirp, .like').forEach(button => {
-    button.addEventListener('click', () => {
-        handleButtonClick(button); // Call the animation function
+    // Add event listeners to each button
+    document.querySelectorAll('.reply, .rechirp, .like').forEach(button => {
+        button.addEventListener('click', () => {
+            handleButtonClick(button); // Call the animation function
+        });
     });
-});
 
 
     function updateChirpInteraction(chirpId, action, button) {
@@ -311,11 +274,15 @@ document.querySelectorAll('.reply, .rechirp, .like').forEach(button => {
                     if (action === 'like') {
                         button.querySelector('img').src = data.like ? '/src/images/icons/liked.svg' :
                             '/src/images/icons/like.svg';
+                        button.classList.toggle('liked', data.like);
                         countElement.textContent = data.like_count;
+                        button.style.color = data.like ? '#D92D20' : '';
                     } else if (action === 'rechirp') {
                         button.querySelector('img').src = data.rechirp ? '/src/images/icons/rechirped.svg' :
                             '/src/images/icons/rechirp.svg';
+                        button.classList.toggle('rechirped', data.rechirp); // Toggle 'rechirped' class
                         countElement.textContent = data.rechirp_count;
+                        button.style.color = data.rechirp ? '#12B76A' : ''; // Set color based on rechirp status
                     }
                 } else if (data.error === 'not_signed_in') {
                     window.location.href = '/signin/';
@@ -337,7 +304,7 @@ document.querySelectorAll('.reply, .rechirp, .like').forEach(button => {
 
     setInterval(updatePostedDates, 1000);
 
-    
+
 
     <?php
 if (isset($_SESSION['error_message'])) {

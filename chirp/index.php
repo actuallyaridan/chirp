@@ -203,7 +203,7 @@ try {
                                 </button>
 
                                 <?php if ($rechirped): ?>
-                                <button type="button" class="rechirp">
+                                <button type="button" class="rechirp rechirped">
                                     <img alt="Rechirped" src="/src/images/icons/rechirped.svg"><br>
                                     <?php echo ($rechirp_count == 1) ? '1 <span class="interactWithPostLabel">rechirp</span>' : $rechirp_count . ' <span class="interactWithPostLabel">rechirps</span>'; ?>
                                 </button>
@@ -215,7 +215,7 @@ try {
                                 <?php endif; ?>
 
                                 <?php if ($liked): ?>
-                                <button type="button" class="like">
+                                <button type="button" class="like liked">
                                     <img alt="Liked" src="/src/images/icons/liked.svg"><br>
                                     <?php echo ($like_count == 1) ? '1 <span class="interactWithPostLabel">like</span>' : $like_count . ' <span class="interactWithPostLabel">likes</span>'; ?>
                                 </button>

@@ -836,7 +836,6 @@ pre{
 }
 
 #signUp, #signUp>form>div{
-    align-items: center;
     justify-content: center;
     flex-direction: column;
 }
@@ -908,7 +907,8 @@ p.usernameMenu > img{
 
 .reply, .rechirp, .like {
     transition: transform 0.2s ease-out; /* Smooth transition */
-    font-family: SevenSegment, Monospace, Jost, sans-serif;
+    font-family: Jost, SevenSegment, Monospace, sans-serif;
+    font-feature-settings: 'tnum';
 }
 
 .interactWithPostLabel {
@@ -993,10 +993,10 @@ p.usernameMenu > img{
 }
 
 .liked {
-    color: #D92D20;
+    color: #D92D20 !important;
 }
 
 /* Rechirp */
 .rechirped {
-    color: #12B76A;
+    color: #12B76A !important;
 }

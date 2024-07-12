@@ -155,6 +155,7 @@ session_start();
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
+    
 
 </body>
 

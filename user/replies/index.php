@@ -11,7 +11,7 @@ if (!$id) {
     $invalidId = false;
     // Establish a connection to SQLite database
     try {
-        $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
+        $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Enable error handling
     } catch(PDOException $e) {
         // Handle database connection error
@@ -34,7 +34,7 @@ if (!$id) {
     } else {
         $userNotFound = false;
         // Set the page title dynamically
-        $pageTitle = htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
+        $pageTitle = 'Replies by ' . htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
         $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
     }
 
@@ -42,7 +42,6 @@ if (!$id) {
     $db = null;
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -117,7 +116,7 @@ if (!$id) {
             <div id="timelineSelect">
                 <button id="back" class="selcted" onclick="back()"><img alt="" class="emoji"
                         src="/src/images/icons/back.svg"> Back </button>
-            </div> 
+            </div>
             <?php if ($userNotFound): ?>
             <!-- If post is not found or no ID provided, show this -->
             <div id="notFound">
@@ -162,9 +161,8 @@ if (!$id) {
                     </div>
                 </div>
                 <div id="userNav">
-                    <a id="chirpsNav" class="selcted"
-                        href="/user?id=<?php echo htmlspecialchars($user['username']); ?>">Chirps</a>
-                    <a id="repliesNav"
+                    <a id="chirpsNav" href="/user?id=<?php echo htmlspecialchars($user['username']); ?>">Chirps</a>
+                    <a id="repliesNav" class="selcted"
                         href="/user/replies?id=<?php echo htmlspecialchars($user['username']); ?>">Replies</a>
                     <a id="mediaNav" href="/user/media?id=<?php echo htmlspecialchars($user['username']); ?>">Media</a>
                     <a id="likesNav" href="/user/likes?id=<?php echo htmlspecialchars($user['username']); ?>">Likes</a>
@@ -185,7 +183,7 @@ if (!$id) {
         </div>
     </main>
     <aside id="sideBar">
-        <?php include '../include/sideBar.php';?>
+        <?php include '../../include/sideBar.php';?>
     </aside>
     <footer>
         <div class="mobileCompose">
@@ -259,7 +257,7 @@ if (!$id) {
         showLoadingSpinner(); // Show loading spinner
 
         setTimeout(() => {
-            fetch(`/user/fetch_chirps.php?offset=${offset}&user=<?php echo $user['id']; ?>`)
+            fetch(`/user/replies/fetch_replies.php?offset=${offset}&user=<?php echo $user['id']; ?>`)
                 .then(response => response.json())
                 .then(chirps => {
                     chirps.forEach(chirp => {

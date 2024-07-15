@@ -4,9 +4,13 @@
 
 a social media project meant to mimic the feel of twitter but be better
 
-## Dealing with code
+## Contributing to Chirp
+Chirps source code (as you can see) is open source. You can freely fork this repo, make changes and then create a pull request.
+If you'd like to, provide your Chirp username and you'll gain a cotrnibutros badge next to your name.
 
-### Using PHPs built-in server
+### Dealing with code
+
+#### Using PHPs built-in server
 
 _clone this git repo and put it where you like it and `cd` into it_
 
@@ -14,7 +18,7 @@ _clone this git repo and put it where you like it and `cd` into it_
 php -S localhost:port
 ```
 
-### Using Apache/XAMPP
+#### Using Apache/XAMPP
 
 _have `PHP` and `PDO` with SQLite support installed_
 
@@ -26,6 +30,19 @@ mv chirp /var/www/
 
 **BTW that folder should be empty - if it's something like `/htdocs/chirp` it will 99% break**
 
-### Database
+#### Database
 
-This project is currently using SQLite but rn there's no database file for it besides the refrence in the code
+This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be share publicly. There are however refereces in the PHP files, so you can create an empty replica if you'd like to.
+
+## Forking Chirp
+
+You can freely made copies of Chirp and use Chirps code as a base for your procject. However, in order to be cool, please follow these guidelines:
+
+• Rebrand your project: Please refer to use any Chirp branding in your project
+
+• Credit us: You should provide credit to the people who have contibuted to this project, or link this repo
+
+Other than that, Chirp uses the MIT license.
+
+
+

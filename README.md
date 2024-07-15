@@ -1,6 +1,6 @@
 # Chirp
 
-![Chirp logo](./android-chrome-512x512.png)
+![Chirp logo](/src/images/users/chirp/banner.png)
 
 a social media project meant to mimic the feel of twitter but be better
 

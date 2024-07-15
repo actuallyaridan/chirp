@@ -38,7 +38,7 @@ This project is currently using SQLite. Chrips database is not included in GitHu
 
 You can freely made copies of Chirp and use Chirps code as a base for your procject. However, in order to be cool, please follow these guidelines:
 
-• Rebrand your project: Please refer to use any Chirp branding in your project
+• Rebrand your project: Please refrain from uisng any Chirp branding in your project
 
 • Credit us: You should provide credit to the people who have contibuted to this project, or link this repo
 

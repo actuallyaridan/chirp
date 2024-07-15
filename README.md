@@ -32,7 +32,7 @@ mv chirp /var/www/
 
 #### Database
 
-This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be share publicly. There are however refereces in the PHP files, so you can create an empty replica if you'd like to.
+This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be shared publicly. There are however refereces in the PHP files, so you can create an empty replica if you'd like to.
 
 ## Forking Chirp
 

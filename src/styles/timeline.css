@@ -15,6 +15,7 @@
     /* Center-align items horizontally */
     justify-content: center;
     /* Center-align items vertically */
+    background-color: black;
 }
 
 /* Styles for elements with class 'chirp' */
@@ -24,6 +25,7 @@
     border-radius: 8px;
     /* Rounded corners */
     font-family: Outfit, Jost, Arial, Helvetica, sans-serif;
+    background-color: black;
 }
 .account {
     display: flex;
@@ -50,8 +52,7 @@
 /* Styles for element with class 'chirpInfo' */
 .chirpInfo, .accountInfo {
     display: flex;
-    font-family: Jost;
-    /* Flex container */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */    /* Flex container */
     flex-direction: row;
     /* Arrange items horizontally */
     justify-content: space-between;
@@ -83,9 +84,8 @@
     flex-direction: column;
     /* Arrange items horizontally */
     width: 100%;
-    font-family: Jost;
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
     border-top: 1px rgb(56, 56, 56) solid;
-    font-family: Jost;
 }
 
 /* Styles for element with class 'chirpInteract' */
@@ -151,8 +151,7 @@
 /* Styles for element with class 'chirpsee' */
 .chirpsee {
     background-color: rgb(24, 15, 0);
-    font-family: Jost;
-    /* Background color */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */    /* Background color */
     padding: 8px;
     /* Padding */
     border-radius: 4px;
@@ -247,7 +246,7 @@
 }
 
 /* Styles for img elements with class 'verified' */
-img.verified {
+img.verified, svg.verified {
     width: 1.2rem;
     /* Width */
     height: 1rem;
@@ -256,6 +255,7 @@ img.verified {
     /* Relative positioning */
     top: 2px;
     /* Offset from the top */
+    stroke: var(--accent-color) !important;
 }
 
 /* Styles for element with ID 'chirps' */

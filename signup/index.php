@@ -7,9 +7,10 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -121,7 +122,7 @@ session_start();
                     <p id="invalidCodeError">Invalid invite code.<br>If you don't have an invite code, send a DM to @actuallyaridan or @use_chirp over Twitter.</p>
                     <p id="usernameTakenError">This username already in use.<br>You need to have a unique username.</p>
                     <p id="passwordMismatchError">Passwords do not match</p>
-                    <p id="invalidUsernameError">Invalid username. <br>Only latin letters A to Z and numbers 0 to 9 are allowed.</p>
+                    <p id="invalidUsernameError">Invalid username. <br>Only latin letters A to Z, numbers 0 to 9 along with underscores are allowed.</p>
                     <p id="reservedUsernameError">This username is reserved.<br>You need a reserved invite code in order to register it. Obtain one by sending a DM to @actuallyaridan or @use_chirp over Twitter.</p>
                     <p id="inviteNotReservedError">You're using a reserved invite code. <br>You must register the username linked with this invite code.</p>
                 </div>

@@ -7,8 +7,9 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -31,7 +32,7 @@ session_start();
             <nav>
          <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
+                <a href="/discover" class="activeDesktop"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a

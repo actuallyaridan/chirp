@@ -76,7 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['is_verified'] = $user['isVerified']; // Fetch verification status
 
             // Extend session cookie lifetime
-            setcookie(session_name(), session_id(), time() + 604800, '/', '', true, true);
+            setcookie(session_name(), session_id(), [
+                'expires' => time() + 604800, 
+                'path' => '/', 
+                'domain' => '', 
+                'secure' => true, 
+                'httponly' => true, 
+                'samesite' => 'Lax'
+            ]);
 
             // Redirect to the home page or user dashboard
             header('Location: /');

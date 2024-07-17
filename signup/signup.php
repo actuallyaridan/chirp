@@ -15,9 +15,9 @@ try {
         // Convert invite code to uppercase
         $code = strtoupper($code);
 
-        // Validate username: only letters and numbers allowed
-        if (!preg_match('/^[A-Za-z0-9]+$/', $username)) {
-            echo json_encode(['error' => 'Invalid username. Only letters and numbers are allowed.']);
+        // Validate username: letters, numbers, and underscores allowed
+        if (!preg_match('/^[A-Za-z0-9_]+$/', $username)) {
+            echo json_encode(['error' => 'Invalid username. Only letters, numbers, and underscores are allowed.']);
             exit;
         }
 

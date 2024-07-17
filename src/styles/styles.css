@@ -511,7 +511,7 @@ div#iconChirp > img {
 .subText {
     color: #8b8b8b; /* Text color */
     margin-top: 0px; /* Top margin */
-    font-family: Jost;
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
 }
 
 /* Styles for chirp information paragraphs */
@@ -914,7 +914,7 @@ p.usernameMenu > img{
 }
 
 .interactWithPostLabel {
-    font-family: Jost, sans-serif !important;
+    font-family: Jost, Arial, Helvetica, sans-serif !important;
 }
 
 .reply:active, .rechirp:active, .like:active {
@@ -1001,4 +1001,13 @@ p.usernameMenu > img{
 /* Rechirp */
 .rechirped {
     color: #12B76A !important;
+}
+
+.hidden{
+    display: none;
+}
+
+.activeDesktop{
+    background-color: #8b8b8b2d;
+    color: var(--accent-color);
 }

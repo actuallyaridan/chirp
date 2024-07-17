@@ -4,7 +4,7 @@ session_start();
 try {
     // Check if the host is allowed
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
-    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500']; // add hosts to the variable as you see fit.
+    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500'];
     if ($host === "none" || !in_array($host, $allowedHosts)) {
         $_SESSION['error_message'] = "Invalid host.";
         header('Location: /');
@@ -79,6 +79,10 @@ try {
         exit;
     }
 
+    // Additional sanitization
+    $chirpText = htmlspecialchars($chirpText, ENT_QUOTES, 'UTF-8');
+    $chirpText = str_replace("&#039;", "'", $chirpText); // Revert single quote encoding
+
     // Prepare SQL statement for inserting chirp into database
     $sql = "INSERT INTO chirps (chirp, user, timestamp) VALUES (:chirp, :user, :timestamp)";
     $stmt = $db->prepare($sql);
@@ -90,16 +94,20 @@ try {
     $stmt->bindParam(':timestamp', $timestamp);
 
     // Execute the SQL statement
-    $stmt->execute();
+    if ($stmt->execute()) {
+        // Store the ID of the newly inserted chirp
+        $chirpId = $db->lastInsertId();
 
-    // Store the ID of the newly inserted chirp
-    $chirpId = $db->lastInsertId();
+        // Update last submission time in session
+        $_SESSION['last_submission_time'] = $currentTime;
 
-    // Update last submission time in session
-    $_SESSION['last_submission_time'] = $currentTime;
-
-    // Redirect to the chirp details page with the chirp ID
-    header('Location: /chirp/index.php?id=' . $chirpId);
+        // Redirect to the chirp details page with the chirp ID
+        header('Location: /chirp/index.php?id=' . $chirpId);
+    } else {
+        // Execution failed
+        $_SESSION['error_message'] = 'Failed to post chirp.';
+        header('Location: /');
+    }
     exit();
 } catch (PDOException $e) {
     $_SESSION['error_message'] = 'Database error: ' . $e->getMessage();

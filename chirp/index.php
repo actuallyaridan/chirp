@@ -90,9 +90,10 @@ try {
 <head>
     <title><?php echo isset($title) ? $title : 'Chirp'; ?></title>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -272,20 +273,30 @@ try {
             <ul class="interaction-modal-content">
                 <li><button onclick="showLikes()"><img src="/src/images/icons/stats.svg" class="emoji">Show
                         likes</button></li>
-                <li><button id="likeButton" onclick="toggleLike()"><img src="/src/images/icons/like.svg"
-                            class="emoji">Like</button></li>
+                <li>
+                    <button type="button" class="like"
+                        onclick="updateChirpInteraction(<?php echo $postId; ?>, 'like', this)">
+                        <img alt="Like" src="/src/images/icons/<?php echo $liked ? 'liked' : 'like'; ?>.svg">
+                        <span class="like-button-text"><?php echo $liked ? 'Undo like' : 'Like'; ?></span>
+                    </button>
+                </li>
             </ul>
         </div>
 
         <div id="rechirpModal" class="interaction-modal" style="display: none;">
             <ul class="interaction-modal-content">
-
                 <li><button onclick="showRechirps()"><img src="/src/images/icons/stats.svg" class="emoji">Show
                         rechirps</button></li>
                 <li><button onclick="quoteChirp()"><img src="/src/images/icons/write.svg" class="emoji">Quote</button>
                 </li>
-                <li><button id="rechirpButton" onclick="toggleRechirp()"><img src="/src/images/icons/rechirp.svg"
-                            class="emoji">Rechirp</button></li>
+                <li>
+                    <button type="button" class="rechirp"
+                        onclick="updateChirpInteraction(<?php echo $postId; ?>, 'rechirp', this)">
+                        <img alt="Rechirp"
+                            src="/src/images/icons/<?php echo $rechirped ? 'rechirped' : 'rechirp'; ?>.svg">
+                        <span class="rechirp-button-text"><?php echo $rechirped ? 'Undo rechirp' : 'Rechirp'; ?></span>
+                    </button>
+                </li>
             </ul>
         </div>
         <script src="/src/scripts/general.js"></script>
@@ -379,7 +390,7 @@ try {
                             <a href="/chirp?id=${chirp.id}"></a>
                                <button type="button" class="rechirp" onclick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span></button>
                             <a href="/chirp?id=${chirp.id}"></a>
-                                 <button type="button" class="like" onclick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span></button>
+                             <button type="button" class="like" onclick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span></button>
                         </div>
                     `;
                             chirpsContainer.appendChild(chirpDiv);
@@ -402,39 +413,38 @@ try {
         }
 
         function updateChirpInteraction(chirpId, action, button) {
-            fetch(`/interact_chirp.php`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        chirpId,
-                        action
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const countElement = button.querySelector(`.${action}-count`);
-                        const currentCount = parseInt(countElement.textContent.trim());
+    fetch(`/interact_chirp.php`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chirpId,
+            action
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const countElement = button.querySelector(`.${action}-count`);
+            const currentCount = parseInt(countElement.textContent.trim());
+            const imgElement = button.querySelector('img');
 
-                        if (action === 'like') {
-                            button.querySelector('img').src = data.like ? '/src/images/icons/liked.svg' :
-                                '/src/images/icons/like.svg';
-                            countElement.textContent = data.like_count;
-                        } else if (action === 'rechirp') {
-                            button.querySelector('img').src = data.rechirp ? '/src/images/icons/rechirped.svg' :
-                                '/src/images/icons/rechirp.svg';
-                            countElement.textContent = data.rechirp_count;
-                        }
-                    } else if (data.error === 'not_signed_in') {
-                        window.location.href = '/signin/';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating interaction:', error);
-                });
+            if (action === 'like') {
+                imgElement.src = data.like ? '/src/images/icons/liked.svg' : '/src/images/icons/like.svg';
+                countElement.textContent = data.like_count;
+            } else if (action === 'rechirp') {
+                imgElement.src = data.rechirp ? '/src/images/icons/rechirped.svg' : '/src/images/icons/rechirp.svg';
+                countElement.textContent = data.rechirp_count;
+            }
+        } else if (data.error === 'not_signed_in') {
+            window.location.href = '/signin/';
         }
+    })
+    .catch(error => {
+        console.error('Error updating interaction:', error);
+    });
+}
 
 
         loadChirps();
@@ -469,64 +479,12 @@ try {
 
             document.querySelector(".like").addEventListener("click", function() {
                 openModal("likeModal");
-                updateLikeButton();
             });
 
             document.querySelector(".rechirp").addEventListener("click", function() {
                 openModal("rechirpModal");
-                updateRechirpButton();
             });
 
-            function showLikes() {
-                console.log("Show likes functionality");
-                // Add your logic to show likes
-            }
-
-            function toggleLike() {
-                console.log("Toggle like functionality");
-                // Add your logic to like or unlike the post
-                // Update the button text
-                updateLikeButton();
-            }
-
-            function updateLikeButton() {
-                if (<?php echo json_encode($liked); ?>) {
-                    likeButton.innerHTML = '<img src="/src/images/icons/liked.svg" class="emoji">Undo like';
-                } else {
-                    likeButton.innerHTML = '<img src="/src/images/icons/like.svg" class="emoji">Like';
-                }
-            }
-
-            function showRechirps() {
-                console.log("Show rechirps functionality");
-                // Add your logic to show rechirps
-            }
-
-            function quoteChirp() {
-                console.log("Quote chirp functionality");
-                // Add your logic to quote the chirp
-            }
-
-            function toggleRechirp() {
-                console.log("Toggle rechirp functionality");
-                // Add your logic to rechirp or undo rechirp the post
-                // Update the button text
-                updateRechirpButton();
-            }
-
-            function updateRechirpButton() {
-                if (<?php echo json_encode($rechirped); ?>) {
-                    rechirpButton.innerHTML =
-                        '<img src="/src/images/icons/rechirped.svg" class="emoji">Undo rechirp';
-                } else {
-                    rechirpButton.innerHTML = '<img src="/src/images/icons/rechirp.svg" class="emoji">Rechirp';
-                }
-            }
-
-
-            function closeModal(modalId) {
-                document.getElementById(modalId).style.display = "none";
-            }
         });
 
         <?php

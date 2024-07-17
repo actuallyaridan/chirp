@@ -4,6 +4,28 @@
 
 a social media project meant to mimic the feel of twitter but be better
 
+## Status
+
+### What's working
+- [x] Account creation
+- [x] Posting
+- [x] Replying
+- [x] Liking
+
+### What isn't working
+- [ ] Reposts
+- [ ] Viewing likes and reposts on accounts
+
+### What's planned
+- [ ] Account editing
+- [ ] Post editing
+- [ ] Post deletion
+- [ ] Following
+- [ ] Search
+- [ ] Trends
+- [ ] "For you" timeline
+
+
 ## Contributing to Chirp
 Chirps source code (as you can see) is open source. You can freely fork this repo, make changes and then create a pull request.
 If you'd like to, provide your Chirp username and you'll gain a cotrnibutros badge next to your name.

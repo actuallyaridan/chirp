@@ -25,6 +25,10 @@ a social media project meant to mimic the feel of twitter but be better
 - [ ] Trends
 - [ ] "For you" timeline
 
+## Screenshot
+
+![Chirp on Desktop](/src/images/screenshots/chirpDesktop.png)
+
 
 ## Contributing to Chirp
 Chirps source code (as you can see) is open source. You can freely fork this repo, make changes and then create a pull request.

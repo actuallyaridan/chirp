@@ -2,7 +2,7 @@
 
 ![Chirp logo](/src/images/users/chirp/banner.png)
 
-a social media project meant to mimic the feel of twitter but be better
+A social media project meant to mimic the feel of Twitter but be better
 
 ## Status
 

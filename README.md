@@ -11,13 +11,13 @@ A social media project meant to mimic the feel of Twitter but be better
 - [x] Posting
 - [x] Replying
 - [x] Liking
+- [x] Account editing
 
 ### What isn't working
 - [ ] Reposts
 - [ ] Viewing likes and reposts on accounts
 
 ### What's planned
-- [ ] Account editing
 - [ ] Post editing
 - [ ] Post deletion
 - [ ] Following

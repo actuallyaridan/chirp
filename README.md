@@ -2,7 +2,7 @@
 
 ![Chirp logo](/src/images/users/chirp/banner.png)
 
-a social media project meant to mimic the feel of twitter but be better
+A social media project meant to mimic the feel of Twitter but be better
 
 ## Status
 
@@ -32,7 +32,7 @@ a social media project meant to mimic the feel of twitter but be better
 
 ## Contributing to Chirp
 Chirps source code (as you can see) is open source. You can freely fork this repo, make changes and then create a pull request.
-If you'd like to, provide your Chirp username and you'll gain a cotrnibutros badge next to your name.
+If you'd like to, provide your Chirp username and you'll gain a contributors badge next to your name.
 
 ### Dealing with code
 

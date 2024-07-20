@@ -140,7 +140,7 @@ if (!$id) {
                         </div>
                         <div class="timestampTimeline">
                             <?php if ($isUserProfile): ?>
-                            <a id="editProfileButton" class="followButton">Edit profile</a>
+                                 <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
                             <?php else: ?>
                             <a id="followProfileButton" class="followButton">Follow</a>
                             <?php endif; ?>

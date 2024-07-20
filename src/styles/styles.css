@@ -355,20 +355,20 @@ a.followButton:hover {
     text-decoration: none;
 }
 
-button.followButton {
+button.followButton, .button {
     border-color: rgba(0, 0, 0, 0); /* Border color */
     background-color: var(--accent-color); /* Background color */
     margin-bottom: 4px; /* Bottom margin */
     margin-top: 4px; /* Top margin */
     text-align: center; /* Center alignment */
     color: var(--text-color); /* Text color */
-    border-radius: 12px; /* Border radius */
+    border-radius: 8px; /* Border radius */
     padding: 6px; /* Padding */
     height: fit-content; /* Height based on content */
     font-size: 1em;
 }
 
-button.followButton:hover {
+button.followButton:hover, .button:hover {
     background-color: var(--hover-color);
     transition: .2s linear;
     cursor: pointer;
@@ -571,6 +571,21 @@ div#iconChirp > img {
     border-radius: 8px; /* Border radius */
 }
 
+.URLtextarea {
+    margin-top: 8px; /* Top margin */
+    width: 80%; /* Full width */
+    height: 1.5em; /* Height */
+    color-scheme: dark
+    ; /* Dark color scheme */
+    background-color: #8b8b8b2d; /* Background color */
+    resize: none; /* No resizing */
+    border: none; /* No border */
+    margin: 8px;
+    padding: 8px;
+    font-size: 1em; /* Font size */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
+    border-radius: 8px; /* Border radius */
+}
 
 
 #replyTo{
@@ -1010,4 +1025,132 @@ p.usernameMenu > img{
 .activeDesktop{
     background-color: #8b8b8b2d;
     color: var(--accent-color);
+}
+
+.editText{
+    display: flex;
+    resize: none;
+    height: 1.5em;
+    font-size: 1em;
+    margin: 6px;
+    padding: 4px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border: none;
+    border-radius: 4px;
+    font-family: Outfit, Jost, Arial, Helvetica, sans-serif;
+    overflow-y: hidden;
+    background-color:#8b8b8b2d;
+}
+
+#nameEdit{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 8px;
+    margin-right: 0px;
+}
+
+#editProfileButton{
+    margin-bottom: 12px;
+}
+#bioEdit{
+    margin-top: 12px;
+}
+
+#editLink, #editProfilePic, #editBanner{
+    margin-top: 12px;
+    margin-bottom: 12px;
+    background-color: black;
+    border: none;
+    color: #8b8b8b;
+}
+
+#editBanner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    margin: auto;
+    border-radius: 4px;
+    padding: 6px;
+    background-color: rgba(0, 0, 0, 0.548);
+    color: white;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    
+}
+
+#editLink:hover, #editProfilePic:hover, #editBanner:hover{
+    cursor: pointer;
+}
+
+
+.profile-container {
+    position: relative;
+    display: inline-block;
+}
+
+.edit-button {
+    position: absolute;
+    top: 10px; /* Adjust as needed to create spacing from the top */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.555); /* Light semi-transparent background on hover */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px; /* Adjust size if needed */
+    color: #333; /* Text color for the emoji */
+    z-index: 10; /* Ensures button is above the image */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.edit-button:hover {
+    background-color: rgba(0, 0, 0, 0.555); /* Light semi-transparent background on hover */
+    color: #000; /* Change text color on hover if desired */
+}
+
+.banner-container {
+    position: relative;
+    display: inline-block;
+}
+
+.banner-container>.userBanner {
+    width: 100%; /* Ensure the image covers the container */
+    height: auto; /* Maintain aspect ratio */
+    filter: brightness(50%); /* Darken the image to 50% of its original brightness */
+}
+
+.edit-banner-button {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset by half of its own size */
+    background-color: rgba(0, 0, 0, 0.555); /* Light semi-transparent background on hover */
+    border: none;
+    padding: 8px 16px; /* Padding for a larger button */
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff; /* White text color */
+    font-size: 16px; /* Font size for the button text */
+    z-index: 10; /* Ensures button is above the image */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow to distinguish button */
+    backdrop-filter: blur(12px); /* Blur the background to create a softer effect */
+}
+
+.edit-banner-button:hover {
+    background-color: rgba(0, 0, 0, 0.911); /* Light semi-transparent background on hover */
+    color: #fff; /* Ensure text color remains visible */
+}
+
+.editBannerModalContent{
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

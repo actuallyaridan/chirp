@@ -51,7 +51,7 @@ if (!$id) {
     <meta charset="UTF-8">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
@@ -78,9 +78,8 @@ if (!$id) {
                 <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
-                <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="activeDesktop"><img
-                        src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <a href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"
+                    class="activeDesktop"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <a href="/compose" class="newchirp">Chirp</a>
             </nav>
             <div id="menuSettings">
@@ -118,7 +117,7 @@ if (!$id) {
             <div id="timelineSelect">
                 <button id="back" class="selcted" onclick="back()"><img alt="" class="emoji"
                         src="/src/images/icons/back.svg"> Back </button>
-            </div> 
+            </div>
             <?php if ($userNotFound): ?>
             <!-- If post is not found or no ID provided, show this -->
             <div id="notFound">
@@ -142,7 +141,7 @@ if (!$id) {
                         </div>
                         <div class="timestampTimeline">
                             <?php if ($isUserProfile): ?>
-                            <a id="editProfileButton" class="followButton">Edit profile</a>
+                            <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
                             <?php else: ?>
                             <a id="followProfileButton" class="followButton">Follow</a>
                             <?php endif; ?>
@@ -197,9 +196,8 @@ if (!$id) {
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
-            <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="active"><img
-                    src="/src/images/icons/person.svg" alt="Profile"></a>
+            <a href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"
+                class="active"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
     <script>
@@ -385,7 +383,6 @@ if (isset($_SESSION['error_message'])) {
 }
 ?>
     </script>
-
 </body>
 
 </html>

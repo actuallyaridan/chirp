@@ -144,3 +144,28 @@ function playChirpSound() {
 }
 
 
+function openEditBannerModal() {
+    document.getElementById('editBannerModal').style.display = 'block';
+}
+
+function closeEditBannerModal() {
+    document.getElementById('editBannerModal').style.display = 'none';
+}
+
+function openEditProfilePicModal() {
+    document.getElementById('editProfilePicModal').style.display = 'block';
+}
+
+function closeEditProfilePicModal() {
+    document.getElementById('editProfilePicModal').style.display = 'none';
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function(event) {
+    if (event.target == document.getElementById('editBannerModal')) {
+        closeEditBannerModal();
+    }
+    if (event.target == document.getElementById('editProfilePicModal')) {
+        closeEditProfilePicModal();
+    }
+};

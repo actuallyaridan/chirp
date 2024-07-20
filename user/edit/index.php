@@ -123,9 +123,11 @@ if (!isset($_SESSION['username'])) {
                     <div class="banner-container">
                         <button class="edit-banner-button" title="Edit banner" type="button"
                             onClick="openEditBannerModal()">✏️ Edit banner</button>
-                        <img class="userBanner"
+                        <img id="bannerPreview" class="userBanner"
                             src="<?php echo isset($user['userBanner']) ? htmlspecialchars($user['userBanner']) : '/src/images/users/chirp/banner.png'; ?>"
                             alt="User Banner">
+                        <input type="hidden" name="userBanner" id="userBannerInput"
+                            value="<?php echo isset($user['userBanner']) ? htmlspecialchars($user['userBanner']) : ''; ?>">
                     </div>
                     <div class="account">
                         <div class="accountInfo">
@@ -133,9 +135,11 @@ if (!isset($_SESSION['username'])) {
                                 <div class="profile-container">
                                     <button class="edit-button" title="Edit profile picture" type="button"
                                         onClick="openEditProfilePicModal()">✏️</button>
-                                    <img class="userPic"
+                                    <img id="profilePicPreview" class="userPic"
                                         src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>"
                                         alt="<?php echo htmlspecialchars($user['name']); ?>">
+                                    <input type="hidden" name="profilePic" id="profilePicInput"
+                                        value="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : ''; ?>">
                                 </div>
                                 <div>
                                     <textarea id="nameEdit" name="name" class="editText"
@@ -190,6 +194,61 @@ if (!isset($_SESSION['username'])) {
         </div>
     </footer>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bannerUrlInput = document.getElementById('bannerUrl');
+        const profilePicUrlInput = document.getElementById('profilePicUrl');
+        const bannerPreview = document.getElementById('bannerPreview');
+        const profilePicPreview = document.getElementById('profilePicPreview');
+        const userBannerInput = document.getElementById('userBannerInput');
+        const profilePicInput = document.getElementById('profilePicInput');
+
+        function validateImageUrl(url, callback) {
+            const img = new Image();
+            img.onload = function() {
+                if (this.width > 0 && this.height > 0) {
+                    callback(true);
+                } else {
+                    callback(false);
+                }
+            };
+            img.onerror = function() {
+                callback(false);
+            };
+            img.src = url;
+        }
+
+        function updateImagePreview(inputElement, previewElement, hiddenInputElement, defaultUrl) {
+            const url = inputElement.value;
+            if (url) {
+                validateImageUrl(url, function(isValid) {
+                    if (isValid) {
+                        previewElement.src = url;
+                        hiddenInputElement.value = url;
+                    } else {
+                        previewElement.src = defaultUrl;
+                    }
+                });
+            } else {
+                previewElement.src = defaultUrl;
+                hiddenInputElement.value = '';
+            }
+        }
+
+        // Update banner preview when URL input changes
+        bannerUrlInput.addEventListener('input', function() {
+            const defaultBannerUrl =
+                '<?php echo isset($user['userBanner']) ? htmlspecialchars($user['userBanner']) : '/src/images/users/chirp/banner.png'; ?>';
+            updateImagePreview(bannerUrlInput, bannerPreview, userBannerInput, defaultBannerUrl);
+        });
+
+        // Update profile picture preview when URL input changes
+        profilePicUrlInput.addEventListener('input', function() {
+            const defaultProfilePicUrl =
+                '<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>';
+            updateImagePreview(profilePicUrlInput, profilePicPreview, profilePicInput,
+                defaultProfilePicUrl);
+        });
+    });
     </script>
     <div id="editBannerModal" class="modal">
         <div class="modal-content editBannerModalContent">
@@ -198,7 +257,6 @@ if (!isset($_SESSION['username'])) {
                 to link a photo to use. We suggest Twitter as they do not expire.</p>
             <textarea id="bannerUrl" placeholder="URL" class="URLtextarea"></textarea>
             <div class="modal-buttons">
-                <button class="button" onClick="closeEditBannerModal()" type="button">Cancel</button>
                 <button class="button" id="okButton" onClick="closeEditBannerModal()" type="button">OK</button>
             </div>
         </div>
@@ -206,11 +264,11 @@ if (!isset($_SESSION['username'])) {
     <div id="editProfilePicModal" class="modal">
         <div class="modal-content editBannerModalContent">
             <h2>Edit profile picture</h2>
-            <p>You can change your profile picture at any time. Chirp does not have a storage space for it though, so you'd need
+            <p>You can change your profile picture at any time. Chirp does not have a storage space for it though, so
+                you'd need
                 to link a photo to use. We suggest Twitter as they do not expire.</p>
             <textarea id="profilePicUrl" placeholder="URL" class="URLtextarea"></textarea>
             <div class="modal-buttons">
-                <button class="button" onClick="closeEditProfilePicModal()" type="button">Cancel</button>
                 <button class="button" id="okButton" onClick="closeEditProfilePicModal()" type="button">OK</button>
             </div>
         </div>

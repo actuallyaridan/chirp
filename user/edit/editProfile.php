@@ -10,6 +10,8 @@ try {
         // Retrieve and sanitize inputs
         $name = trim($_POST['name']);
         $bio = trim($_POST['bio']);
+        $userBanner = trim($_POST['userBanner']);
+        $profilePic = trim($_POST['profilePic']);
         $userId = $_SESSION['user_id']; // assuming user id is stored in session
         $sessionUsername = $_SESSION['username']; // assuming username is stored in session
 
@@ -34,20 +36,26 @@ try {
             $bio = strip_tags($bio);
 
             // Fetch the current values from the database
-            $sql = 'SELECT name, bio FROM users WHERE id = :id';
+            $sql = 'SELECT name, bio, userBanner, profilePic FROM users WHERE id = :id';
             $stmt = $db->prepare($sql);
             $stmt->execute([':id' => $userId]);
             $currentUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($currentUser) {
                 // Check if the current values are different from the submitted values
-                if ($currentUser['name'] !== $name || $currentUser['bio'] !== $bio) {
+                if ($currentUser['name'] !== $name || $currentUser['bio'] !== $bio || $currentUser['userBanner'] !== $userBanner || $currentUser['profilePic'] !== $profilePic) {
                     // Prepare SQL statement
-                    $sql = 'UPDATE users SET name = :name, bio = :bio WHERE id = :id';
+                    $sql = 'UPDATE users SET name = :name, bio = :bio, userBanner = :userBanner, profilePic = :profilePic WHERE id = :id';
                     $stmt = $db->prepare($sql);
 
                     // Execute the statement
-                    if ($stmt->execute([':name' => $name, ':bio' => $bio, ':id' => $userId])) {
+                    if ($stmt->execute([
+                        ':name' => $name,
+                        ':bio' => $bio,
+                        ':userBanner' => $userBanner,
+                        ':profilePic' => $profilePic,
+                        ':id' => $userId
+                    ])) {
                         // Redirect to the user's profile page
                         header('Location: /user?id=' . urlencode($sessionUsername));
                         exit();

@@ -43,6 +43,6 @@
     <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
         Corp is licensed under CC-BY 4.0.
 
-        <br><br>You're running: Chirp Beta 0.0.8b
+        <br><br>You're running: Chirp Beta 0.1b
     </p>
 </div>

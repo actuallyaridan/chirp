@@ -270,6 +270,10 @@ div#chirps, div#posts,  div#replies {
     /* 35% of viewport width */
 }
 
+div#replies {
+    margin-bottom: 15vh;
+}
+
 div#signUp{
     width: 35vw;
 }

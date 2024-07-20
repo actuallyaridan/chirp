@@ -1093,7 +1093,7 @@ p.usernameMenu > img{
 
 .edit-button {
     position: absolute;
-    top: 10px; /* Adjust as needed to create spacing from the top */
+    top: 5px; /* Adjust as needed to create spacing from the top */
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
@@ -1106,6 +1106,8 @@ p.usernameMenu > img{
     color: #333; /* Text color for the emoji */
     z-index: 10; /* Ensures button is above the image */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+    width: 48px;
+    height: 48px;
 }
 
 .edit-button:hover {

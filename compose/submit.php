@@ -67,19 +67,15 @@ try {
     $chirpText = trim($_POST['chirpComposeText']);
     if (empty($chirpText)) {
         echo json_encode(['error' => "Chirp cannot be empty."]);
-        exit;
+        exit();
     }
 
     if (strlen($chirpText) > MAX_CHARS) {
         echo json_encode(['error' => "Chirp exceeds maximum character limit of " . MAX_CHARS . " characters."]);
-        exit;
+        exit();
     }
 
-    // Additional sanitization
-    $chirpText = htmlspecialchars($chirpText, ENT_QUOTES, 'UTF-8');
-    $chirpText = str_replace("&#039;", "'", $chirpText); // Revert single quote encoding
-
-    // Prepare SQL statement for inserting chirp into database
+    // Use prepared statements to prevent SQL injection
     $sql = "INSERT INTO chirps (chirp, user, timestamp) VALUES (:chirp, :user, :timestamp)";
     $stmt = $db->prepare($sql);
 

@@ -20,7 +20,7 @@
 
 /* Font face */
 @font-face {
-    font-family: Outfit; /* Font family */
+    font-family: Satoshi; /* Font family */
     src: url(fonts/Satoshi.ttf); /* Font source */
     font-display: swap;
 }
@@ -536,7 +536,7 @@ div#iconChirp > img {
     border: none; /* No border */
     padding: 8px; /* Padding */
     font-size: 1em; /* Font size */
-    font-family: Outfit, Jost, Arial, Helvetica, sans-serif; /* Font family */
+    font-family: Satoshi, Jost, Arial, Helvetica, sans-serif; /* Font family */
     border-radius: 8px; /* Border radius */
 }
 
@@ -844,7 +844,7 @@ form{
 }
 
 pre{
-    font-family: Outfit, Jost, Arial, Helvetica, sans-serif; /* Font family */
+    font-family: Satoshi, Jost, Arial, Helvetica, sans-serif; /* Font family */
     white-space: normal;
     word-wrap: break-word;
     max-width: 85vw;
@@ -1038,7 +1038,7 @@ p.usernameMenu > img{
     margin-right: 0px;
     border: none;
     border-radius: 4px;
-    font-family: Outfit, Jost, Arial, Helvetica, sans-serif;
+    font-family: Satoshi, Jost, Arial, Helvetica, sans-serif;
     overflow-y: hidden;
     background-color:#8b8b8b2d;
 }
@@ -1155,4 +1155,63 @@ p.usernameMenu > img{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+.morePostOptionWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    padding: none;
+}
+
+.morePostOptions{
+    background-color: transparent;
+    border: none;
+    text-align: center;
+    height: fit-content;
+    width: fit-content;
+    margin: none;
+    padding: none;
+    font-size: 1em;
+    line-height: normal;
+}
+
+.morePostOptions:hover{
+    background-color: #8b8b8b2d;
+    transition: .2s linear background-color;
+    border-radius: 4px;
+}
+
+div.morePostOptionsModal{
+    display: none;
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 64px;
+    overflow: auto;
+}
+
+div.morePostOptionsModal>ul{
+    list-style: none;
+    border-radius: 12px;
+    text-align: left;
+    padding: 6px;
+    margin: 0px;
+    background-color: rgb(34, 34, 34);
+    color: white;
+}
+
+div.morePostOptionsModal>ul>li{
+    padding: 6px;
+    margin: 0px;
+}
+
+div.morePostOptionsModal>ul>li:hover{
+    background-color: #8b8b8b2d;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s linear background-color;
 }

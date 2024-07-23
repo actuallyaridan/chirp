@@ -92,7 +92,7 @@ try {
     <meta charset="UTF-8">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
@@ -179,6 +179,31 @@ try {
                                     <p><?php echo isset($name) ? $name : 'Guest'; ?></p>
                                     <p class="subText">@<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>
                                     </p>
+                                </div>
+                            </div>
+                            <div class="morePostOptionWrapper"><button class="morePostOptions"
+                                    title="More...">🟰</button>
+                                <div class="morePostOptionsModal">
+                                    <ul>
+                                        <li>✏️ Edit</li>
+                                        <li>📋 Copy post</li>
+                                        <li>🔗 Copy link</li>
+                                        <li>🖇️ Embed post</li>
+                                        <li>📌 Pin post</li>
+                                        <li>📢 Broadcast post</li>
+                                        <li>🔐 Change who can reply</li>
+                                        <li>🤐 Hide reply</li>
+                                        <li>🤐 Show hidden replies</li>
+                                        <li>㊗️ Translate</li>
+                                        <li>😄 Suggest more</li>
+                                        <li>🙂‍↔️ Not interested</li>
+                                        <li>📝 Write a ChirpSees Note</li>
+                                        <li>🔇 Mute conversation</li>
+                                        <li>🔇 Mute user</li>
+                                        <li>🚫 Block</li>
+                                        <li>🚩 Report</li>
+                                        <li>🗑️ Delete</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -413,38 +438,40 @@ try {
         }
 
         function updateChirpInteraction(chirpId, action, button) {
-    fetch(`/interact_chirp.php`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            chirpId,
-            action
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            const countElement = button.querySelector(`.${action}-count`);
-            const currentCount = parseInt(countElement.textContent.trim());
-            const imgElement = button.querySelector('img');
+            fetch(`/interact_chirp.php`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chirpId,
+                        action
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const countElement = button.querySelector(`.${action}-count`);
+                        const currentCount = parseInt(countElement.textContent.trim());
+                        const imgElement = button.querySelector('img');
 
-            if (action === 'like') {
-                imgElement.src = data.like ? '/src/images/icons/liked.svg' : '/src/images/icons/like.svg';
-                countElement.textContent = data.like_count;
-            } else if (action === 'rechirp') {
-                imgElement.src = data.rechirp ? '/src/images/icons/rechirped.svg' : '/src/images/icons/rechirp.svg';
-                countElement.textContent = data.rechirp_count;
-            }
-        } else if (data.error === 'not_signed_in') {
-            window.location.href = '/signin/';
+                        if (action === 'like') {
+                            imgElement.src = data.like ? '/src/images/icons/liked.svg' :
+                                '/src/images/icons/like.svg';
+                            countElement.textContent = data.like_count;
+                        } else if (action === 'rechirp') {
+                            imgElement.src = data.rechirp ? '/src/images/icons/rechirped.svg' :
+                                '/src/images/icons/rechirp.svg';
+                            countElement.textContent = data.rechirp_count;
+                        }
+                    } else if (data.error === 'not_signed_in') {
+                        window.location.href = '/signin/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating interaction:', error);
+                });
         }
-    })
-    .catch(error => {
-        console.error('Error updating interaction:', error);
-    });
-}
 
 
         loadChirps();

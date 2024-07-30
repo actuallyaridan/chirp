@@ -38,7 +38,9 @@ session_start();
                 <a
                     href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                         src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
@@ -176,7 +178,7 @@ session_start();
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
                 Corp is licensed under CC-BY 4.0.
 
-                <br><br>You're running: Chirp Beta 0.1b
+                <br><br>You're running: Chirp Beta 0.1.1b
             </p>
         </div>
     </aside>

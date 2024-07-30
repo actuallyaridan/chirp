@@ -160,6 +160,16 @@ function closeEditProfilePicModal() {
     document.getElementById('editProfilePicModal').style.display = 'none';
 }
 
+
+function openMoreOptionsModal() {
+    document.getElementById('moreOptionsModal').classList.add('openOptions');
+}
+
+function closeMoreOptionsModal() {
+    document.getElementById('moreOptionsModal').classList.remove('openOptions');
+}
+
+
 // Close the modal if the user clicks outside of it
 window.onclick = function(event) {
     if (event.target == document.getElementById('editBannerModal')) {
@@ -168,4 +178,5 @@ window.onclick = function(event) {
     if (event.target == document.getElementById('editProfilePicModal')) {
         closeEditProfilePicModal();
     }
+
 };

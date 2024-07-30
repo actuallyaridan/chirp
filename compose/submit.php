@@ -67,12 +67,12 @@ try {
     $chirpText = trim($_POST['chirpComposeText']);
     if (empty($chirpText)) {
         echo json_encode(['error' => "Chirp cannot be empty."]);
-        exit();
+        exit;
     }
 
     if (strlen($chirpText) > MAX_CHARS) {
         echo json_encode(['error' => "Chirp exceeds maximum character limit of " . MAX_CHARS . " characters."]);
-        exit();
+        exit;
     }
 
     // Use prepared statements to prevent SQL injection
@@ -99,7 +99,7 @@ try {
     } else {
         // Execution failed
         echo json_encode(['error' => 'Failed to post chirp.']);
-        exit();
+        exit;
     }
 } catch (PDOException $e) {
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);

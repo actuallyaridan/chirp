@@ -183,16 +183,12 @@
     text-align: center;
     /* Center-align text */
     background-color: rgb(24, 15, 0);
-    /* Background color */
-    padding-left: 12px;
-    /* Left padding */
-    padding-right: 12px;
-    /* Right padding */
+    border: 1px solid rgb(24, 15, 0);
     color: #8b8b8b;
     /* Text color */
-    border-radius: 0 0 8px 8px;
-    /* Rounded corners */
     display: none;
+    align-items: center;
+    justify-content: center;
     /* Hide element by default */
 }
 

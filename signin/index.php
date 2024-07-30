@@ -9,15 +9,15 @@ session_start();
     <meta charset="UTF-8">
 
     <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
+    </script>
     <script src="/src/scripts/general.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -37,9 +37,11 @@ session_start();
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                    src="/src/images/icons/person.svg" alt=""> Profile</a>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                        src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
@@ -54,9 +56,10 @@ session_start();
                     src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
                     alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p class="usernameMenu"><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
+                    <p class="usernameMenu">
+                        <?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
                         <?php if (isset($_SESSION['is_verified']) && $_SESSION['is_verified']): ?>
-                            <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
+                        <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
                         <?php endif; ?>
                     </p>
                     <p class="subText">
@@ -80,6 +83,7 @@ session_start();
                 <p class="subText">You can't interact with chirps or post any of your own. You can't follow accounts
                     either.</p>
                 <p class="subText">If you have an account, you can sign in here:</p>
+                <a class="subText" href="/signup/">Need to create an account instead?</a>
                 <form id="signInForm" method="post" action="/signin/signin.php">
                     <div id="signIn">
                         <div id="inputSignin">
@@ -91,7 +95,6 @@ session_start();
                         </div>
                     </div>
                 </form>
-                <a class="subText" href="/signup/">Need to create an account instead?</a>
             </div>
         </div>
     </main>
@@ -142,7 +145,8 @@ session_start();
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
                 Corp is licensed under CC-BY 4.0.
 
-<br><br>You're running: Chirp Beta 0.1b</p>
+                <br><br>You're running: Chirp Beta 0.1.1b
+            </p>
         </div>
     </aside>
     <footer>
@@ -156,7 +160,7 @@ session_start();
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
-    
+
 
 </body>
 

@@ -79,7 +79,9 @@ if (!isset($_SESSION['username'])) {
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"
                     class="activeDesktop"><img src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
@@ -182,7 +184,9 @@ if (!isset($_SESSION['username'])) {
     </aside>
     <footer>
         <div class="mobileCompose">
+                <?php if (isset($_SESSION['username'])): ?>
             <a class="chirpMoile" href="compose">Chirp</a>
+                <?php endif; ?>
         </div>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>

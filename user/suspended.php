@@ -34,7 +34,9 @@
                 <a
                 href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>

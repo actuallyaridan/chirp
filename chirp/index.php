@@ -121,7 +121,9 @@ try {
                     <a
                         href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                             src="/src/images/icons/person.svg" alt=""> Profile</a>
-                    <a href="/compose" class="newchirp">Chirp</a>
+                    <?php if (isset($_SESSION['username'])): ?>
+                <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
                 </nav>
                 <div id="menuSettings">
                     <a href="settings">⚙️ Settings</a>
@@ -164,7 +166,7 @@ try {
                 <!-- If post is not found or no ID provided, show this -->
                 <div id="notFound">
                     <p>Chirp not found</p>
-                    <p class="subText">That chirp does not exist.</p>
+                    <p class="subText">That chirp does not exist. <br>It was most likely deleted, or it never existed in the first place.</p>
                 </div>
                 <?php else : ?>
                 <!-- Display the fetched post -->
@@ -182,27 +184,51 @@ try {
                                 </div>
                             </div>
                             <div class="morePostOptionWrapper"><button class="morePostOptions"
-                                    title="More...">🟰</button>
-                                <div class="morePostOptionsModal">
+                                    title="More..." onClick="openMoreOptionsModal()">🟰</button>
+                                <div class="morePostOptionsModal" id="moreOptionsModal">
                                     <ul>
-                                        <li>✏️ Edit</li>
-                                        <li>📋 Copy post</li>
-                                        <li>🔗 Copy link</li>
-                                        <li>🖇️ Embed post</li>
-                                        <li>📌 Pin post</li>
-                                        <li>📢 Broadcast post</li>
-                                        <li>🔐 Change who can reply</li>
-                                        <li>🤐 Hide reply</li>
-                                        <li>🤐 Show hidden replies</li>
-                                        <li>㊗️ Translate</li>
-                                        <li>😄 Suggest more</li>
-                                        <li>🙂‍↔️ Not interested</li>
-                                        <li>📝 Write a ChirpSees Note</li>
-                                        <li>🔇 Mute conversation</li>
-                                        <li>🔇 Mute user</li>
-                                        <li>🚫 Block</li>
-                                        <li>🚩 Report</li>
-                                        <li>🗑️ Delete</li>
+                                        <li id="editPost">✏️ Edit</li>
+                                        <li id="editHistory">🕓 View edit history</li>
+                                        <li id="copyPost">📋 Copy chirp</li>
+                                        <li id="copyLink">🔗 Copy link</li>
+                                        <li id="embedPost">🖇️ Embed chirp</li>
+                                        <li id="pinPost">📌 Pin chirp</li>
+                                        <li id="broadcastPost">📢 Broadcast chirp</li>
+                                        <li id="changeReply">🔐 Change who can reply</li>
+                                        <li id="hideReply">🤐 Hide reply</li>
+                                        <li id="showHiddenReplies">🤐 Show hidden replies</li>
+                                        <li id="translate">🗣️ Translate</li>
+                                        <li id="suggestMore">😄 Suggest more</li>
+                                        <li id="notInterested">🙂‍↔️ Not interested</li>
+                                        <li id="writeNote">📝 Write a ChirpSees Note</li>
+                                        <li id="muteConversation">🔇 Mute conversation</li>
+                                        <li id="muteUser">🔇 Mute user</li>
+                                        <li id="block">🚫 Block</li>
+                                        <li id="report">🚩 Report</li>
+                                        <li id="delete">🗑️ Delete</li>
+                                    </ul>
+                                </div>
+                                <div class="morePostOptionsModalMobile displayMoreOptionsMobile" id="morePostOptionsModalMobile">
+                                    <ul>
+                                        <li id="editPost">✏️ Edit</li>
+                                        <li id="editHistory">🕓 View edit history</li>
+                                        <li id="copyPost">📋 Copy chirp</li>
+                                        <li id="copyLink">🔗 Copy link</li>
+                                        <li id="embedPost">🖇️ Embed chirp</li>
+                                        <li id="pinPost">📌 Pin chirp</li>
+                                        <li id="broadcastPost">📢 Broadcast chirp</li>
+                                        <li id="changeReply">🔐 Change who can reply</li>
+                                        <li id="hideReply">🤐 Hide reply</li>
+                                        <li id="showHiddenReplies">🤐 Show hidden replies</li>
+                                        <li id="translate">🗣️ Translate</li>
+                                        <li id="suggestMore">😄 Suggest more</li>
+                                        <li id="notInterested">🙂‍↔️ Not interested</li>
+                                        <li id="writeNote">📝 Write a ChirpSees Note</li>
+                                        <li id="muteConversation">🔇 Mute conversation</li>
+                                        <li id="muteUser">🔇 Mute user</li>
+                                        <li id="block">🚫 Block</li>
+                                        <li id="report">🚩 Report</li>
+                                        <li id="delete">🗑️ Delete</li>
                                     </ul>
                                 </div>
                             </div>
@@ -220,7 +246,7 @@ try {
                                     minute: '2-digit'
                                 };
                                 document.write(new Date("<?php echo $timestamp ?>").toLocaleString([], options));
-                                </script>
+                                </script> via Chirp for Web
                             </p>
                             <div>
                                 <button type="button" class="reply">
@@ -282,7 +308,9 @@ try {
         </aside>
         <footer>
             <div class="mobileCompose">
-                <a class="chirpMoile" href="compose">Chirp</a>
+                    <?php if (isset($_SESSION['username'])): ?>
+            <a class="chirpMoile" href="compose">Chirp</a>
+                <?php endif; ?>
             </div>
             <div>
                 <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>

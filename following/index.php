@@ -38,7 +38,9 @@ session_start();
                 <a
                 href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt=""> Profile</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
@@ -78,8 +80,7 @@ session_start();
                 </div>
             </div>
             <div id="highTraffic">
-                <p>We're experiencing very high traffic right now.<br>Chirpie is trying his best, but if Chirp slows
-                    down, don't panic!</p>
+                <p>Chirps owner and only developer is currently taking a short break for personal reasons. <br> If you experience any issues, please let him know over Twitter.</p>
             </div>
             <div id="chirps">
             </div>
@@ -91,7 +92,9 @@ session_start();
     </aside>
     <footer>
         <div class="mobileCompose">
+                <?php if (isset($_SESSION['username'])): ?>
             <a class="chirpMoile" href="compose">Chirp</a>
+                <?php endif; ?>
         </div>
         <div>
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>

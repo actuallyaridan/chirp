@@ -8,10 +8,11 @@ try {
     $limit = 12;
     $currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Assume user_id is stored in session
 
+    // Fetch chirps along with user information
     $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 
               FROM chirps 
               INNER JOIN users ON chirps.user = users.id 
-              WHERE COALESCE(chirps.isReply, "") != "yes" 
+              WHERE chirps.type = "post" 
               ORDER BY chirps.timestamp DESC 
               LIMIT :limit OFFSET :offset';
     $stmt = $db->prepare($query);
@@ -27,19 +28,36 @@ try {
         $row['name'] = htmlspecialchars($row['name']);
         $row['profilePic'] = htmlspecialchars($row['profilePic']);
         $row['isVerified'] = (bool)$row['isVerified'];
-        
-        // Decode likes and rechirps
-        $likes = json_decode($row['likes'], true);
-        $rechirps = json_decode($row['rechirps'], true);
 
-        // Count likes, rechirps, and replies
-        $row['like_count'] = count($likes);
-        $row['rechirp_count'] = count($rechirps);
-        $row['reply_count'] = count(json_decode($row['replies'], true));
-        
-        // Check if current user liked or rechirped
-        $row['liked_by_current_user'] = $currentUserId && in_array($currentUserId, $likes);
-        $row['rechirped_by_current_user'] = $currentUserId && in_array($currentUserId, $rechirps);
+        // Fetch counts and current user interactions
+        $likesStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id');
+        $likesStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
+        $likesStmt->execute();
+        $row['like_count'] = $likesStmt->fetchColumn();
+
+        $rechirpsStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id');
+        $rechirpsStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
+        $rechirpsStmt->execute();
+        $row['rechirp_count'] = $rechirpsStmt->fetchColumn();
+
+        $repliesStmt = $db->prepare('SELECT COUNT(*) FROM chirps WHERE parent = :parent_id AND type = "reply"');
+        $repliesStmt->bindValue(':parent_id', $row['id'], PDO::PARAM_INT);
+        $repliesStmt->execute();
+        $row['reply_count'] = $repliesStmt->fetchColumn();
+
+        // Check if current user liked the chirp
+        $likedByUserStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id AND user_id = :user_id');
+        $likedByUserStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
+        $likedByUserStmt->bindValue(':user_id', $currentUserId, PDO::PARAM_INT);
+        $likedByUserStmt->execute();
+        $row['liked_by_current_user'] = (bool) $likedByUserStmt->fetchColumn();
+
+        // Check if current user rechirped the chirp
+        $rechirpedByUserStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id AND user_id = :user_id');
+        $rechirpedByUserStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
+        $rechirpedByUserStmt->bindValue(':user_id', $currentUserId, PDO::PARAM_INT);
+        $rechirpedByUserStmt->execute();
+        $row['rechirped_by_current_user'] = (bool) $rechirpedByUserStmt->fetchColumn();
 
         $chirps[] = $row;
     }

@@ -239,7 +239,7 @@ try {
                     loadingChirps = false; // Reset loading flag
                     hideLoadingSpinner(); // Hide loading spinner
                 });
-        }, 650);
+        }, 500);
     }
 
     // Function to handle button click animation

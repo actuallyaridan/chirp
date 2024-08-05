@@ -136,7 +136,7 @@ session_start();
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
                 Corp is licensed under CC-BY 4.0.
 
-<br><br>You're running: Chirp Beta 0.1.1b</p>
+<br><br>You're running: Chirp Beta 0.2b </p>
         </div>
     </aside>
     <footer>

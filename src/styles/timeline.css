@@ -22,11 +22,18 @@
 .chirp, .chirpThread, .draft, .account {
     padding: 12px;
     /* Padding around the chirp */
-    border-radius: 8px;
+
     /* Rounded corners */
     font-family: Satoshi, Jost, Arial, Helvetica, sans-serif;
     background-color: black;
+    /*border-bottom: 1px solid #8b8b8b2d;*/
 }
+
+
+.chirp:hover, .chir0pThread:hover, .draft:hover, .account:hover {
+    border-radius: 8px;
+}
+
 .account {
     display: flex;
     align-items: space-between;

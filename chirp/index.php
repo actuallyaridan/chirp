@@ -12,7 +12,7 @@ try {
 
     // Check if an id parameter is present in the URL
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        $postId = $_GET['id'];
+        $postId = (int)$_GET['id'];
 
         // Fetch the post with the given ID
         $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 
@@ -52,30 +52,40 @@ try {
             // Convert newlines to <br> tags
             $status = nl2br(htmlspecialchars($post['chirp']));
 
-            // Parse JSON strings for likes, rechirps, and replies
-            $likes = json_decode($post['likes'], true);
-            $rechirps = json_decode($post['rechirps'], true);
-            $replies = json_decode($post['replies'], true);
+            // Get counts for likes, rechirps, and replies
+            $likeStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id');
+            $likeStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
+            $likeStmt->execute();
+            $like_count = $likeStmt->fetchColumn();
 
-            // Get counts
-            $like_count = count($likes);
-            $rechirp_count = count($rechirps);
-            $reply_count = count($replies);
+            $rechirpStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id');
+            $rechirpStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
+            $rechirpStmt->execute();
+            $rechirp_count = $rechirpStmt->fetchColumn();
+
+            $replyStmt = $db->prepare('SELECT COUNT(*) FROM chirps WHERE parent = :parent_id AND type = "reply"');
+            $replyStmt->bindParam(':parent_id', $postId, PDO::PARAM_INT);
+            $replyStmt->execute();
+            $reply_count = $replyStmt->fetchColumn();
 
             // Check if current user has liked or rechirped
             $liked = false;
             $rechirped = false;
 
             if (isset($_SESSION['user_id'])) {
-                $userId = $_SESSION['user_id'];
+                $currentUserId = $_SESSION['user_id'];
 
-                if (in_array($userId, $likes)) {
-                    $liked = true;
-                }
+                $likedStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id AND user_id = :user_id');
+                $likedStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
+                $likedStmt->bindParam(':user_id', $currentUserId, PDO::PARAM_INT);
+                $likedStmt->execute();
+                $liked = $likedStmt->fetchColumn() > 0;
 
-                if (in_array($userId, $rechirps)) {
-                    $rechirped = true;
-                }
+                $rechirpedStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id AND user_id = :user_id');
+                $rechirpedStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
+                $rechirpedStmt->bindParam(':user_id', $currentUserId, PDO::PARAM_INT);
+                $rechirpedStmt->execute();
+                $rechirped = $rechirpedStmt->fetchColumn() > 0;
             }
         }
     }
@@ -83,6 +93,7 @@ try {
     die('Connection failed: ' . $e->getMessage());
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -170,6 +181,9 @@ try {
                 </div>
                 <?php else : ?>
                 <!-- Display the fetched post -->
+                <div id="context" data-offset="0">
+                    <!-- Chirps will be loaded here -->
+                </div>
                 <div id="chirps">
                     <div class="chirpThread" id="<?php echo $postId; ?>">
                         <div class="chirpInfo">
@@ -462,7 +476,7 @@ try {
                         loadingChirps = false; // Reset loading flag
                         hideLoadingSpinner(); // Hide loading spinner
                     });
-            }, 650);
+            }, 500);
         }
 
         function updateChirpInteraction(chirpId, action, button) {

@@ -1,79 +1,91 @@
 {
-    "sv-SE": "Svenska (Swedish)",
-    "menuItems": {
-    "home": "Hem",
-    "explore": "Utforska",
-    "notifications": "Notiser",
-    "messages": "Meddelanden",
-    "user": "Profil",
-    "settings": "Inställningar",
-    "signin": "Logga in"
+    "sv-SE": "Svenska",
+    "navigation": {
+        "home": "Hem",
+        "explore": "Upptäck",
+        "notifications": "Notiser",
+        "messages": "Direktmeddelanden",
+        "user": "Profil", "_comment": "You can also use the word 'Account' if it fits better in your language",
+        "settings": "Inställningar",
+        "signin": "Logga in"
     },
-    "buttons": {
-    "cancel": "Avbryt",
-    "chirpAction": "Chirpa",
-    "likeAction": "Gilla",
-    "rechirpAction": "Rechira",
-    "replyAction": "Svara",
-    "back": "Tillbaka",
-    "searchAction": "Sök",
-    "edituser": "Redigera profil",
-    "follow": "Följ"
-    },
-    "time":{
-    "shortSeconds": "s",
-    "shortMinutes": "m",
-    "shortHours": "t",
-    "shortDays": "d",
-    "ago": "sedan"
-    },
-    "drafts": "Utkast",
-    
-    "chirp": "chirp",
-    "chirps": "chirps", 
-    
-    "forYou": "För dig",
-    "following": "Följer",
-    "whoToFollow": "Vem du ska följa",
-    "like": "gilla",
-    "likes": "gillningar",
-    "rechirp": "rechira", 
-    "rechirps": "rechirps",
-    "replyTo": "Svara på",
-    "reply": "svar",
-    "replies": "svar",
-    "trendsForYou": "Trender för dig",
-    "highTrafficMessage": "Vi upplever just nu väldigt hög trafik. chirp gör sitt bästa, men om Chirp saktar ner, få inte panik!",
-    "inspiredByTwitter": "Inspirerad av Twitter/X. Ingen kod har hämtats från Twitter/X. Twemoji av Twitter Inc/X Corp är licensierad under CC-BY 4.0.
 
-You're running: Chirp Beta 0.1.1b .",
-    "postedAt": "Publicerad",
-    
-    "placeholder": "Hitta ett meddelande...",
-    "AdvancedSearch": "Avancerad sökning",
-    "Trends": "Trender",
-    
-    "GetStartedChirping": "Börja chirpa!",
-    "LetsCreateAnAccount": "Låt oss skapa ett konto åt dig!",
-    "ChirpIsInviteOnly": "Chirp är endast för inbjudna just nu. Du behöver en inbjudningskod för att skapa ett konto.",
-    "DontHaveInviteCode": "Har du ingen inbjudningskod? Du kan få en genom att skicka ett DM på Twitter till @actuallyaridan eller @use_chirp.",
-    "InviteCodePlaceholder": "Inbjudningskod",
-    "Next": "Nästa",
-    "WelcomeBack": "Välkommen tillbaka",
-    "YoureCurrentlyUsing": "Du använder för närvarande ett gästkonto",
-    "YouCantInteract": "Du kan inte interagera med chirps eller publicera dina egna. Du kan inte heller följa konton.",
-    "NeedToCreateAnAccountInstead": "Behöver du skapa ett konto istället?",
-    "Content you see": "Innehåll du ser",
-    "suspendedMessage": "Det här kontot har spärrats. Chirp spärrar regelbundet konton som bryter mot våra regler.",
-    "rules": "Visa Chirps regler.",
-    "all": "Alla",
-    "mentions": "Omnämningar",
-    
-    "NotFound": "404 / Hittades ej",
-    "chirpHasSearched": "chirp har letat överallt men kan inte hitta det du letade efter.",
-    "MaybeItFlewAway": "Kanske flög den iväg?",
-    "noDrafts": "Du har inga utkast.",
-    "noMessagesText": "Verkar som du inte har några meddelanden! Gå interagera med någon!",
-    "noMoreChirps": "Om du vill använda fliken Följer måste du följa folk först! ",
-    "noNotifs": "Verkar som du inte har några notiser! Gå interagera med någon!"
+    "timeline": {
+        "forYou": "För dig",
+        "following": "Följer",
+        "noneFollowing": "Ifall du vill använda fliken Följer måste du följa någon först! 😝",
+        "like": "gillar", "_comment": "This is an ammount. Example: 1 _like_",
+        "likes": "gillar",
+        "rechirp": "rechirp", "_comment": "This is an ammount. Example: 1 _rechirp_",
+        "rechirps": "rechirps",
+        "reply": "svar", "_comment": "This is an ammount. Example: 1 _reply_",
+        "replies": "svar"
+        
+    },
+
+    "details": {
+        "postedOn": "Laddes upp den",
+        "replyTo": "Svara på"
+    },  
+
+    "notifications": {
+        "allNotifications": "Alla",
+        "mentions": "Omnämningar",
+        "likedYourPost": "liked din chirp",
+        "rechirpedYourPost": "rechirpade din chirp",
+        "quotedYourPost": "citerade din chirp",
+        "repliedToYourPost": "svarade på din chirp",
+        "followedYou": "följer dig nu",
+        "and": "och",
+        "others": "andra"
+    },  
+
+    "messages": {
+        "findMessage": "Hitta ett meddelande...",
+        "noMessagesText": "Tomt som i ett urblås äggskal. Gå interagera med någon vetja!"
+    },  
+
+    "search": {
+        "searchTitle": "Sök",
+        "placeholderSearch": "Vad du letar efter?"
+    },  
+
+    "sideBar": {
+        "whoToFollow": "Föreslagna konton",
+        "trendsForYou": "Trender",
+        "highTraffic": "Ojdå, hög trafik! Chirpie gör sitt bästa, men om Chirp saktar ner, få inte panik!",
+        "legalFootnote": "Inspirerad av Twitter/X. Ingen kod har hämtats från Twitter/X. Twemoji av Twitter Inc/X Corp är licensierad under CC-BY 4.0.<br>Du kör: Chirp Beta 0.2b "
+    },
+
+    "time": {
+        "ago": "sedan",
+        "shortSeconds": "s",
+        "shortMinutes": "m",
+        "shortHours": "t",
+        "shortDays": "d"   
+    },
+
+    "buttons": { 
+        "cancel": "Avbryt", 
+        "chirpAction": "Chirpa", "_comment": "This is a verb. Example: _Chirp_ this. Do not translate it to the sound a bird makes.", 
+        "likeAction": "Gilla", "_comment": "This is a verb. Example: _Like_ this post", 
+        "rechirpAction": "Rechirpa", "_comment": "This is a verb. Example: _Rechirp_ this post", 
+        "replyAction": "Svara", "_comment": "This is a verb. Example: _Reply_ to this tweet", 
+        "back": "Tillbaka", 
+        "searchAction": "Sök",  
+        "advancedSearchAction": "Avancerad sökning",
+        "edituser": "Redigera profil", 
+        "follow": "Följ",
+        "following": "Följer",
+        "edit": "Redigera",
+        "editHistory": "Visa redigeringshistorik",
+        "copyChirpText": "Kopiera chirp",
+        "copyLink": "Kopiera länk",
+        "pinChirp": "Fäst chirp",
+        "broadcast": "Broadcasta chirp",
+        "showHidden": "Visa dolda svar",
+        "writeNote": "Skriv en ChirpSees-anteckning",
+        "muteConversation": "Tysta konversation",
+        "delete": "Radera"
+    }
 }

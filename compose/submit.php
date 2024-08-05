@@ -76,7 +76,7 @@ try {
     }
 
     // Use prepared statements to prevent SQL injection
-    $sql = "INSERT INTO chirps (chirp, user, timestamp) VALUES (:chirp, :user, :timestamp)";
+    $sql = "INSERT INTO chirps (chirp, user, type, parent, timestamp) VALUES (:chirp, :user, 'post', NULL, :timestamp)";
     $stmt = $db->prepare($sql);
 
     // Bind parameters

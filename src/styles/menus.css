@@ -159,7 +159,7 @@ header > div > nav > img {
     padding-right: 18px; /* Right padding */
     margin: 8px; /* Margin around the image */
     margin-top: 12px; /* Top margin */
-    border-radius: 24px; /* Rounded corners */
+    border-radius: 0px; /* Rounded corners */
     font-size: 32px; /* Font size */
 }
 

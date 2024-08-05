@@ -189,7 +189,8 @@ try {
                         <div class="chirpInfo">
                             <div>
                                 <img class="userPic"
-                                    src="<?php echo isset($profilePic) ? htmlspecialchars($profilePic) : '/src/images/users/guest/user.svg'; ?>"
+                                    src="<?php echo isset($profilePic) ?$profilePic : '/src/images/users/guest/user.svg'; ?>"
+                                    
                                     alt="<?php echo isset($user) ? htmlspecialchars($user) : 'Guest'; ?>">
                                 <div>
                                     <p><?php echo isset($name) ? $name : 'Guest'; ?></p>

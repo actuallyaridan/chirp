@@ -1229,3 +1229,37 @@ display: none;
 div.timestampTimeline>.postedDate{
     text-align: right;
 }
+
+#settings{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+#settings>div{
+margin: 12px;
+    
+}
+
+
+#settings>div>ul>li{
+    padding: 12px;
+    margin: 0px;
+    border-radius: 8px;
+    font-size: 1em;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: .2s linear;
+    list-style: none;
+}
+
+#settings>#settingsExpand{
+    width: 10vw;
+}
+
+#settings>#expandedSettings{
+    width: 30vw;
+}

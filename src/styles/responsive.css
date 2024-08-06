@@ -94,6 +94,13 @@
         width: 50vw;
     }
 
+    .settingsPageContainer{
+        width: unset !important;
+        margin-left: unset !important;
+    }
+
+    
+
     #composer {
         display: flex;
         align-items: center;

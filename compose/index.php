@@ -33,11 +33,14 @@ session_start();
                 <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="explore"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
-                <a href="notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
+                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                    src="/src/images/icons/person.svg" alt=""> Profile</a>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
+                    <img src="/src/images/icons/person.svg" alt=""> Profile
+                </a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>

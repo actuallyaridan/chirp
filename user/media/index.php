@@ -74,12 +74,13 @@ if (!$id) {
                 <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="activeDesktop"><img
-                        src="/src/images/icons/person.svg" alt=""> Profile</a>
-                <?php if (isset($_SESSION['username'])): ?>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="activeDesktop">
+                    <img src="/src/images/icons/person.svg" alt=""> Profile
+                </a>
                 <a href="/compose" class="newchirp">Chirp</a>
                 <?php endif; ?>
             </nav>

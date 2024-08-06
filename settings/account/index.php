@@ -33,15 +33,17 @@ session_start();
                 <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                        src="/src/images/icons/person.svg" alt=""> Profile</a>
-                <?php if (isset($_SESSION['username'])): ?>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
+                    <img src="/src/images/icons/person.svg" alt=""> Profile
+                </a>
                 <a href="/compose" class="newchirp">Chirp</a>
                 <?php endif; ?>
             </nav>
+
             <div id="menuSettings">
                 <a href="settings">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
@@ -70,21 +72,29 @@ session_start();
         </div>
     </header>
     <main>
-        <div id="feed">
+        <div id="feed" class="settingsPageContainer">
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div class="title">
                 <p class="selcted">Settings</p>
+                <p class="selcted settingsTab">Account</p>
             </div>
             <div id="settings">
+
                 <div id="settingsExpand">
                     <ul>
                         <li class="activeDesktop">
                             Account
                         </li>
                         <li>
-                            Secutity and Devices
+                            Content you see
+                        </li>
+                        <li>
+                            Appearance and accessibility
+                        </li>
+                        <li>
+                            Security and Login
                         </li>
                         <li>
                             Privacy and Safety
@@ -93,70 +103,47 @@ session_start();
                             Notifications
                         </li>
                         <li>
-                            Appearance
-                        </li>
-                        <li>
                             Help Center
                         </li>
                     </ul>
+
                 </div>
                 <div id="expandedSettings">
                     <ul>
-                        <li class="activeDesktop">
-                            Account information
+                        <li>
+                            <div>👤 Account information<p class="subText">Change your username, email, or your date of
+                                    birth</p>
+                            </div>
+                            <p class="subText">▷</p>
                         </li>
                         <li>
-                            Change your password
+                            <div>
+                                🔑 Change your password<p class="subText">Change the password of your account</p>
+                            </div>
+                            <p class="subText">▷</p>
                         </li>
                         <li>
-                            Link other accounts
+                            <div>
+                                🔗 Link other accounts<p class="subText">Redirect other accounts to this one</p>
+                            </div>
+                            <p class="subText">▷</p>
                         </li>
                         <li>
-                            Download your data
+                            <div>
+                                📥 Manage your data<p class="subText">Delete or download your data</p>
+                            </div>
+                            <p class="subText">▷</p>
                         </li>
                         <li>
-                            Delete your account
+                            <div>
+                                🗑️ Delete your account<p class="subText">Leave Chirp and deactivate your account</p>
+                            </div>
+                            <p class="subText">▷</p>
                         </li>
                     </ul>
                 </div>
             </div>
     </main>
-    <aside id="sideBar">
-        <div id="whotfollow">
-            <p>Suggested accounts</p>
-            <div>
-                <div>
-                    <img class="userPic"
-                        src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png" alt="Apple">
-                    <div>
-                        <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt="Verified"></p>
-                        <p class="subText">@apple</p>
-                    </div>
-                </div>
-                <a class="followButton following">Following</a>
-            </div>
-            <div>
-                <div>
-                    <img class="userPic"
-                        src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                        alt="President Biden">
-                    <div>
-                        <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
-                        </p>
-                        <p class="subText">@POTUS</p>
-                    </div>
-                </div>
-                <a class="followButton">Follow</a>
-            </div>
-        </div>
-        </div>
-        <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
-                Corp is licensed under CC-BY 4.0.
-                <br><br>You're running: Chirp Beta 0.2b
-            </p>
-        </div>
-    </aside>
     <footer>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>

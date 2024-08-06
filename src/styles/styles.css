@@ -1233,16 +1233,15 @@ div.timestampTimeline>.postedDate{
 #settings{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: end;
     margin: auto;
+    width: 60vw;
 }
 
 #settings>div{
-margin: 12px;
-    
+    margin: 12px;
 }
-
 
 #settings>div>ul>li{
     padding: 12px;
@@ -1251,15 +1250,63 @@ margin: 12px;
     font-size: 1em;
     text-align: left;
     width: 100%;
-    cursor: pointer;
     transition: .2s linear;
     list-style: none;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+#settings>div>ul>li>div>p, #settings>div>ul>li>p {
+    margin-bottom: 0px;
+}
+
+#settings>div>ul>li:hover{
+    background-color: #8b8b8b2d;
+    transition: .2s linear background-color;
+    cursor: pointer;
+}
+
+#settings>#settingsExpand>ul{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0px;
 }
 
 #settings>#settingsExpand{
-    width: 10vw;
+    flex: 1; /* This will take one-third of the space */
+    height: 100vh;
+    border-right: 1px solid #8b8b8b2d;
+    display: flex;
 }
 
 #settings>#expandedSettings{
-    width: 30vw;
+    flex: 2; /* This will take two-thirds of the space */
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    margin-top: 0px;
+    height: 100vh;
+}
+
+#settings>#expandedSettings>ul{
+    padding: 12px;
+    padding-top: 0px;
+    margin-top: 12px;
+}
+
+.settingsPageContainer{
+    margin-left: 25vw   !important;
+}
+
+.settingsPageContainer>div{
+    justify-content: start;
+}
+
+.settingsTab{
+    margin-left: 32%;
 }

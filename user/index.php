@@ -35,7 +35,8 @@ if (!$id) {
         $userNotFound = false;
         // Set the page title dynamically
         $pageTitle = htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
-        $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+                $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+        $user['is_verified'] = strtolower($user['isVerified']) === 'yes';
     }
 
     // Close the database connection
@@ -87,7 +88,7 @@ if (!$id) {
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -139,7 +140,12 @@ if (!$id) {
                                 src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>"
                                 alt="<?php echo htmlspecialchars($user['name']); ?>">
                             <div>
-                                <p><?php echo htmlspecialchars($user['name']); ?></p>
+                            <p>
+                <?php echo htmlspecialchars($user['name']); ?>
+                <?php if ($user['is_verified']): ?>
+                <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                <?php endif; ?>
+            </p>
                                 <p class="subText">@<?php echo htmlspecialchars($user['username']); ?></p>
                             </div>
                         </div>
@@ -162,6 +168,9 @@ if (!$id) {
                         </p>
                         <p class="subText">
                             <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
+                        </p>
+                        <p class="subText">
+                            joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'a long time ago'; ?>
                         </p>
                     </div>
                 </div>
@@ -207,6 +216,7 @@ if (!$id) {
         </div>
     </footer>
     <script>
+
     let loadingChirps = false; // Flag to track if chirps are currently being loaded
 
     function updatePostedDates() {

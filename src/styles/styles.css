@@ -849,6 +849,7 @@ pre{
     word-wrap: break-word;
     max-width: 85vw;
     margin-right: auto;
+    font-weight: 400 !important;
 }
 
 #signUp, #signUp>form>div{
@@ -1309,4 +1310,8 @@ div.timestampTimeline>.postedDate{
 
 .settingsTab{
     margin-left: 32%;
+}
+
+.linkInChirp{
+    color: var(--accent-color);
 }

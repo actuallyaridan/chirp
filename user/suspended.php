@@ -39,7 +39,7 @@
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
 
                 <a href="signin">🚪 Sign in</a>
             </div>

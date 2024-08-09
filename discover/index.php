@@ -44,7 +44,7 @@ session_start();
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -104,6 +104,7 @@ session_start();
                     </div>
                 </div>
             </div>
+            <?php if (isset($_SESSION['username'])): ?>
             <div class="title">
                 <p class="selcted">Suggested accounts</p>
             </div>
@@ -143,7 +144,7 @@ session_start();
                     </div>
                 </div>
             </div>
-          
+          <?php endif; ?>
         </div>
     </main>
     <aside id="sideBar">

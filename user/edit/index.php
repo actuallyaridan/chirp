@@ -34,7 +34,8 @@ if (!isset($_SESSION['username'])) {
     } else {
         $userNotFound = false;
         // Set the page title dynamically
-        $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+                $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+        $user['is_verified'] = strtolower($user['isVerified']) === 'yes';
     }
 
     // Close the database connection
@@ -86,7 +87,7 @@ if (!isset($_SESSION['username'])) {
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -165,6 +166,9 @@ if (!isset($_SESSION['username'])) {
                             <p class="subText">
                                 <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
                             </p>
+                            <p class="subText">
+                            joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'a long time ago'; ?>
+                        </p>
                         </div>
                     </div>
                     <div id="userNav">

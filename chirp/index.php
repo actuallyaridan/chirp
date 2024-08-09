@@ -10,6 +10,32 @@ try {
     $status = "If this stays here for a prolonged period of time, reload this page.";
     $timestamp = gmdate("Y-m-d\TH:i\Z");
 
+    function makeLinksClickable($text) {
+        // Regular expression pattern to identify URLs with or without 'http(s)://', 'www.', etc.
+        $pattern = '/\b((https?:\/\/)?(www\.)?[a-z0-9-]+\.[a-z]{2,}([\/?][^\s]*)?)/i';
+        
+        // Replace URLs with <a> tags
+        $text = preg_replace_callback($pattern, function($matches) {
+            $url = $matches[1];
+            $originalUrl = $url; // Store the original URL for display
+            
+            // Add 'https://' if it's missing
+            if (!preg_match('/^https?:\/\//', $url)) {
+                $url = 'https://' . $url;
+            }
+    
+            // Display URL without the protocol if it was originally missing
+            $displayUrl = $originalUrl;
+            if (!preg_match('/^https?:\/\//', $displayUrl)) {
+                $displayUrl = preg_replace('/^(?:www\.)?/', '', $displayUrl);
+            }
+    
+            return '<a class="linkInChirp" href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $displayUrl . '</a>';
+        }, $text);
+    
+        return $text;
+    }
+
     // Check if an id parameter is present in the URL
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $postId = (int)$_GET['id'];
@@ -49,8 +75,8 @@ try {
 
             $title = "$plainName on Chirp: \"" . htmlspecialchars($post['chirp']) . "\" - Chirp";
             $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
-            // Convert newlines to <br> tags
-            $status = nl2br(htmlspecialchars($post['chirp']));
+            // Convert newlines to <br> tags and make links clickable
+            $status = nl2br(makeLinksClickable(htmlspecialchars($post['chirp'])));
 
             // Get counts for likes, rechirps, and replies
             $likeStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id');
@@ -93,7 +119,6 @@ try {
     die('Connection failed: ' . $e->getMessage());
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -138,7 +163,7 @@ try {
                 <?php endif; ?>
                 </nav>
                 <div id="menuSettings">
-                    <a href="settings">⚙️ Settings</a>
+                    <a href="settings/account">⚙️ Settings</a>
                     <?php if (isset($_SESSION['username'])): ?>
                     <a href="/signout.php">🚪 Sign out</a>
                     <?php else: ?>

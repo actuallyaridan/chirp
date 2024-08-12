@@ -159,13 +159,10 @@ session_start();
                         </div>
                 </div> -->
             </div>
+
             <div id="noMoreChirps">
-                <div class="lds-ring">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
+                <p class="subText">Something went wrong.</p>
+                <button class="followButton following tryAgain">↻ Try again</button>
             </div>
         </div>
     </main>

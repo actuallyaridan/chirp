@@ -7,18 +7,18 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
+    </script>
     <script src="/src/scripts/general.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -30,7 +30,7 @@ session_start();
     <header>
         <div id="desktopMenu">
             <nav>
-         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/discover" class="activeDesktop"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                 <?php if (isset($_SESSION['username'])): ?>
@@ -56,9 +56,10 @@ session_start();
                     src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
                     alt="<?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'guest'; ?>">
                 <div>
-                    <p class="usernameMenu"><?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
+                    <p class="usernameMenu">
+                        <?php echo isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Guest'; ?>
                         <?php if (isset($_SESSION['is_verified']) && $_SESSION['is_verified']): ?>
-                            <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
+                        <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">
                         <?php endif; ?>
                     </p>
                     <p class="subText">
@@ -72,7 +73,7 @@ session_start();
     <main>
         <div id="feed">
             <div id="iconChirp">
-         <img src="/src/images/icons/search.svg" alt="Chirp">
+                <img src="/src/images/icons/search.svg" alt="Chirp">
             </div>
             <div class="title">
                 <p class="selcted">Search</p>
@@ -85,6 +86,14 @@ session_start();
                     <button type="submit" class="postChirp">Search</button>
                 </div>
             </form>
+            <div id="exploreFilters">
+                <button type=button class="button">Everything</button>
+                <button type=button class="button following">Chirps</button>
+                <button type=button class="button following">Hashtags</button>
+                <button type=button class="button following">Topics</button>
+                <button type=button class="button following">People</button>
+                <button type=button class="button following">Communities</button>
+            </div>
             <div class="title">
                 <p class="selcted">Trends</p>
             </div>
@@ -113,7 +122,8 @@ session_start();
                     <div>
                         <div>
                             <img class="userPic"
-                                src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png" alt="">
+                                src="https://pbs.twimg.com/profile_images/1797665112440045568/305XgPDq_400x400.png"
+                                alt="">
                             <div>
                                 <p>Apple <img class="verified" src="/src/images/icons/verified.svg" alt=""></p>
                                 <p class="subText">@apple</p>
@@ -124,9 +134,11 @@ session_start();
                     <div>
                         <div>
                             <img class="userPic"
-                                src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg" alt="">
+                                src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
+                                alt="">
                             <div>
-                                <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt=""></p>
+                                <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="">
+                                </p>
                                 <p class="subText">@POTUS</p>
                             </div>
                         </div>
@@ -134,8 +146,7 @@ session_start();
                     </div>
                     <div>
                         <div>
-                            <img class="userPic"
-                                src="/src/images/users/chirp/user.svg" alt="">
+                            <img class="userPic" src="/src/images/users/chirp/user.svg" alt="">
                             <div>
                                 <p>Chirp <img class="verified" src="/src/images/icons/verified.svg" alt=""></p>
                                 <p class="subText">@chirp</p>
@@ -144,13 +155,15 @@ session_start();
                     </div>
                 </div>
             </div>
-          <?php endif; ?>
+            <?php endif; ?>
         </div>
     </main>
     <aside id="sideBar">
         <div>
-            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
-<br><br>You're running: Chirp Beta 0.2b </p>
+            <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
+                Corp is licensed under CC-BY 4.0.
+                <br><br>You're running: Chirp Beta 0.2.1b
+            </p>
         </div>
     </aside>
     <footer>

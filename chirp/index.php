@@ -11,8 +11,7 @@ try {
     $timestamp = gmdate("Y-m-d\TH:i\Z");
 
     function makeLinksClickable($text) {
-        // Regular expression pattern to identify URLs with or without 'http(s)://', 'www.', etc.
-        $pattern = '/\b((https?:\/\/)?(www\.)?[a-z0-9-]+\.[a-z]{2,}([\/?][^\s]*)?)/i';
+        $pattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?)/i';
         
         // Replace URLs with <a> tags
         $text = preg_replace_callback($pattern, function($matches) {
@@ -27,15 +26,15 @@ try {
             // Display URL without the protocol if it was originally missing
             $displayUrl = $originalUrl;
             if (!preg_match('/^https?:\/\//', $displayUrl)) {
-                $displayUrl = preg_replace('/^(?:www\.)?/', '', $displayUrl);
+                $displayUrl = preg_replace('/^(?:https?:\/\/)?(?:www\.)?/', '', $displayUrl);
             }
     
-            return '<a class="linkInChirp" href="' . $url . '" target="_blank" rel="noopener noreferrer">' . $displayUrl . '</a>';
+            return '<a class="linkInChirp" href="' . htmlspecialchars($url) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl) . '</a>';
         }, $text);
     
         return $text;
     }
-
+    
     // Check if an id parameter is present in the URL
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $postId = (int)$_GET['id'];
@@ -227,29 +226,6 @@ try {
                             <div class="morePostOptionWrapper"><button class="morePostOptions"
                                     title="More..." onClick="openMoreOptionsModal()">🟰</button>
                                 <div class="morePostOptionsModal" id="moreOptionsModal">
-                                    <ul>
-                                        <li id="editPost">✏️ Edit</li>
-                                        <li id="editHistory">🕓 View edit history</li>
-                                        <li id="copyPost">📋 Copy chirp</li>
-                                        <li id="copyLink">🔗 Copy link</li>
-                                        <li id="embedPost">🖇️ Embed chirp</li>
-                                        <li id="pinPost">📌 Pin chirp</li>
-                                        <li id="broadcastPost">📢 Broadcast chirp</li>
-                                        <li id="changeReply">🔐 Change who can reply</li>
-                                        <li id="hideReply">🤐 Hide reply</li>
-                                        <li id="showHiddenReplies">🤐 Show hidden replies</li>
-                                        <li id="translate">🗣️ Translate</li>
-                                        <li id="suggestMore">😄 Suggest more</li>
-                                        <li id="notInterested">🙂‍↔️ Not interested</li>
-                                        <li id="writeNote">📝 Write a ChirpSees Note</li>
-                                        <li id="muteConversation">🔇 Mute conversation</li>
-                                        <li id="muteUser">🔇 Mute user</li>
-                                        <li id="block">🚫 Block</li>
-                                        <li id="report">🚩 Report</li>
-                                        <li id="delete">🗑️ Delete</li>
-                                    </ul>
-                                </div>
-                                <div class="morePostOptionsModalMobile displayMoreOptionsMobile" id="morePostOptionsModalMobile">
                                     <ul>
                                         <li id="editPost">✏️ Edit</li>
                                         <li id="editHistory">🕓 View edit history</li>

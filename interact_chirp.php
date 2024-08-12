@@ -3,31 +3,40 @@ session_start();
 
 header('Content-Type: application/json');
 
-// If someone is signed in, continue; otherwise, stop
+// Check if user is signed in
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'error' => 'not_signed_in']);
     exit;
 }
 
 try {
-    // Connect to the database
+    // Connect to the SQLite database
     $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
-    $data = json_decode(file_get_contents('php://input'), true);
-    $chirpId = $data['chirpId'];
-    $action = $data['action'];
-    $userId = $_SESSION['user_id'];
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Determine table and column based on the action
-    if ($action === 'like') {
-        $table = 'likes';
-    } elseif ($action === 'rechirp') {
-        $table = 'rechirps';
-    } else {
-        echo json_encode(['success' => false, 'error' => 'invalid_action']);
+    // Decode JSON input
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    // Validate input data
+    if (empty($data['chirpId']) || empty($data['action'])) {
+        echo json_encode(['success' => false, 'error' => 'missing_data']);
         exit;
     }
 
-    // Check if the user has already liked or rechirped
+    // Sanitize and validate inputs
+    $chirpId = (int) $data['chirpId'];
+    $action = strtolower($data['action']);
+    $userId = $_SESSION['user_id'];
+
+    // Validate action and restrict table names
+    $validActions = ['like' => 'likes', 'rechirp' => 'rechirps'];
+    if (!array_key_exists($action, $validActions)) {
+        echo json_encode(['success' => false, 'error' => 'invalid_action']);
+        exit;
+    }
+    $table = $validActions[$action];
+
+    // Check if the user has already interacted
     $stmt = $db->prepare("SELECT COUNT(*) FROM $table WHERE chirp_id = :chirpId AND user_id = :userId");
     $stmt->bindParam(':chirpId', $chirpId, PDO::PARAM_INT);
     $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
@@ -43,16 +52,15 @@ try {
         $status = false;
     } else {
         // Add the user's interaction with current timestamp
-        $currentTimestamp = time(); // UNIX timestamp
         $stmt = $db->prepare("INSERT INTO $table (chirp_id, user_id, timestamp) VALUES (:chirpId, :userId, :timestamp)");
         $stmt->bindParam(':chirpId', $chirpId, PDO::PARAM_INT);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':timestamp', $currentTimestamp, PDO::PARAM_INT);
+        $stmt->bindParam(':timestamp', time(), PDO::PARAM_INT);
         $stmt->execute();
         $status = true;
     }
 
-    // Fetch updated counts
+    // Fetch updated count
     $stmt = $db->prepare("SELECT COUNT(*) FROM $table WHERE chirp_id = :chirpId");
     $stmt->bindParam(':chirpId', $chirpId, PDO::PARAM_INT);
     $stmt->execute();
@@ -62,7 +70,7 @@ try {
     $response = [
         'success' => true,
         $action => $status,
-        $action . '_count' => $count
+        $action . '_count' => (int) $count
     ];
 
     echo json_encode($response);

@@ -35,6 +35,12 @@ try {
             $name = strip_tags($name);
             $bio = strip_tags($bio);
 
+            // Check if the bio exceeds 140 characters
+            if (strlen($bio) > 140) {
+                echo "Bio cannot be longer than 140 characters.";
+                exit();
+            }
+
             // Fetch the current values from the database
             $sql = 'SELECT name, bio, userBanner, profilePic FROM users WHERE id = :id';
             $stmt = $db->prepare($sql);

@@ -3,20 +3,23 @@ session_start();
 
 try {
     $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Get the user ID from the query parameters
+    // Validate and sanitize inputs
     $user_id = isset($_GET['user']) ? (int)$_GET['user'] : null;
-    $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
+    $offset = isset($_GET['offset']) ? max((int)$_GET['offset'], 0) : 0;
     $limit = 12;
-    $currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Assume user_id is stored in session
+    $currentUserId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
 
     if ($user_id === null) {
-        throw new Exception('User ID is required.');
+        http_response_code(400); // Bad Request
+        echo json_encode(['error' => 'User ID is required.']);
+        exit;
     }
 
-    // Fetch the IDs of posts that the user has liked along with the like timestamp
+    // Fetch the IDs of posts that the user has liked
     $likedPostsQuery = '
-        SELECT chirp_id, timestamp
+        SELECT chirp_id
         FROM likes
         WHERE user_id = :user_id
         ORDER BY timestamp DESC
@@ -28,19 +31,15 @@ try {
     $likedPostsStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $likedPostsStmt->execute();
 
-    $likedPosts = $likedPostsStmt->fetchAll(PDO::FETCH_ASSOC);
+    $likedPosts = $likedPostsStmt->fetchAll(PDO::FETCH_COLUMN, 0);
 
     if (empty($likedPosts)) {
         echo json_encode([]);
         exit;
     }
 
-    // Extract the chirp IDs and timestamps
-    $chirpIds = array_column($likedPosts, 'chirp_id');
-    $timestamps = array_column($likedPosts, 'timestamp');
-
-    // Fetch details of liked posts with timestamps
-    $chirpIdsPlaceholders = implode(',', array_fill(0, count($chirpIds), '?'));
+    // Fetch details of the liked posts
+    $chirpIdsPlaceholders = implode(',', array_fill(0, count($likedPosts), '?'));
     $allPostsQuery = "
         SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified, likes.timestamp as like_timestamp
         FROM chirps
@@ -50,7 +49,7 @@ try {
         ORDER BY like_timestamp DESC
     ";
     $allPostsStmt = $db->prepare($allPostsQuery);
-    foreach ($chirpIds as $index => $chirpId) {
+    foreach ($likedPosts as $index => $chirpId) {
         $allPostsStmt->bindValue($index + 1, $chirpId, PDO::PARAM_INT);
     }
     $allPostsStmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -59,50 +58,36 @@ try {
     $chirps = [];
 
     while ($row = $allPostsStmt->fetch(PDO::FETCH_ASSOC)) {
-        // Add post details to the result set
-        $row['chirp'] = nl2br(htmlspecialchars($row['chirp']));
-        $row['username'] = htmlspecialchars($row['username']);
-        $row['name'] = htmlspecialchars($row['name']);
-        $row['profilePic'] = htmlspecialchars($row['profilePic']);
+        // Sanitize output
+        $row['chirp'] = nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8'));
+        $row['username'] = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
+        $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+        $row['profilePic'] = htmlspecialchars($row['profilePic'], ENT_QUOTES, 'UTF-8');
         $row['isVerified'] = (bool)$row['isVerified'];
 
-        // Fetch counts and current user interactions
-        $likesStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id');
-        $likesStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
-        $likesStmt->execute();
-        $row['like_count'] = $likesStmt->fetchColumn();
+        // Fetch counts for likes, rechirps, and replies
+        $row['like_count'] = $db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int) $row['id'])->fetchColumn();
+        $row['rechirp_count'] = $db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int) $row['id'])->fetchColumn();
+        $row['reply_count'] = $db->query('SELECT COUNT(*) FROM chirps WHERE parent = ' . (int) $row['id'] . ' AND type = "reply"')->fetchColumn();
 
-        $rechirpsStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id');
-        $rechirpsStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
-        $rechirpsStmt->execute();
-        $row['rechirp_count'] = $rechirpsStmt->fetchColumn();
-
-        $repliesStmt = $db->prepare('SELECT COUNT(*) FROM chirps WHERE parent = :parent_id AND type = "reply"');
-        $repliesStmt->bindValue(':parent_id', $row['id'], PDO::PARAM_INT);
-        $repliesStmt->execute();
-        $row['reply_count'] = $repliesStmt->fetchColumn();
-
-        // Check if current user liked the chirp
-        $likedByUserStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id AND user_id = :user_id');
-        $likedByUserStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
-        $likedByUserStmt->bindValue(':user_id', $currentUserId, PDO::PARAM_INT);
-        $likedByUserStmt->execute();
-        $row['liked_by_current_user'] = (bool) $likedByUserStmt->fetchColumn();
-
-        // Check if current user rechirped the chirp
-        $rechirpedByUserStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id AND user_id = :user_id');
-        $rechirpedByUserStmt->bindValue(':chirp_id', $row['id'], PDO::PARAM_INT);
-        $rechirpedByUserStmt->bindValue(':user_id', $currentUserId, PDO::PARAM_INT);
-        $rechirpedByUserStmt->execute();
-        $row['rechirped_by_current_user'] = (bool) $rechirpedByUserStmt->fetchColumn();
+        // Check if the current user liked or rechirped the chirp
+        $row['liked_by_current_user'] = (bool) $db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int) $row['id'] . ' AND user_id = ' . (int) $currentUserId)->fetchColumn();
+        $row['rechirped_by_current_user'] = (bool) $db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int) $row['id'] . ' AND user_id = ' . (int) $currentUserId)->fetchColumn();
 
         $chirps[] = $row;
     }
 
+    // Set JSON header and output
+    header('Content-Type: application/json');
     echo json_encode($chirps);
+
 } catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
+    // Log error details for debugging purposes
+    error_log($e->getMessage());
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['error' => 'An error occurred while fetching liked posts. Please try again later.']);
 } catch (Exception $e) {
-    echo 'Error: ' . $e->getMessage();
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['error' => 'An unexpected error occurred.']);
 }
 ?>

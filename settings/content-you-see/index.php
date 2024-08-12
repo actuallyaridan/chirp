@@ -23,7 +23,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Account - Chirp</title>
+    <title>Content you see - Chirp</title>
 </head>
 
 <body>
@@ -78,16 +78,16 @@ session_start();
             </div>
             <div class="title">
                 <p class="selcted">Settings</p>
-                <p class="selcted settingsTab">Account</p>
+                <p class="selcted settingsTab">Content you see</p>
             </div>
             <div id="settings">
 
                 <div id="settingsExpand">
                     <ul>
-                        <li class="activeDesktop">
+                        <li>
                             <a class="settingsMenuLink" href="/settings/account">👤 Account</a>
                         </li>
-                        <li>
+                        <li class="activeDesktop">
                             <a class="settingsMenuLink" href="/settings/content-you-see">📝 Content you see</a>
                         </li>
                         <li>
@@ -105,39 +105,31 @@ session_start();
                         <li>
                             <a class="settingsMenuLink" href="https://help.chirpsocial.net">📕 Help Center</a>
                         </li>
-                        <li><p class="subText">Chirp Beta 0.2.1b</p></li>
                     </ul>
 
                 </div>
                 <div id="expandedSettings">
                     <ul>
                         <li>
-                            <div>👤 Account information<p class="subText">Change your username, email, or your date of
-                                    birth</p>
+                            <div>🌍 Langauges<p class="subText">Set Chrips display langauge and let Chirp know what languages you speak</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🔑 Change your password<p class="subText">Change the password of your account</p>
+                                🚫 Blocked and muted accounts<p class="subText">Show accounts you have blocked or muted</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🔗 Link other accounts<p class="subText">Redirect other accounts to this one</p>
+                                🔇 Muted words and conversations<p class="subText">Show  words and conversations you've muted</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                📥 Manage your data<p class="subText">Delete or download your data</p>
-                            </div>
-                            <p class="subText">▷</p>
-                        </li>
-                        <li>
-                            <div>
-                                🗑️ Delete your account<p class="subText">Leave Chirp and deactivate your account</p>
+                                🤔 Topics and interests<p class="subText">Manage topics and interests</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>

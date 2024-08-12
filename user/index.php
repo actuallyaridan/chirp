@@ -4,42 +4,55 @@ session_start();
 // Check if 'id' parameter is provided in the URL
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 if (!$id) {
-    // Handle error if id parameter is missing or invalid
     $userNotFound = true;
     $invalidId = true;
 } else {
     $invalidId = false;
-    // Establish a connection to SQLite database
     try {
         $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Enable error handling
     } catch(PDOException $e) {
-        // Handle database connection error
         echo "Database connection failed: " . $e->getMessage();
         exit;
     }
 
-    // Prepare SQL statement to fetch user details based on username (case insensitive)
+    // Fetch user details
     $stmt = $db->prepare('SELECT * FROM users WHERE LOWER(username) = LOWER(:username)');
     $stmt->bindParam(':username', $id);
     $stmt->execute();
-
-    // Fetch user data
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Check if user exists
     if (!$user) {
-        // Handle case where user is not found
         $userNotFound = true;
     } else {
         $userNotFound = false;
-        // Set the page title dynamically
         $pageTitle = htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
-                $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+        $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
         $user['is_verified'] = strtolower($user['isVerified']) === 'yes';
+
+        // Fetch follower and following counts
+        $followerStmt = $db->prepare('SELECT COUNT(*) FROM following WHERE following_id = :userId');
+        $followerStmt->bindParam(':userId', $user['id']);
+        $followerStmt->execute();
+        $user['followers'] = $followerStmt->fetchColumn();
+
+        $followingStmt = $db->prepare('SELECT COUNT(*) FROM following WHERE follower_id = :userId');
+        $followingStmt->bindParam(':userId', $user['id']);
+        $followingStmt->execute();
+        $user['following'] = $followingStmt->fetchColumn();
+
+        // Check if the signed-in user is following this user
+        if (isset($_SESSION['user_id'])) {
+            $checkFollowStmt = $db->prepare('SELECT 1 FROM following WHERE follower_id = :followerId AND following_id = :followingId');
+            $checkFollowStmt->bindParam(':followerId', $_SESSION['user_id']);
+            $checkFollowStmt->bindParam(':followingId', $user['id']);
+            $checkFollowStmt->execute();
+            $isFollowing = $checkFollowStmt->fetchColumn();
+        } else {
+            $isFollowing = false;
+        }
     }
 
-    // Close the database connection
     $db = null;
 }
 ?>
@@ -80,8 +93,8 @@ if (!$id) {
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
-                <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="activeDesktop">
+                <a href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"
+                    class="activeDesktop">
                     <img src="/src/images/icons/person.svg" alt=""> Profile
                 </a>
                 <a href="/compose" class="newchirp">Chirp</a>
@@ -140,12 +153,12 @@ if (!$id) {
                                 src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>"
                                 alt="<?php echo htmlspecialchars($user['name']); ?>">
                             <div>
-                            <p>
-                <?php echo htmlspecialchars($user['name']); ?>
-                <?php if ($user['is_verified']): ?>
-                <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
-                <?php endif; ?>
-            </p>
+                                <p>
+                                    <?php echo htmlspecialchars($user['name']); ?>
+                                    <?php if ($user['is_verified']): ?>
+                                    <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                                    <?php endif; ?>
+                                </p>
                                 <p class="subText">@<?php echo htmlspecialchars($user['username']); ?></p>
                             </div>
                         </div>
@@ -153,24 +166,20 @@ if (!$id) {
                             <?php if ($isUserProfile): ?>
                             <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
                             <?php else: ?>
-                            <a id="followProfileButton" class="followButton">Follow</a>
+                            <a id="followProfileButton" class="followButton" onclick="toggleFollow(<?php echo $user['id']; ?>)" style="<?php echo $isFollowing ? 'display:none;' : ''; ?>">Follow</a>
+                            <a id="followingProfileButton" class="followButton following" onclick="showUnfollowModal(<?php echo $user['id']; ?>)" style="<?php echo $isFollowing ? '' : 'display:none;'; ?>">Following</a>
                             <?php endif; ?>
-                            <a id="followingProfileButton" class="followButton following"
-                                style="display:none;">Following</a>
                         </div>
                     </div>
                     <p>
                         <?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'This is a bio where you describe your account using at most 120 characters.'; ?>
                     </p>
                     <div id="accountStats">
+                        <p class="subText"><?php echo htmlspecialchars($user['following']) . ' following'; ?></p>
+                        <p class="subText"><?php echo htmlspecialchars($user['followers']) . ' followers'; ?></p>
                         <p class="subText">
-                            <?php echo isset($user['following']) ? htmlspecialchars($user['following']) . ' following' : '0 following'; ?>
-                        </p>
-                        <p class="subText">
-                            <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
-                        </p>
-                        <p class="subText">
-                            joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'a long time ago'; ?>
+                            joined:
+                            <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'a long time ago'; ?>
                         </p>
                     </div>
                 </div>
@@ -202,9 +211,9 @@ if (!$id) {
     </aside>
     <footer>
         <div class="mobileCompose">
-                <?php if (isset($_SESSION['username'])): ?>
+            <?php if (isset($_SESSION['username'])): ?>
             <a class="chirpMoile" href="compose">Chirp</a>
-                <?php endif; ?>
+            <?php endif; ?>
         </div>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
@@ -216,7 +225,6 @@ if (!$id) {
         </div>
     </footer>
     <script>
-
     let loadingChirps = false; // Flag to track if chirps are currently being loaded
 
     function updatePostedDates() {

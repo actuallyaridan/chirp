@@ -79,8 +79,8 @@ if (!isset($_SESSION['username'])) {
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
-                <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="activeDesktop">
+                <a href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"
+                    class="activeDesktop">
                     <img src="/src/images/icons/person.svg" alt=""> Profile
                 </a>
                 <a href="/compose" class="newchirp">Chirp</a>
@@ -147,7 +147,7 @@ if (!isset($_SESSION['username'])) {
                                         value="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : ''; ?>">
                                 </div>
                                 <div>
-                                    <textarea id="nameEdit" name="name" class="editText"
+                                    <textarea id="nameEdit" name="name" class="editText" maxlength="140"
                                         placeholder="<?php echo htmlspecialchars($user['name']); ?>"><?php echo htmlspecialchars($user['name']); ?></textarea>
                                     <p class="subText">@<?php echo htmlspecialchars($user['username']); ?></p>
                                 </div>
@@ -157,7 +157,7 @@ if (!isset($_SESSION['username'])) {
                                     changes</button>
                             </div>
                         </div>
-                        <textarea id="bioEdit" name="bio" class="editText"
+                        <textarea id="bioEdit" name="bio" class="editText" maxlength="140"
                             placeholder="<?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'This is a bio where you describe your account using at most 120 characters.'; ?>"><?php echo htmlspecialchars($user['bio']); ?></textarea>
                         <div id="accountStats">
                             <p class="subText">
@@ -167,10 +167,12 @@ if (!isset($_SESSION['username'])) {
                                 <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
                             </p>
                             <p class="subText">
-                            joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'a long time ago'; ?>
-                        </p>
+                                joined:
+                                <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'a long time ago'; ?>
+                            </p>
                         </div>
                     </div>
+
                     <div id="userNav">
                         <a id="chirpsNav" href="/user?id=<?php echo htmlspecialchars($user['username']); ?>">Chirps</a>
                         <a id="repliesNav"
@@ -190,9 +192,9 @@ if (!isset($_SESSION['username'])) {
     </aside>
     <footer>
         <div class="mobileCompose">
-                <?php if (isset($_SESSION['username'])): ?>
+            <?php if (isset($_SESSION['username'])): ?>
             <a class="chirpMoile" href="compose">Chirp</a>
-                <?php endif; ?>
+            <?php endif; ?>
         </div>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>

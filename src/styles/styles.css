@@ -43,8 +43,8 @@
     --purple: #7A2BFC;
     --purple-hover: #5B1ECC;
 
-    --accent-color: #1AD063;
-    --hover-color: #128E3C;
+    --accent-color: var(--green);
+    --hover-color: var(--green-hover);
     --text-color: black;
 }
 
@@ -1259,6 +1259,15 @@ div.timestampTimeline>.postedDate{
     align-items: center;
 }
 
+.settingsMenuLink{
+   width: 100%;
+   text-decoration: none;
+}
+
+.settingsMenuLink:hover{
+    text-decoration: none;
+ }
+
 
 #settings>div>ul>li>div>p, #settings>div>ul>li>p {
     margin-bottom: 0px;
@@ -1315,3 +1324,84 @@ div.timestampTimeline>.postedDate{
 .linkInChirp{
     color: var(--accent-color);
 }
+
+#exploreFilters{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+    align-items: start;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    --accent-color: #8b8b8b2d;
+}
+
+#exploreFilters>button.following{
+   color: #8b8b8b !important;
+}
+
+#exploreFilters>button{
+    margin-right: 8px;
+    color: white !important;
+}
+
+.switch {
+    --secondary-container: #3a4b39;
+    --primary: #84da89;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    min-width: 3em;
+    width: 3em;
+    height: 1.8em;
+   }
+   
+   .switch input {
+    display: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
+   }
+   
+   .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #313033;
+    transition: .2s;
+    border-radius: 12px;
+   }
+   
+   .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 20px;
+    left: 0.2em;
+    bottom: 0.2em;
+    background-color: #aeaaae;
+    transition: .4s;
+   }
+   
+   input:checked + .slider::before {
+    background-color: var(--primary);
+   }
+   
+   input:checked + .slider {
+    background-color: var(--secondary-container);
+   }
+   
+   input:focus + .slider {
+    box-shadow: 0 0 1px var(--secondary-container);
+   }
+   
+   input:checked + .slider:before {
+    transform: translateX(1.2em);
+   }
+
+   li>div>p{
+    margin-right: 12px;
+   }

@@ -23,7 +23,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Account - Chirp</title>
+    <title>Appearance and accessibility - Chirp</title>
 </head>
 
 <body>
@@ -78,20 +78,21 @@ session_start();
             </div>
             <div class="title">
                 <p class="selcted">Settings</p>
-                <p class="selcted settingsTab">Account</p>
+                <p class="selcted settingsTab">Appearance and accessibility</p>
             </div>
             <div id="settings">
 
                 <div id="settingsExpand">
                     <ul>
-                        <li class="activeDesktop">
+                        <li>
                             <a class="settingsMenuLink" href="/settings/account">👤 Account</a>
                         </li>
                         <li>
                             <a class="settingsMenuLink" href="/settings/content-you-see">📝 Content you see</a>
                         </li>
-                        <li>
-                            <a class="settingsMenuLink" href="/settings/appearance-and-accessibility">🎨 Appearance and accessibility</a>
+                        <li class="activeDesktop">
+                            <a class="settingsMenuLink" href="/settings/appearance-and-accessibility">🎨 Appearance and
+                                accessibility</a>
                         </li>
                         <li>
                             <a class="settingsMenuLink" href="/settings/security-and-login">🔐 Security and Login</a>
@@ -105,41 +106,59 @@ session_start();
                         <li>
                             <a class="settingsMenuLink" href="https://help.chirpsocial.net">📕 Help Center</a>
                         </li>
-                        <li><p class="subText">Chirp Beta 0.2.1b</p></li>
                     </ul>
 
                 </div>
                 <div id="expandedSettings">
                     <ul>
                         <li>
-                            <div>👤 Account information<p class="subText">Change your username, email, or your date of
-                                    birth</p>
+                            <div>🎨 Color<p class="subText">Set an accent color and a theme</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🔑 Change your password<p class="subText">Change the password of your account</p>
+                                🔠 Font<p class="subText">Change Chirps font and its size</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🔗 Link other accounts<p class="subText">Redirect other accounts to this one</p>
+                                🔲 Increase contrast<p class="subText">Increase constrast between colors</p>
                             </div>
-                            <p class="subText">▷</p>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
                         </li>
                         <li>
                             <div>
-                                📥 Manage your data<p class="subText">Delete or download your data</p>
+                                🏃‍➡️ Reduce motion<p class="subText">Reduce motion, animations and transitions</p>
                             </div>
-                            <p class="subText">▷</p>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
                         </li>
                         <li>
                             <div>
-                                🗑️ Delete your account<p class="subText">Leave Chirp and deactivate your account</p>
+                                🖼️ ALT text reminder<p class="subText">Send a reminder to add descriptive ALT text to
+                                    images, videos, GIFs and audio</p>
                             </div>
-                            <p class="subText">▷</p>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <div>
+                                🦜 Return home when you click on Chirpie<p class="subText">By default, Chirp plays a
+                                    sound when you click on the bird logo. This setting will take you home instead</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
                         </li>
                     </ul>
                 </div>

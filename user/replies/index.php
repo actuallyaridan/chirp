@@ -36,6 +36,7 @@ if (!$id) {
         // Set the page title dynamically
         $pageTitle = 'Replies by ' . htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
         $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+        $user['is_verified'] = strtolower($user['isVerified']) === 'yes';
     }
 
     // Close the database connection
@@ -48,14 +49,14 @@ if (!$id) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" />
+
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
     </script>
     <script src="/src/scripts/general.js"></script>
@@ -74,15 +75,18 @@ if (!$id) {
                 <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                        src="/src/images/icons/person.svg" alt=""> Profile</a>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>" class="activeDesktop">
+                    <img src="/src/images/icons/person.svg" alt=""> Profile
+                </a>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -134,13 +138,18 @@ if (!$id) {
                                 src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>"
                                 alt="<?php echo htmlspecialchars($user['name']); ?>">
                             <div>
-                                <p><?php echo htmlspecialchars($user['name']); ?></p>
+                            <p>
+                <?php echo htmlspecialchars($user['name']); ?>
+                <?php if ($user['is_verified']): ?>
+                <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                <?php endif; ?>
+            </p>
                                 <p class="subText">@<?php echo htmlspecialchars($user['username']); ?></p>
                             </div>
                         </div>
                         <div class="timestampTimeline">
                             <?php if ($isUserProfile): ?>
-                            <a id="editProfileButton" class="followButton">Edit profile</a>
+                                 <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
                             <?php else: ?>
                             <a id="followProfileButton" class="followButton">Follow</a>
                             <?php endif; ?>
@@ -157,6 +166,9 @@ if (!$id) {
                         </p>
                         <p class="subText">
                             <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
+                        </p>
+                        <p class="subText">
+                            joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'unknown'; ?>
                         </p>
                     </div>
                 </div>
@@ -187,7 +199,9 @@ if (!$id) {
     </aside>
     <footer>
         <div class="mobileCompose">
+                <?php if (isset($_SESSION['username'])): ?>
             <a class="chirpMoile" href="compose">Chirp</a>
+                <?php endif; ?>
         </div>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
@@ -195,7 +209,7 @@ if (!$id) {
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
             <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
             <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
+                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"class="active"><img
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
@@ -308,7 +322,7 @@ if (!$id) {
                     loadingChirps = false; // Reset loading flag
                     hideLoadingSpinner(); // Hide loading spinner
                 });
-        }, 650);
+        }, 500);
     }
 
     // Function to handle button click animation

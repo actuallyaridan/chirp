@@ -7,7 +7,6 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0000">
@@ -24,7 +23,7 @@ session_start();
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
-    <title>Welcome back - Chirp</title>
+    <title>Appearance and accessibility - Chirp</title>
 </head>
 
 <body>
@@ -44,6 +43,7 @@ session_start();
                 <a href="/compose" class="newchirp">Chirp</a>
                 <?php endif; ?>
             </nav>
+
             <div id="menuSettings">
                 <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
@@ -72,37 +72,98 @@ session_start();
         </div>
     </header>
     <main>
-        <div id="feed">
+        <div id="feed" class="settingsPageContainer">
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div class="title">
-                <p class="selcted">Sign in</p>
+                <p class="selcted">Settings</p>
+                <p class="selcted settingsTab">Appearance and accessibility</p>
             </div>
-            <div id="signedOut">
-                <p>You're currently using a guest account</p>
-                <p class="subText">You can't interact with chirps or post any of your own. You can't follow accounts
-                    either.</p>
-                <p class="subText">If you have an account, you can sign in here:</p>
-                <a class="subText" href="/signup/">Need to create an account?</a>
-                <a class="subText" href="/signin/forgot/password/">or did you forget your password?</a>
-                <form id="signInForm" method="post" action="/signin/signin.php">
-                    <div id="signIn">
-                        <div id="inputSignin">
-                            <div>
-                                <input type="text" id="username" name="username" placeholder="Username" required>
-                                <input type="password" id="pWord" name="pWord" placeholder="Password" required>
+            <div id="settings">
+
+                <div id="settingsExpand">
+                    <ul>
+                        <li>
+                            <a class="settingsMenuLink" href="/settings/account">👤 Account</a>
+                        </li>
+                        <li>
+                            <a class="settingsMenuLink" href="/settings/content-you-see">📝 Content you see</a>
+                        </li>
+                        <li class="activeDesktop">
+                            <a class="settingsMenuLink" href="/settings/appearance-and-accessibility">🎨 Appearance and
+                                accessibility</a>
+                        </li>
+                        <li>
+                            <a class="settingsMenuLink" href="/settings/security-and-login">🔐 Security and Login</a>
+                        </li>
+                        <li>
+                            <a class="settingsMenuLink" href="/settings/privacy-and-safety">👁️ Privacy and Safety</a>
+                        </li>
+                        <li>
+                            <a class="settingsMenuLink" href="/settings/notifications">🔔 Notifications</a>
+                        </li>
+                        <li>
+                            <a class="settingsMenuLink" href="https://help.chirpsocial.net">📕 Help Center</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div id="expandedSettings">
+                    <ul>
+                        <li>
+                            <div>🎨 Color<p class="subText">Set an accent color and a theme</p>
                             </div>
-                            <button type="submit" class="followButton">Sign in</button>
-                        </div>
-                    </div>
-                </form>
+                            <p class="subText">▷</p>
+                        </li>
+                        <li>
+                            <div>
+                                🔠 Font<p class="subText">Change Chirps font and its size</p>
+                            </div>
+                            <p class="subText">▷</p>
+                        </li>
+                        <li>
+                            <div>
+                                🔲 Increase contrast<p class="subText">Increase constrast between colors</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <div>
+                                🏃‍➡️ Reduce motion<p class="subText">Reduce motion, animations and transitions</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <div>
+                                🖼️ ALT text reminder<p class="subText">Send a reminder to add descriptive ALT text to
+                                    images, videos, GIFs and audio</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <div>
+                                🦜 Return home when you click on Chirpie<p class="subText">By default, Chirp plays a
+                                    sound when you click on the bird logo. This setting will take you home instead</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
     </main>
-    <aside id="sideBar">
-        <?php include '../include/sideBar.php';?>
-    </aside>
     <footer>
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
@@ -114,8 +175,6 @@ session_start();
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
-
-
 </body>
 
 </html>

@@ -2,24 +2,31 @@
 session_start();
 
 try {
+    // Set up PDO with error mode to exception
     $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
-    $limit = 12;
+    // Validate and sanitize inputs
     $user_id = isset($_GET['user']) ? (int)$_GET['user'] : null;
+    $offset = isset($_GET['offset']) ? max((int)$_GET['offset'], 0) : 0;
+    $limit = 12;
+    $currentUserId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
 
-    if (!$user_id) {
-        throw new Exception('User ID not provided.');
+    if ($user_id === null) {
+        http_response_code(400); // Bad Request
+        echo json_encode(['error' => 'User ID is required.']);
+        exit;
     }
 
-    $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 
-              FROM chirps 
-              INNER JOIN users ON chirps.user = users.id 
-              WHERE chirps.user = :user_id 
-              AND COALESCE(chirps.isReply, "") != "yes" 
-              ORDER BY chirps.timestamp DESC 
-              LIMIT :limit OFFSET :offset';
+    // Fetch posts from the specified user
+    $query = '
+        SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified
+        FROM chirps
+        INNER JOIN users ON chirps.user = users.id
+        WHERE chirps.type = "post" AND chirps.user = :user_id
+        ORDER BY chirps.timestamp DESC
+        LIMIT :limit OFFSET :offset
+    ';
     $stmt = $db->prepare($query);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -29,32 +36,36 @@ try {
     $chirps = [];
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $row['chirp'] = nl2br(htmlspecialchars($row['chirp']));
-        $row['username'] = htmlspecialchars($row['username']);
-        $row['name'] = htmlspecialchars($row['name']);
-        $row['profilePic'] = htmlspecialchars($row['profilePic']);
+        // Sanitize output
+        $row['chirp'] = nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8'));
+        $row['username'] = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
+        $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+        $row['profilePic'] = htmlspecialchars($row['profilePic'], ENT_QUOTES, 'UTF-8');
         $row['isVerified'] = (bool)$row['isVerified'];
-        
-        // Count likes, rechirps, and replies
-        $likes = json_decode($row['likes'], true);
-        $rechirps = json_decode($row['rechirps'], true);
 
-        $row['like_count'] = count($likes);
-        $row['rechirp_count'] = count($rechirps);
-        $row['reply_count'] = count(json_decode($row['replies'], true));
-        
-        // Check if current user liked or rechirped
-        $currentUserId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-        $row['liked_by_current_user'] = $currentUserId && in_array($currentUserId, $likes);
-        $row['rechirped_by_current_user'] = $currentUserId && in_array($currentUserId, $rechirps);
+        // Fetch counts and current user interactions
+        $row['like_count'] = (int)$db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int)$row['id'])->fetchColumn();
+        $row['rechirp_count'] = (int)$db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int)$row['id'])->fetchColumn();
+        $row['reply_count'] = (int)$db->query('SELECT COUNT(*) FROM chirps WHERE parent = ' . (int)$row['id'] . ' AND type = "reply"')->fetchColumn();
+
+        // Check if current user liked or rechirped the chirp
+        $row['liked_by_current_user'] = (bool)$db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int)$row['id'] . ' AND user_id = ' . (int)$currentUserId)->fetchColumn();
+        $row['rechirped_by_current_user'] = (bool)$db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int)$row['id'] . ' AND user_id = ' . (int)$currentUserId)->fetchColumn();
 
         $chirps[] = $row;
     }
 
+    // Set JSON header and output
+    header('Content-Type: application/json');
     echo json_encode($chirps);
+
 } catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
+    // Log error details for debugging purposes
+    error_log($e->getMessage());
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['error' => 'An error occurred while fetching posts. Please try again later.']);
 } catch (Exception $e) {
-    echo $e->getMessage();
+    http_response_code(500); // Internal Server Error
+    echo json_encode(['error' => 'An unexpected error occurred.']);
 }
 ?>

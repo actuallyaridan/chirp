@@ -53,6 +53,9 @@
         -webkit-backdrop-filter: blur(20px); /* Blur effect for WebKit browsers */
         backdrop-filter: blur(20px); /* Blur effect for modern browsers */
     }
+    .openOptions{
+        display: flex !important;
+    }
 }
 
 /* Media query for screens narrower than 1400px */
@@ -91,6 +94,13 @@
         width: 50vw;
     }
 
+    .settingsPageContainer{
+        width: unset !important;
+        margin-left: unset !important;
+    }
+
+    
+
     #composer {
         display: flex;
         align-items: center;
@@ -101,6 +111,8 @@
     #composer>textarea{
         width: 100%;
     }
+
+
 }
 
 /* Media query for screens narrower than 890px */
@@ -229,5 +241,8 @@
 
     div#signUp{
         width: 100%;
+    }
+    .displayMoreOptionsMobile{
+        display: none !important;
     }
 }

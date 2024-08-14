@@ -7,8 +7,9 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -30,17 +31,20 @@ session_start();
         <div id="desktopMenu">
             <nav>
          <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
-                <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
+                <a href="/" class="activeDesktop"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
                 <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                    src="/src/images/icons/person.svg" alt=""> Profile</a>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
+                    <img src="/src/images/icons/person.svg" alt=""> Profile
+                </a>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -77,8 +81,7 @@ session_start();
                 </div>
             </div>
             <div id="highTraffic">
-                <p>We're experiencing very high traffic right now.<br>Chirpie is trying his best, but if Chirp slows
-                    down, don't panic!</p>
+                <p>Chirps owner and only developer is currently taking a short break for personal reasons. <br> If you experience any issues, please let him know over Twitter.</p>
             </div>
             <div id="chirps">
             </div>
@@ -90,7 +93,9 @@ session_start();
     </aside>
     <footer>
         <div class="mobileCompose">
+                <?php if (isset($_SESSION['username'])): ?>
             <a class="chirpMoile" href="compose">Chirp</a>
+                <?php endif; ?>
         </div>
         <div>
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>

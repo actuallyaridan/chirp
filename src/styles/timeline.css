@@ -15,16 +15,25 @@
     /* Center-align items horizontally */
     justify-content: center;
     /* Center-align items vertically */
+    background-color: black;
 }
 
 /* Styles for elements with class 'chirp' */
 .chirp, .chirpThread, .draft, .account {
     padding: 12px;
     /* Padding around the chirp */
-    border-radius: 8px;
+
     /* Rounded corners */
-    font-family: Outfit, Jost, Arial, Helvetica, sans-serif;
+    font-family: Satoshi, Jost, Arial, Helvetica, sans-serif;
+    background-color: black;
+    /*border-bottom: 1px solid #8b8b8b2d;*/
 }
+
+
+.chirp:hover, .chir0pThread:hover, .draft:hover, .account:hover {
+    border-radius: 8px;
+}
+
 .account {
     display: flex;
     align-items: space-between;
@@ -50,8 +59,7 @@
 /* Styles for element with class 'chirpInfo' */
 .chirpInfo, .accountInfo {
     display: flex;
-    font-family: Jost;
-    /* Flex container */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */    /* Flex container */
     flex-direction: row;
     /* Arrange items horizontally */
     justify-content: space-between;
@@ -83,9 +91,8 @@
     flex-direction: column;
     /* Arrange items horizontally */
     width: 100%;
-    font-family: Jost;
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
     border-top: 1px rgb(56, 56, 56) solid;
-    font-family: Jost;
 }
 
 /* Styles for element with class 'chirpInteract' */
@@ -151,8 +158,7 @@
 /* Styles for element with class 'chirpsee' */
 .chirpsee {
     background-color: rgb(24, 15, 0);
-    font-family: Jost;
-    /* Background color */
+    font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */    /* Background color */
     padding: 8px;
     /* Padding */
     border-radius: 4px;
@@ -184,16 +190,12 @@
     text-align: center;
     /* Center-align text */
     background-color: rgb(24, 15, 0);
-    /* Background color */
-    padding-left: 12px;
-    /* Left padding */
-    padding-right: 12px;
-    /* Right padding */
+    border: 1px solid rgb(24, 15, 0);
     color: #8b8b8b;
     /* Text color */
-    border-radius: 0 0 8px 8px;
-    /* Rounded corners */
     display: none;
+    align-items: center;
+    justify-content: center;
     /* Hide element by default */
 }
 
@@ -247,7 +249,7 @@
 }
 
 /* Styles for img elements with class 'verified' */
-img.verified {
+img.verified, svg.verified {
     width: 1.2rem;
     /* Width */
     height: 1rem;
@@ -256,6 +258,7 @@ img.verified {
     /* Relative positioning */
     top: 2px;
     /* Offset from the top */
+    stroke: var(--accent-color) !important;
 }
 
 /* Styles for element with ID 'chirps' */
@@ -268,6 +271,10 @@ div#chirps, div#posts,  div#replies {
     /* Bottom border */
     width: 35vw;
     /* 35% of viewport width */
+}
+
+div#replies {
+    margin-bottom: 15vh;
 }
 
 div#signUp{

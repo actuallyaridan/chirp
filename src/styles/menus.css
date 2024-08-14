@@ -81,7 +81,7 @@ header {
     position: fixed; /* Fixed positioning */
     top: 0; /* Align to the top */
     left: 0; /* Align to the left */
-    margin-left: 15vw; /* Left margin */
+    margin-left: 13vw; /* Left margin */
 }
 
 /* Styles for nested div elements inside the header */
@@ -159,7 +159,7 @@ header > div > nav > img {
     padding-right: 18px; /* Right padding */
     margin: 8px; /* Margin around the image */
     margin-top: 12px; /* Top margin */
-    border-radius: 24px; /* Rounded corners */
+    border-radius: 0px; /* Rounded corners */
     font-size: 32px; /* Font size */
 }
 

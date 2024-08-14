@@ -13,6 +13,7 @@
         <p class="subText">62 chirps</p>
     </div>
 </div>
+<?php if (isset($_SESSION['username'])): ?>
 <div id="whotfollow">
     <p>Suggested accounts</p>
     <div>
@@ -39,10 +40,11 @@
         <a class="followButton">Follow</a>
     </div>
 </div>
+<?php endif; ?>
 <div>
     <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
         Corp is licensed under CC-BY 4.0.
 
-        <br><br>You're running: Chirp Beta 0.0.7b
+        <br><br>You're running: Chirp Beta 0.2.1b 
     </p>
 </div>

@@ -1,20 +1,26 @@
 <?php
 session_start();
 
+header('Content-Type: application/json');
+
 try {
+    // Check if the POST data is set
+    if (!isset($_POST['chirpComposeText'])) {
+        echo json_encode(['error' => "No data was sent with the POST request."]);
+        exit;
+    }
+
     // Check if the host is allowed
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
-    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500']; // add hosts to the variable as you see fit.
+    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500'];
     if ($host === "none" || !in_array($host, $allowedHosts)) {
-        $_SESSION['error_message'] = "Invalid host.";
-        header('Location: /');
+        echo json_encode(['error' => "Invalid host."]);
         exit;
     }
 
     // Check if the user is logged in
     if (!isset($_SESSION['username'])) {
-        $_SESSION['error_message'] = "You need to be logged in to post.";
-        header('Location: /signin/');
+        echo json_encode(['error' => "You need to be logged in to post."]);
         exit;
     }
 
@@ -29,8 +35,7 @@ try {
     $user = $userStmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        $_SESSION['error_message'] = "User not found.";
-        header('Location: /signin/');
+        echo json_encode(['error' => "User not found."]);
         exit;
     }
 
@@ -51,8 +56,7 @@ try {
     if ($currentTime - $lastSubmissionTime < $cooldownSeconds) {
         // Rate limit exceeded, increment attempt count
         $_SESSION['attempt_count'] = ++$attemptCount;
-        $_SESSION['error_message'] = "You are posting too quickly. Slow down!";
-        header('Location: /');
+        echo json_encode(['error' => "You are posting too quickly. Slow down!"]);
         exit;
     }
 
@@ -60,27 +64,19 @@ try {
     $_SESSION['attempt_count'] = 0;
 
     // Check if chirp text is empty or exceeds maximum allowed characters
-    if (!isset($_POST['chirpComposeText'])) {
-        $_SESSION['error_message'] = "Invalid form submission.";
-        header('Location: /');
-        exit;
-    }
-
     $chirpText = trim($_POST['chirpComposeText']);
     if (empty($chirpText)) {
-        $_SESSION['error_message'] = "Chirp cannot be empty.";
-        header('Location: /');
+        echo json_encode(['error' => "Chirp cannot be empty."]);
         exit;
     }
 
     if (strlen($chirpText) > MAX_CHARS) {
-        $_SESSION['error_message'] = "Chirp exceeds maximum character limit of " . MAX_CHARS . " characters.";
-        header('Location: /');
+        echo json_encode(['error' => "Chirp exceeds maximum character limit of " . MAX_CHARS . " characters."]);
         exit;
     }
 
-    // Prepare SQL statement for inserting chirp into database
-    $sql = "INSERT INTO chirps (chirp, user, timestamp) VALUES (:chirp, :user, :timestamp)";
+    // Use prepared statements to prevent SQL injection
+    $sql = "INSERT INTO chirps (chirp, user, type, parent, timestamp) VALUES (:chirp, :user, 'post', NULL, :timestamp)";
     $stmt = $db->prepare($sql);
 
     // Bind parameters
@@ -90,24 +86,26 @@ try {
     $stmt->bindParam(':timestamp', $timestamp);
 
     // Execute the SQL statement
-    $stmt->execute();
+    if ($stmt->execute()) {
+        // Store the ID of the newly inserted chirp
+        $chirpId = $db->lastInsertId();
 
-    // Store the ID of the newly inserted chirp
-    $chirpId = $db->lastInsertId();
+        // Update last submission time in session
+        $_SESSION['last_submission_time'] = $currentTime;
 
-    // Update last submission time in session
-    $_SESSION['last_submission_time'] = $currentTime;
-
-    // Redirect to the chirp details page with the chirp ID
-    header('Location: /chirp/index.php?id=' . $chirpId);
-    exit();
+        // Redirect to the chirp details page with the chirp ID
+        header('Location: /chirp/index.php?id=' . $chirpId);
+        exit();
+    } else {
+        // Execution failed
+        echo json_encode(['error' => 'Failed to post chirp.']);
+        exit;
+    }
 } catch (PDOException $e) {
-    $_SESSION['error_message'] = 'Database error: ' . $e->getMessage();
-    header('Location: /');
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
     exit();
 } catch (Exception $e) {
-    $_SESSION['error_message'] = 'General error: ' . $e->getMessage();
-    header('Location: /');
+    echo json_encode(['error' => 'General error: ' . $e->getMessage()]);
     exit();
 }
 ?>

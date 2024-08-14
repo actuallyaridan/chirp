@@ -7,8 +7,9 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="#00001" /><meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -32,15 +33,18 @@ session_start();
          <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
                 <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                 <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
+                <?php if (isset($_SESSION['username'])): ?>
                 <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
+                <a href="/messages" class="activeDesktop"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
                 <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                    src="/src/images/icons/person.svg" alt=""> Profile</a>
+                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
+                    <img src="/src/images/icons/person.svg" alt=""> Profile
+                </a>
                 <a href="/compose" class="newchirp">Chirp</a>
+                <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings">⚙️ Settings</a>
+                <a href="settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -81,8 +85,10 @@ session_start();
                     <button type="submit" class="postChirp">Search</button>
                 </div>
             </form>
-            <p class="noMoreChirps">Seems like you don't have any messages!<br>Why don't you go interact with someone?
-            </p>
+            <div id="noMoreChirps">
+                <p class="subText">Something went wrong.</p>
+                <button class="followButton following tryAgain">↻ Try again</button>
+            </div>
         </div>
         </div>
     </main>
@@ -133,7 +139,7 @@ session_start();
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
                 Corp is licensed under CC-BY 4.0.
 
-<br><br>You're running: Chirp Beta 0.0.7b</p>
+<br><br>You're running: Chirp Beta 0.2.1b </p>
         </div>
     </aside>
     <footer>

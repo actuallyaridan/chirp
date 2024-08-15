@@ -1,0 +1,92 @@
+{
+    "de-DE": "Deutsch (German)",
+    "navigation": {
+        "home": "Startseite",
+        "explore": "Entdecken",
+        "notifications": "Benachrichtigungen",
+        "messages": "Nachrichten",
+        "user": "Profil", "_comment": "Profil",
+        "settings": "Einstellungen",
+        "signin": "Anmelden"
+    },
+
+    "timeline": {
+        "forYou": "Für dich",
+        "following": "Folge ich",
+        "noneFollowing": "Um den Folge ich Tab nutzen zu können musst du doch erst Leuten folgen, nicht? 😝",
+        "like": "Like", "_comment": "1 Like",
+        "likes": "Likes",
+        "rechirp": "Rechirp", "_comment": "1 Rechirp",
+        "rechirps": "Rechirps",
+        "reply": "Antworten", "_comment": "1 Antwort",
+        "replies": "Kommentare"
+        
+    },
+
+    "details": {
+        "postedOn": "Gepostet",
+        "replyTo": "Antworten"
+    },  
+
+    "notifications": {
+        "allNotifications": "Alle",
+        "mentions": "Erwähnungen",
+        "likedYourPost": "gefällt dein Chirp",
+        "rechirpedYourPost": "hat deinen Chirp rechirped",
+        "quotedYourPost": "hat deinen Chirp zitiert",
+        "repliedToYourPost": "hat auf deinen Chirp geantwortet",
+        "followedYou": "folgt dir jetzt",
+        "and": "und",
+        "others": "Andere"
+    },  
+
+    "messages": {
+        "findMessage": "Finde eine Nachricht...",
+        "noMessagesText": "Sieht aus als hättest du keine Nachrichten!<br>Geh und interagiere mit jemandem."
+    },  
+
+    "search": {
+        "searchTitle": "Suche",
+        "placeholderSearch": "Wonach suchst du?",
+    },  
+
+    "sideBar": {
+        "whoToFollow": "Vorgeschlagene Nutzer",
+        "trendsForYou": "Trends",
+        "highTraffic": "Chirp hat Gerade viele Besucher.\nchirp versucht sein bestes, also keine Sorge wenn Chirp etwas langsam ist",
+        "legalFootnote": "Inspiriert von Twitter/X. Kein Code wurde von Twitter/X verwendet. Twemoji von Twitter Inc/X Corp ist unter CC-BY 4.0. lizensiert<br>Du benutzt: Chirp Beta 0.2.1b "
+    },
+
+    "time": {
+        "ago": "zuvor",
+        "shortSeconds": "S",
+        "shortMinutes": "M",
+        "shortHours": "H",
+        "shortDays": "T"   
+    },
+
+
+    "buttons": { 
+        "cancel": "Abbrechen", 
+        "chirpAction": "Chirpen", "_comment": "Antworte.", 
+        "likeAction": "Liken", "_comment": "Like", 
+        "rechirpAction": "Rechirpen", "_comment": "This is a verb. Example: _Rechirp_ this post", 
+        "replyAction": "Antworten", "_comment": "This is a verb. Example: _Reply_ to this tweet", 
+        "back": "Zurück", 
+        "searchAction": "Suchen",  
+        "advancedSearchAction": "Erweiterte Suche",
+        "edituser": "Profil Bearbeiten", 
+        "follow": "Folgen",
+        "following": "Folge ich",
+        "edit": "Bearbeiten",
+        "editHistory": "Bearbeitungsverlauf anzeigen",
+        "copyChirpText": "Chirp kopieren",
+        "copyLink": "Link kopieren",
+        "pinChirp": "Chirp anpinnen",
+        "broadcast": "Chirp broadcasten",
+        "showHidden": "Versteckte Antworten anzeigen",
+        "writeNote": "Schreibe eine Chirp-Sees Notiz",
+        "muteConversation": "Konversation stummschalten",
+        "delete": "Löschen"
+    }
+}

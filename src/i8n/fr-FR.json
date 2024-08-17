@@ -1,0 +1,91 @@
+{
+    "fr-FR": "Français (French)",
+    "navigation": {
+        "home": "Accueil",
+        "explore": "Explorer",
+        "notifications": "Notifications",
+        "messages": "Messages Privés",
+        "user": "Profil", "_comment": "You can also use the word 'Account' if it fits better in your language",
+        "settings": "Parametres",
+        "signin": "Se Connecter"
+    },
+
+    "timeline": {
+        "forYou": "Pour Toi",
+        "following": "Suivis",
+        "noneFollowing": "Yo! Il faudrait suivre des comptes avant d'utiliser cet onglet tu pense pas? 😝",
+        "like": "like", "_comment": "This is an ammount. Example: 1 _like_",
+        "likes": "likes",
+        "rechirp": "rechirp", "_comment": "This is an ammount. Example: 1 _rechirp_",
+        "rechirps": "rechirps",
+        "reply": "Commentaire", "_comment": "This is an ammount. Example: 1 _reply_",
+        "replies": "Commentaires"
+        
+    },
+
+    "details": {
+        "postedOn": "Posté le",
+        "replyTo": "Commenté sur"
+    },  
+
+    "notifications": {
+        "allNotifications": "General",
+        "mentions": "Mentions",
+        "likedYourPost": "Aimé ton chirp",
+        "rechirpedYourPost": "Rechirpé ton chirp",
+        "quotedYourPost": "Cité ton chirp",
+        "repliedToYourPost": "Commenté sur ton chirp",
+        "followedYou": "T'a suivi",
+        "and": "et",
+        "others": "autres"
+    },  
+
+    "messages": {
+        "findMessage": "Trouve un message...",
+        "noMessagesText": "On dirait que tu n'as pas de messages! <br>Et si tu irais parler a quelqu'un?"
+    },  
+
+    "search": {
+        "searchTitle": "Rechercher",
+        "placeholderSearch": "Que cherche tu?",
+    },  
+
+    "sideBar": {
+        "whoToFollow": "Comptes Suggérés",
+        "trendsForYou": "Tendances",
+        "highTraffic": "Il se peut que nous ayons des problemes de latences \nchirp fait du mieux qu'il peut, si Chirp commence a ralentir, ne panique pas!",
+        "legalFootnote": "Inspiré de Twitter/X. Aucun code n'a été sourcé ou pris de Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.<br>You're running: Chirp Beta 0.2.1b "
+    },
+
+    "time": {
+        "ago": "il y a",
+        "shortSeconds": "s",
+        "shortMinutes": "m",
+        "shortHours": "h",
+        "shortDays": "j"   
+    },
+
+
+    "buttons": { 
+        "cancel": "Annuler", 
+        "chirpAction": "Chirp", "_comment": "This is a verb. Example: _Chirp_ this. Do not translate it to the sound a bird makes.", 
+        "likeAction": "Liker", "_comment": "This is a verb. Example: _Like_ this post", 
+        "rechirpAction": "Rechirp", "_comment": "This is a verb. Example: _Rechirp_ this post", 
+        "replyAction": "Commenter", "_comment": "This is a verb. Example: _Reply_ to this tweet", 
+        "back": "Retour", 
+        "searchAction": "Recherche",  
+        "advancedSearchAction": "Recherche Avancée",
+        "edituser": "Modifier votre profil", 
+        "follow": "Suivre",
+        "following": "Suivi",
+        "edit": "Modifier",
+        "editHistory": "Modifications Precedentes",
+        "copyChirpText": "Copier le texte",
+        "copyLink": "Copier le lien",
+        "pinChirp": "Epingler ce chirp",
+        "broadcast": "Diffuser un Chirp",
+        "showHidden": "Voir les commentaires cachés",
+        "writeNote": "Ecrire un ChirpSees",
+        "muteConversation": "Mettre en sourdine",
+        "delete": "Suprimer"
+    }

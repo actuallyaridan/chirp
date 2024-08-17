@@ -1,0 +1,92 @@
+{
+    "pl-PL": "Polski",
+    "navigation": {
+        "home": "Strona główna",
+        "explore": "Odkrywaj",
+        "notifications": "Powiadomienia",
+        "messages": "Wiadomości prywatne",
+        "user": "Profil", "_comment": "You can also use the word 'Account' if it fits better in your language",
+        "settings": "Ustawienia",
+        "signin": "Zaloguj się"
+    },
+
+    "timeline": {
+        "forYou": "Dla ciebie",
+        "following": "Obserwujący",
+        "noneFollowing": "Aby korzystać z zakładki 'Obserwowani' musisz kogoś obserwować! 😝",
+        "like": "Polub", "_comment": "This is an ammount. Example: 1 _like_",
+        "likes": "Polubienia",
+        "rechirp": "rechirp", "_comment": "This is an ammount. Example: 1 _rechirp_",
+        "rechirps": "rechirpy",
+        "reply": "Odpowiedź", "_comment": "This is an ammount. Example: 1 _reply_",
+        "replies": "Odpowiedzi"
+        
+    },
+
+    "details": {
+        "postedOn": "Opublikowano o",
+        "replyTo": "Odpowiedz na"
+    },  
+
+    "notifications": {
+        "allNotifications": "Wszystkie",
+        "mentions": "Wzmiaki",
+        "likedYourPost": "polubił/a twój chirp",
+        "rechirpedYourPost": "rechirpował/a twoja chirpa",
+        "quotedYourPost": "zacytował/a twojego chirp",
+        "repliedToYourPost": "odpowiedział/a na twojego chirp",
+        "followedYou": "Zaczął/eła cię obserwować",
+        "and": "i",
+        "others": "inni"
+    },  
+
+    "messages": {
+        "findMessage": "Znajdź wiadomość ...",
+        "noMessagesText": "Wygląda na to że nie masz wiadomości! <br> Czemu nie pogadasz z kimś?"
+    },  
+
+    "search": {
+        "searchTitle": "Szukaj",
+        "placeholderSearch": "Czego szukasz?"
+    },  
+
+    "sideBar": {
+        "whoToFollow": "Proponowane konta",
+        "trendsForYou": "Trendy",
+        "highTraffic": "Mamy teraz za duże obciążenie.\nchirp próbuje jak najmocniej, jednak jeśli Chirp spowolini, to nie panikuj!",
+        "legalFootnote": "Inspirowane przez Twitter/X. Żaden kod Twitter/X nie został wykorzystany. Twemoji by Twitter Inc/X Corp jest pod licencją CC-BY 4.0.<br>Korzystasz teraz z: Chirp Beta 0.2.1b "
+    },
+
+    "time": {
+        "ago": "temu",
+        "shortSeconds": "s",
+        "shortMinutes": "min",
+        "shortHours": "godz",
+        "shortDays": "dni"   
+    },
+
+
+    "buttons": { 
+        "cancel": "Anuluj", 
+        "chirpAction": "Chirp", "_comment": "This is a verb. Example: _Chirp_ this. Do not translate it to the sound a bird makes.", 
+        "likeAction": "Polub", "_comment": "This is a verb. Example: _Like_ this post", 
+        "rechirpAction": "Rechirpuj", "_comment": "This is a verb. Example: _Rechirp_ this post", 
+        "replyAction": "Odpowiedz", "_comment": "This is a verb. Example: _Reply_ to this tweet", 
+        "back": "Wróć", 
+        "searchAction": "Szukaj",  
+        "advancedSearchAction": "Wyszukiwanie zaawansowane",
+        "edituser": "Edytuj profil", 
+        "follow": "Obserwuj",
+        "following": "Obserwujący",
+        "edit": "Edytuj",
+        "editHistory": "Zobacz historię edycji",
+        "copyChirpText": "Kopiuj chirpa",
+        "copyLink": "Kopiuj link",
+        "pinChirp": "Przypnik chirpa",
+        "broadcast": "Udostępnij chirp",
+        "showHidden": "Zobacz ukryte komentarze",
+        "writeNote": "Napisz notkę ChirpSees",
+        "muteConversation": "Wycisz konwersacje",
+        "delete": "Usuń"
+    }
+}

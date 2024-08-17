@@ -12,7 +12,7 @@ try {
 
     // Check if the host is allowed
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
-    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500'];
+    $allowedHosts = ['beta.chirpsocial.net', 'lambsauce.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500'];
     if ($host === "none" || !in_array($host, $allowedHosts)) {
         echo json_encode(['error' => "Invalid host."]);
         exit;
@@ -24,7 +24,7 @@ try {
         exit;
     }
 
-    $db = new PDO('sqlite:../chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Get the user ID from the users table
@@ -93,9 +93,9 @@ try {
         // Update last submission time in session
         $_SESSION['last_submission_time'] = $currentTime;
 
-        // Redirect to the chirp details page with the chirp ID
-        header('Location: /chirp/index.php?id=' . $chirpId);
-        exit();
+        // Ensure the location header is set properly
+        header('Location: /chirp/index.php?id=' . $chirpId, true, 303);
+        exit;
     } else {
         // Execution failed
         echo json_encode(['error' => 'Failed to post chirp.']);

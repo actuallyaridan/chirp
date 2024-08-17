@@ -10,8 +10,7 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if ($userId && $action) {
     try {
-        $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         if ($action === 'follow') {
             $stmt = $db->prepare('INSERT INTO following (follower_id, following_id) VALUES (:followerId, :followingId)');

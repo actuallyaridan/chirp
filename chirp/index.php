@@ -2,118 +2,10 @@
 session_start();
 try {
     // Connect to the SQLite database
-    $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Initialize default values
-    $user = "Loading";
-    $status = "If this stays here for a prolonged period of time, reload this page.";
-    $timestamp = gmdate("Y-m-d\TH:i\Z");
-
-    function makeLinksClickable($text) {
-        $pattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?)/i';
-        
-        // Replace URLs with <a> tags
-        $text = preg_replace_callback($pattern, function($matches) {
-            $url = $matches[1];
-            $originalUrl = $url; // Store the original URL for display
-            
-            // Add 'https://' if it's missing
-            if (!preg_match('/^https?:\/\//', $url)) {
-                $url = 'https://' . $url;
-            }
+    include 'fetch_post.php';
     
-            // Display URL without the protocol if it was originally missing
-            $displayUrl = $originalUrl;
-            if (!preg_match('/^https?:\/\//', $displayUrl)) {
-                $displayUrl = preg_replace('/^(?:https?:\/\/)?(?:www\.)?/', '', $displayUrl);
-            }
-    
-            return '<a class="linkInChirp" href="' . htmlspecialchars($url) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl) . '</a>';
-        }, $text);
-    
-        return $text;
-    }
-    
-    // Check if an id parameter is present in the URL
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        $postId = (int)$_GET['id'];
-
-        // Fetch the post with the given ID
-        $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 
-                  FROM chirps 
-                  INNER JOIN users ON chirps.user = users.id 
-                  WHERE chirps.id = :id';
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':id', $postId, PDO::PARAM_INT);
-        $stmt->execute();
-        $post = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($post) {
-            // Fetch user details from users table
-            $userId = $post['user'];
-            $userQuery = 'SELECT username, name, profilePic, isVerified FROM users WHERE id = :id';
-            $userStmt = $db->prepare($userQuery);
-            $userStmt->bindParam(':id', $userId, PDO::PARAM_INT);
-            $userStmt->execute();
-            $userData = $userStmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($userData) {
-                $user = htmlspecialchars($userData['username']);
-                $profilePic = !empty($userData['profilePic']) ? htmlspecialchars($userData['profilePic']) : '/src/images/users/guest/user.svg';
-                $name = htmlspecialchars($userData['name']);
-                
-                // Plain text name for the title (without verification tick)
-                $plainName = $name;
-
-                // Check if the user is verified and add the verification icon in the content
-                if ($userData['isVerified']) {
-                    $name .= ' <img class="emoji" src="/src/images/icons/verified.svg" alt="Verified">';
-                }
-            }
-
-            $title = "$plainName on Chirp: \"" . htmlspecialchars($post['chirp']) . "\" - Chirp";
-            $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
-            // Convert newlines to <br> tags and make links clickable
-            $status = nl2br(makeLinksClickable(htmlspecialchars($post['chirp'])));
-
-            // Get counts for likes, rechirps, and replies
-            $likeStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id');
-            $likeStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
-            $likeStmt->execute();
-            $like_count = $likeStmt->fetchColumn();
-
-            $rechirpStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id');
-            $rechirpStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
-            $rechirpStmt->execute();
-            $rechirp_count = $rechirpStmt->fetchColumn();
-
-            $replyStmt = $db->prepare('SELECT COUNT(*) FROM chirps WHERE parent = :parent_id AND type = "reply"');
-            $replyStmt->bindParam(':parent_id', $postId, PDO::PARAM_INT);
-            $replyStmt->execute();
-            $reply_count = $replyStmt->fetchColumn();
-
-            // Check if current user has liked or rechirped
-            $liked = false;
-            $rechirped = false;
-
-            if (isset($_SESSION['user_id'])) {
-                $currentUserId = $_SESSION['user_id'];
-
-                $likedStmt = $db->prepare('SELECT COUNT(*) FROM likes WHERE chirp_id = :chirp_id AND user_id = :user_id');
-                $likedStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
-                $likedStmt->bindParam(':user_id', $currentUserId, PDO::PARAM_INT);
-                $likedStmt->execute();
-                $liked = $likedStmt->fetchColumn() > 0;
-
-                $rechirpedStmt = $db->prepare('SELECT COUNT(*) FROM rechirps WHERE chirp_id = :chirp_id AND user_id = :user_id');
-                $rechirpedStmt->bindParam(':chirp_id', $postId, PDO::PARAM_INT);
-                $rechirpedStmt->bindParam(':user_id', $currentUserId, PDO::PARAM_INT);
-                $rechirpedStmt->execute();
-                $rechirped = $rechirpedStmt->fetchColumn() > 0;
-            }
-        }
-    }
 } catch (PDOException $e) {
     die('Connection failed: ' . $e->getMessage());
 }
@@ -196,7 +88,7 @@ try {
                 </div>
                 <div id="timelineSelect">
                     <button id="back" class="selected" onclick="back()"><img alt="" class="emoji"
-                            src="/src/images/icons/back.svg"> Back</button>
+                            src="/src/images/icons/back.svg"> Chirp</button>
                 </div>
                 <?php if (!$post || empty($postId)) : ?>
                 <!-- If post is not found or no ID provided, show this -->
@@ -479,7 +371,7 @@ try {
                         loadingChirps = false; // Reset loading flag
                         hideLoadingSpinner(); // Hide loading spinner
                     });
-            }, 500);
+            }, 300);
         }
 
         function updateChirpInteraction(chirpId, action, button) {

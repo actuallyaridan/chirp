@@ -73,7 +73,7 @@ session_start();
     <main>
         <div id="feed">
             <div id="iconChirp">
-                <img src="/src/images/icons/search.svg" alt="Chirp">
+                <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div class="title">
                 <p class="selcted">Search</p>
@@ -100,7 +100,7 @@ session_start();
             <div id="exploreTrends">
                 <div id="trends">
                     <div>
-                        <a>gay people</a>
+                        <a href="/discover/search?q=gay_people">gay people</a>
                         <p class="subText">12 chirps</p>
                     </div>
                     <div>

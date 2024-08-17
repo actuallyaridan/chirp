@@ -1,7 +1,6 @@
 <?php
 try {
-    $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
-
+    $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
     $query = isset($_GET['query']) ? trim($_GET['query']) : '';
 
     if ($query !== '') {

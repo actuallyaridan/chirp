@@ -1,7 +1,7 @@
 <?php
 session_start();
 try {
-    $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
 }
@@ -54,6 +54,7 @@ try {
                 <a href="/signin/">🚪 Sign in</a>
                 <?php endif; ?>
             </div>
+            <!--<a href="https://sidebox.net/?ref=chirp" target="_blank"><img src="https://raw.githubusercontent.com/xkcdstickfigure/sidebox/main/banner.png" style="position: absolute; bottom: 96px; width: 256px; height: unset; margin: unset; border-radius: 8px; opacity: 0.8"></a>-->
             <button id="settingsButtonWrapper" type="button" onclick="showMenuSettings()">
                 <img class="userPic"
                     src="<?php echo isset($_SESSION['profile_pic']) ? htmlspecialchars($_SESSION['profile_pic']) : '/src/images/users/guest/user.svg'; ?>"
@@ -85,7 +86,7 @@ try {
                 </div>
             </div>
             <div id="highTraffic">
-                <p>Chirps owner and only developer is currently taking a short break for personal reasons. <br> If you experience any issues, please let him know over Twitter.</p>
+                <p></p>
             </div>
             <div id="chirps" data-offset="0">
                 <!-- Chirps will be loaded here -->
@@ -240,7 +241,7 @@ try {
                     loadingChirps = false; // Reset loading flag
                     hideLoadingSpinner(); // Hide loading spinner
                 });
-        }, 500);
+        }, 300);
     }
 
     // Function to handle button click animation

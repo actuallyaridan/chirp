@@ -1,6 +1,6 @@
 <?php
 try {
-    $db = new PDO('sqlite:../chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

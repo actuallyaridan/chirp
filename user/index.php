@@ -9,7 +9,7 @@ if (!$id) {
 } else {
     $invalidId = false;
     try {
-        $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
+        $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Enable error handling
     } catch(PDOException $e) {
         echo "Database connection failed: " . $e->getMessage();
@@ -333,7 +333,7 @@ if (!$id) {
                     loadingChirps = false; // Reset loading flag
                     hideLoadingSpinner(); // Hide loading spinner
                 });
-        }, 500);
+        }, 300);
     }
 
     // Function to handle button click animation

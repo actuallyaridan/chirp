@@ -96,7 +96,7 @@ session_start();
         <div id="trends">
             <p>Trends</p>
             <div>
-                <a>gay people</a>
+                <a href="/discover/search?q=gay_people">gay people</a>
                 <p class="subText">12 chirps</p>
             </div>
             <div>
@@ -143,9 +143,10 @@ session_start();
         </div>
     </aside>
     <footer>
-        <div class="mobileCompose">
+        <!-- <div class="mobileCompose">
             <a class="chirpMoile" href="compose">New message</a>
         </div>
+        -->
         <div>
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>

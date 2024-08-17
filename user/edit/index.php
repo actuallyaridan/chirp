@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 
     // Establish a connection to SQLite database
     try {
-        $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
+        $db = new PDO('sqlite:' . __DIR__ . '/../../../chirp.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Enable error handling
     } catch(PDOException $e) {
         // Handle database connection error

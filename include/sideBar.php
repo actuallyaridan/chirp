@@ -1,7 +1,7 @@
 <div id="trends">
     <p>Trends</p>
     <div>
-        <a>gay people</a>
+        <a href="/discover/search?q=gay_people">gay people</a>
         <p class="subText">12 chirps</p>
     </div>
     <div>

@@ -4,7 +4,7 @@ session_start();
 try {
     // Check if the host is allowed
     $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : "none";
-    $allowedHosts = ['beta.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500'];
+    $allowedHosts = ['beta.chirpsocial.net', 'lambsauce.chirpsocial.net', '127.0.0.1:5500', '192.168.1.230:5500'];
     if ($host === "none" || !in_array($host, $allowedHosts)) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 400 Bad Request');
         exit;
@@ -17,7 +17,7 @@ try {
         exit;
     }
 
-    $db = new PDO('sqlite:../chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Get the user ID from the users table

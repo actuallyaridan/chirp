@@ -1229,6 +1229,7 @@ display: none;
 
 div.timestampTimeline>.postedDate{
     text-align: right;
+    font-feature-settings: 'tnum';
 }
 
 #settings{

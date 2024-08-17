@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 
 try {
     // Connect to the SQLite database
-    $db = new PDO('sqlite:' . __DIR__ . '/chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Decode JSON input

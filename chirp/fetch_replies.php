@@ -3,7 +3,7 @@ session_start();
 
 try {
     // Set up PDO with error mode to exception
-    $db = new PDO('sqlite:' . __DIR__ . '/../chirp.db');
+    $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Validate and sanitize inputs

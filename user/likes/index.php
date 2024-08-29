@@ -162,12 +162,8 @@ if (!$id) {
                         <?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'This is a bio where you describe your account using at most 120 characters.'; ?>
                     </p>
                     <div id="accountStats">
-                        <p class="subText">
-                            <?php echo isset($user['following']) ? htmlspecialchars($user['following']) . ' following' : '0 following'; ?>
-                        </p>
-                        <p class="subText">
-                            <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
-                        </p>
+                        <p class="subText"><?php echo htmlspecialchars($user['following']) . ' following'; ?></p>
+                        <p class="subText"><?php echo htmlspecialchars($user['followers']) . ' followers'; ?></p>
                         <p class="subText">
                             joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'unknown'; ?>
                         </p>

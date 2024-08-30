@@ -12,6 +12,7 @@ A social media project meant to mimic the feel of Twitter but be better
 - [x] Replying
 - [x] Liking
 - [x] Account editing
+- [x] Following
 
 ### What isn't working
 - [ ] Reposts
@@ -20,7 +21,6 @@ A social media project meant to mimic the feel of Twitter but be better
 ### What's planned
 - [ ] Post editing
 - [ ] Post deletion
-- [ ] Following
 - [ ] Search
 - [ ] Trends
 - [ ] "For you" timeline
@@ -58,7 +58,7 @@ mv chirp /var/www/
 
 #### Database
 
-This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be shared publicly. There are however refereces in the PHP files, so you can create an empty replica if you'd like to.
+This project is currently using SQLite. Chrips *real* database is not included in GitHub, as it contains sensntive information that will not be shared publicly. An empty database is provided in the database folder. You can add a invite via the command line with sqlite3 ```INSERT INTO invites (invite) VALUES ('invite code')```. You will need to place the chirp.db file one directory up from the ```chirp``` folder.
 
 ## Forking Chirp
 

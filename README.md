@@ -58,14 +58,13 @@ mv chirp /var/www/
 
 #### Database
 
-This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be shared publicly. There are however refereces in the PHP files, so you can create an empty replica if you'd like to.
+This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be shared publicly. However, a blank sample databe is included. To use it, you'll need to rename it from "chirp.db.sample" to "chirp.db" and put it above the root of the PHP webserver in order to isolate it from the webserver. Data will be automatically added when it's being used, but to create an admin account that can access the admin panel, you (for now) need to create an invite code manually and sign up for account with the username "chirp". This will soon be replaced with a more user-friendly system where differnt users have different permissions and privileges.
 
 ## Forking Chirp
 
 You can freely made copies of Chirp and use Chirps code as a base for your procject. However, in order to be cool, please follow these guidelines:
 
 • Rebrand your project: Please refrain from uisng any Chirp branding in your project
-
 • Credit us: You should provide credit to the people who have contibuted to this project, or link this repo
 
 Other than that, Chirp uses the MIT license.

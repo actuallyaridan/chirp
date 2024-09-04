@@ -12,15 +12,15 @@ A social media project meant to mimic the feel of Twitter but be better
 - [x] Replying
 - [x] Liking
 - [x] Account editing
+- [x] Following
 
 ### What isn't working
 - [ ] Reposts
-- [ ] Viewing likes and reposts on accounts
+- [ ] Viewing reposts on accounts
 
 ### What's planned
 - [ ] Post editing
 - [ ] Post deletion
-- [ ] Following
 - [ ] Search
 - [ ] Trends
 - [ ] "For you" timeline

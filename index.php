@@ -12,14 +12,14 @@ try {
 
 <head>
     <meta charset="UTF-8">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0000">
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous">
-    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04bd8091c3274c64b334b30906ea3c10"}'></script><!-- End Cloudflare Web Analytics -->
     <script src="/src/scripts/general.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -47,7 +47,10 @@ try {
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -79,7 +82,7 @@ try {
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <div id="timelineSelect">
+            <div id="timelineSelect" class="extraBlur">
                 <div>
                     <a id="forYou" class="selected" href="/">For you</a>
                     <a id="following" href="following">Following</a>
@@ -89,6 +92,23 @@ try {
                 <p></p>
             </div>
             <div id="chirps" data-offset="0">
+                <div id="cookieConsent">
+                    <div>
+                        <p>🍪 Here, have some cookies!</p>
+                        <p class="subText">Chirp uses cookies to improve your experience, to personalize content, and to
+                            keep you signed in.
+                            If you decline all cookies*, you can still use Chirp, but some features may not work as
+                            intended.
+                        </p>
+                        <div>
+                            <button class="button" type="button" onclick="acceptCookies()">Accept all cookies</button>
+                            <button class="button following" type="button" onclick="acceptCookies()">Accept only
+                                essential cookies</button>
+                            <button type="button" class="button cancel" onclick="declineCookies()">Decline all
+                                cookies*</button>
+                        </div>
+                    </div>
+                </div>
                 <!-- Chirps will be loaded here -->
             </div>
             <div id="noMoreChirps" style="display: none;">
@@ -104,14 +124,15 @@ try {
 
     <aside id="sideBar">
         <?php include 'include/sideBar.php';?>
+
     </aside>
     <footer>
         <div class="mobileCompose">
-                <?php if (isset($_SESSION['username'])): ?>
-            <a class="chirpMoile" href="compose">Chirp</a>
-                <?php endif; ?>
+            <?php if (isset($_SESSION['username'])): ?>
+            <a class="chirpMoile" href="/compose">Chirp</a>
+            <?php endif; ?>
         </div>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/" class="active"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
@@ -318,7 +339,10 @@ if (isset($_SESSION['error_message'])) {
     unset($_SESSION['error_message']); // Clear the error message after displaying it
 }
 ?>
+
+
     </script>
+    
 </body>
 
 </html>

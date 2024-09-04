@@ -43,7 +43,10 @@ session_start();
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -108,11 +111,11 @@ session_start();
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
-<br><br>You're running: Chirp Beta 0.2.1b </p>
+<br><br>You're running: Chirp Beta 0.4b </p>
         </div>
     </aside>
     <footer>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>

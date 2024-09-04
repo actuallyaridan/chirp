@@ -23,61 +23,17 @@
 </head>
 
 <body>
-    <header>
-        <div id="desktopMenu">
-            <nav>
-         <img src="/src/images/icons/chirp.svg" alt="Chirp" onclick="playChirpSound()">
-                <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
-                <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
-                <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
-                <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                    src="/src/images/icons/person.svg" alt=""> Profile</a>
-                <?php if (isset($_SESSION['username'])): ?>
-                <a href="/compose" class="newchirp">Chirp</a>
-                <?php endif; ?>
-            </nav>
-            <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
-
-                <a href="signin">🚪 Sign in</a>
-            </div>
-            <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
-                <img class="userPic" src="/src/images/users/guest/user.svg" alt="aridan">
-                <div>
-                    <p>Guest</p>
-                    <p class="subText">@guest</p>
-                </div>
-                <p class="settingsButton">⚙️</p>
-            </button>
-        </div>
-    </header>
     <main>
         <div id="feed">
             <div id="iconChirp" onclick="playChirpSound()">
          <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
             <div id="notFound">
-                <p>This account has been suspended</p>
+                <p>This account is temporarily suspended.</p>
                 <p class="subText">Chirp regularly suspends accounts that break <a href="rules">our rules</a>.</p>
+                <p class="subText">This suspension will expire in:</p>
+                <p id="expirationDate">29<span>d</span>23<span>h</span>59<span>m</span></p>
             </div>
         </div>
     </main>
-    <aside id="sideBar">
-    <?php include '../include/sideBar.php';?>
-    </aside>
-    <footer>
-        <div>
-            <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
-            <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
-            <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
-            <a href="/messages"><img src="/src/images/icons/envelope.svg" alt="Direct Messages"></a>
-            <a
-                href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
-                    src="/src/images/icons/person.svg" alt="Profile"></a>
-        </div>
-    </footer>
 </body>
-
-</html>

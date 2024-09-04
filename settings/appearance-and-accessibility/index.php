@@ -45,7 +45,10 @@ session_start();
             </nav>
 
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -124,7 +127,7 @@ session_start();
                         </li>
                         <li>
                             <div>
-                                🔲 Increase contrast<p class="subText">Increase constrast between colors</p>
+                                🔲 Increase contrast<p class="subText">Increase contrast between colors</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox">
@@ -153,7 +156,7 @@ session_start();
                         <li>
                             <div>
                                 🦜 Return home when you click on Chirpie<p class="subText">By default, Chirp plays a
-                                    sound when you click on the bird logo. This setting will take you home instead</p>
+                                    sound when you click on the bird logo. Enable this setting to take you home instead</p>
                             </div>
                             <label class="switch">
                                 <input type="checkbox">
@@ -165,7 +168,7 @@ session_start();
             </div>
     </main>
     <footer>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>

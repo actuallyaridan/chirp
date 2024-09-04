@@ -32,6 +32,7 @@
         display: none;
     }
 
+
     body{
         width: 100%;
     }
@@ -236,7 +237,7 @@
     }
     
     .userBanner{
-        border-radius: 0px 0px 4px 4px;
+        border-radius: 0px 0px 8px 8px;
     }
 
     div#signUp{

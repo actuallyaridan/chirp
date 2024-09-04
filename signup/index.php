@@ -44,7 +44,10 @@ session_start();
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -136,7 +139,7 @@ session_start();
         <div id="trends">
             <p>Trends</p>
             <div>
-                <a href="/discover/search?q=gay_people">gay people</a>
+                <a href="/discover/search?q=gay_people">chirp</a>
                 <p class="subText">12 chirps</p>
             </div>
             <div>
@@ -144,7 +147,7 @@ session_start();
                 <p class="subText">47 chirps</p>
             </div>
             <div>
-                <a>iphone 69</a>
+                <a>iphone 16</a>
                 <p class="subText">62 chirps</p>
             </div>
         </div>
@@ -179,12 +182,12 @@ session_start();
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
                 Corp is licensed under CC-BY 4.0.
 
-                <br><br>You're running: Chirp Beta 0.2.1b 
+                <br><br>You're running: Chirp Beta 0.4b 
             </p>
         </div>
     </aside>
     <footer>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>

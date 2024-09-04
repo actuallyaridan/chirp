@@ -87,7 +87,10 @@ if (!isset($_SESSION['username'])) {
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -193,10 +196,10 @@ if (!isset($_SESSION['username'])) {
     <footer>
         <div class="mobileCompose">
             <?php if (isset($_SESSION['username'])): ?>
-            <a class="chirpMoile" href="compose">Chirp</a>
+            <a class="chirpMoile" href="/compose">Chirp</a>
             <?php endif; ?>
         </div>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>

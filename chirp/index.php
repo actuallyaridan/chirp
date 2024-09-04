@@ -44,17 +44,20 @@ try {
                     <a href="/"><img src="/src/images/icons/house.svg" alt=""> Home</a>
                     <a href="/discover"><img src="/src/images/icons/search.svg" alt=""> Discover</a>
                     <?php if (isset($_SESSION['username'])): ?>
-                <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
-                <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
-                <a
-                    href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
-                    <img src="/src/images/icons/person.svg" alt=""> Profile
-                </a>
-                <a href="/compose" class="newchirp">Chirp</a>
-                <?php endif; ?>
+                    <a href="/notifications"><img src="/src/images/icons/bell.svg" alt=""> Notifications</a>
+                    <a href="/messages"><img src="/src/images/icons/envelope.svg" alt=""> Direct Messages</a>
+                    <a
+                        href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
+                        <img src="/src/images/icons/person.svg" alt=""> Profile
+                    </a>
+                    <a href="/compose" class="newchirp">Chirp</a>
+                    <?php endif; ?>
                 </nav>
                 <div id="menuSettings">
-                    <a href="settings/account">⚙️ Settings</a>
+                    <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                     <?php if (isset($_SESSION['username'])): ?>
                     <a href="/signout.php">🚪 Sign out</a>
                     <?php else: ?>
@@ -94,7 +97,8 @@ try {
                 <!-- If post is not found or no ID provided, show this -->
                 <div id="notFound">
                     <p>Chirp not found</p>
-                    <p class="subText">That chirp does not exist. <br>It was most likely deleted, or it never existed in the first place.</p>
+                    <p class="subText">That chirp does not exist. <br>It was most likely deleted, or it never existed in
+                        the first place.</p>
                 </div>
                 <?php else : ?>
                 <!-- Display the fetched post -->
@@ -107,16 +111,15 @@ try {
                             <div>
                                 <img class="userPic"
                                     src="<?php echo isset($profilePic) ?$profilePic : '/src/images/users/guest/user.svg'; ?>"
-                                    
                                     alt="<?php echo isset($user) ? htmlspecialchars($user) : 'Guest'; ?>">
                                 <div>
                                     <p><?php echo isset($name) ? $name : 'Guest'; ?></p>
-                                    <p class="subText">@<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>
-                                    </p>
+                                    <a href="/user?id=<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>" class="subText usernameLink">@<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="morePostOptionWrapper"><button class="morePostOptions"
-                                    title="More..." onClick="openMoreOptionsModal()">🟰</button>
+                            <div class="morePostOptionWrapper"><button class="morePostOptions" title="More..."
+                                    onClick="openMoreOptionsModal()">🟰</button>
                                 <div class="morePostOptionsModal" id="moreOptionsModal">
                                     <ul>
                                         <li id="editPost">✏️ Edit</li>
@@ -144,7 +147,9 @@ try {
                         </div>
                         <!-- Display chirp content with line breaks -->
                         <pre><?php echo $status; ?></pre>
+
                         <div class="chirpInteractThread">
+                            <button class="underlinedButton">Translate chirp</button>
                             <p class="subText postedDate">Posted on:
                                 <script>
                                 const options = {
@@ -217,8 +222,8 @@ try {
         </aside>
         <footer>
             <div class="mobileCompose">
-                    <?php if (isset($_SESSION['username'])): ?>
-            <a class="chirpMoile" href="compose">Chirp</a>
+                <?php if (isset($_SESSION['username'])): ?>
+                <a class="chirpMoile" href="/compose">Chirp</a>
                 <?php endif; ?>
             </div>
             <div>

@@ -101,7 +101,10 @@ if (!$id) {
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -166,8 +169,12 @@ if (!$id) {
                             <?php if ($isUserProfile): ?>
                             <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
                             <?php else: ?>
-                            <a id="followProfileButton" class="followButton" onclick="toggleFollow(<?php echo $user['id']; ?>)" style="<?php echo $isFollowing ? 'display:none;' : ''; ?>">Follow</a>
-                            <a id="followingProfileButton" class="followButton following" onclick="showUnfollowModal(<?php echo $user['id']; ?>)" style="<?php echo $isFollowing ? '' : 'display:none;'; ?>">Following</a>
+                            <button id="followProfileButton" class="followButton"
+                                onclick="toggleFollow(<?php echo $user['id']; ?>)"
+                                style="<?php echo $isFollowing ? 'display:none;' : ''; ?>">Follow</button>
+                            <button id="followingProfileButton" class="followButton following"
+                                onclick="toggleFollow(<?php echo $user['id']; ?>)"
+                                style="<?php echo $isFollowing ? '' : 'display:none;'; ?>">Following</button>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -212,10 +219,10 @@ if (!$id) {
     <footer>
         <div class="mobileCompose">
             <?php if (isset($_SESSION['username'])): ?>
-            <a class="chirpMoile" href="compose">Chirp</a>
+            <a class="chirpMoile" href="/compose">Chirp</a>
             <?php endif; ?>
         </div>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
@@ -398,6 +405,48 @@ if (!$id) {
 
     setInterval(updatePostedDates, 1000);
 
+    function toggleFollow(userId) {
+        const followButton = document.getElementById('followProfileButton');
+        const followingButton = document.getElementById('followingProfileButton');
+
+        // Determine action based on current button state
+        const action = followButton.style.display === 'none' ? 'unfollow' : 'follow';
+
+        fetch('/interact_user.php', { // Ensure the path is correct
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId,
+                    action
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    if (action === 'follow') {
+                        followButton.style.display = 'none'; // Hide Follow button
+                        followingButton.style.display = ''; // Show Following button
+                    } else if (action === 'unfollow') {
+                        followButton.style.display = ''; // Show Follow button
+                        followingButton.style.display = 'none'; // Hide Following button
+                    }
+                } else if (data.error === 'not_signed_in') {
+                    window.location.href = '/signin/';
+                } else {
+                    console.error('Error:', data.message); // Log server errors
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error); // Log fetch errors
+            });
+    }
 
 
     <?php

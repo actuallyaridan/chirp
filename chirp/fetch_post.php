@@ -13,11 +13,11 @@ function getDatabaseConnection() {
 
 function makeLinksClickable($text) {
     // Pattern for URLs
-    $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?)/i';
+    $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?(\?[^\s]*)?)/i';
     // Pattern for @mentions
     $mentionPattern = '/@([a-zA-Z0-9_]+)/';
 
-    // Replace URLs with clickable links
+    // Replace URLs with clickable links or images
     $text = preg_replace_callback($urlPattern, function($matches) {
         $url = $matches[1];
         $displayUrl = $url;
@@ -27,12 +27,49 @@ function makeLinksClickable($text) {
             $url = 'https://' . $url;
         }
 
-        // Remove the protocol from the displayed URL if it was originally missing
-        if (!preg_match('/^https?:\/\//', $displayUrl)) {
-            $displayUrl = preg_replace('/^(?:https?:\/\/)?(?:www\.)?/', '', $displayUrl);
+        // Parse URL and query string
+        $parsedUrl = parse_url($url);
+        $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+        $query = isset($parsedUrl['query']) ? $parsedUrl['query'] : '';
+
+        // Check for image extension in path or 'format' query parameter indicating an image
+        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+        $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+
+        // Retain only the 'format' parameter and remove others if the host is 'pbs.twimg.com'
+        if (strpos($parsedUrl['host'], 'pbs.twimg.com') !== false) {
+            parse_str($query, $queryParams);
+            $format = isset($queryParams['format']) ? $queryParams['format'] : '';
+            
+            // If there's a format and it's a valid image extension, rebuild the query string
+            if (in_array(strtolower($format), $imageExtensions)) {
+                $cleanQuery = 'format=' . $format;
+            } else {
+                $cleanQuery = '';
+            }
+
+            // Clean the URL by keeping only the relevant query string for pbs.twimg.com
+            $cleanUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
+            if ($cleanQuery) {
+                $cleanUrl .= '?' . $cleanQuery;
+            }
+        } else {
+            // For non-pbs.twimg.com links, preserve the full query string
+            $cleanUrl = $url;
         }
 
-        return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
+        if (in_array(strtolower($fileExtension), $imageExtensions) || (strpos($parsedUrl['host'], 'pbs.twimg.com') !== false && $cleanQuery)) {
+            // Removed htmlspecialchars to prevent double encoding
+            return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . $cleanUrl . '" alt="Image not found."></div>';
+        } else {
+            // Remove the protocol from the displayed URL if it was originally missing
+            if (!preg_match('/^https?:\/\//', $displayUrl)) {
+                $displayUrl = preg_replace('/^(?:https?:\/\/)?(?:www\.)?/', '', $displayUrl);
+            }
+
+            // Apply htmlspecialchars here only once
+            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
+        }
     }, $text);
 
     // Replace @mentions with profile links
@@ -44,7 +81,6 @@ function makeLinksClickable($text) {
 
     return $text;
 }
-
 function getChirpDetails($db, $postId) {
     $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 
               FROM chirps 

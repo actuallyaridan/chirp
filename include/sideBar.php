@@ -1,7 +1,7 @@
 <div id="trends">
     <p>Trends</p>
     <div>
-        <a href="/discover/search?q=gay_people">gay people</a>
+        <a href="/discover/search?q=gay_people">chirp</a>
         <p class="subText">12 chirps</p>
     </div>
     <div>
@@ -9,7 +9,7 @@
         <p class="subText">47 chirps</p>
     </div>
     <div>
-        <a>iphone 69</a>
+        <a>iphone 16</a>
         <p class="subText">62 chirps</p>
     </div>
 </div>
@@ -25,7 +25,7 @@
                 <p class="subText">@apple</p>
             </div>
         </div>
-        <a class="followButton following">Following</a>
+        <a class="followButton">Follow</a>
     </div>
     <div>
         <div>
@@ -45,6 +45,8 @@
     <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
         Corp is licensed under CC-BY 4.0.
 
-        <br><br>You're running: Chirp Beta 0.2.1b 
+        <br><br>You're running: Chirp Beta 0.4b
     </p>
+    <a class="subText" href="https://github.com/actuallyaridan/chirp" target="_blank" rel="noopener noreferrer">Visit Chirps source code on GitHub</a>
+    <p class="subText">Proudly developed in 🇸🇪 by <a href="https://aridan.net" target="_blank" rel="noopener noreferrer">Adnan Bukvic</a></p>
 </div>

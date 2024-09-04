@@ -45,7 +45,10 @@ session_start();
             </nav>
 
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -105,7 +108,7 @@ session_start();
                         <li>
                             <a class="settingsMenuLink" href="https://help.chirpsocial.net">📕 Help Center</a>
                         </li>
-                        <li><p class="subText">Chirp Beta 0.2.1b</p></li>
+                        <li><p class="subText">Chirp Beta 0.4b</p></li>
                     </ul>
 
                 </div>
@@ -115,7 +118,8 @@ session_start();
                             <div>👤 Account information<p class="subText">Change your username, email, or your date of
                                     birth</p>
                             </div>
-                            <p class="subText">▷</p>
+                            <a href="/settings/account/account-information" class="subText">▷</a>
+                        </a>
                         </li>
                         <li>
                             <div>
@@ -146,7 +150,7 @@ session_start();
             </div>
     </main>
     <footer>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>

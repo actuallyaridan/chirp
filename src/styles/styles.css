@@ -72,6 +72,7 @@ body {
     overflow-y: scroll; /* Vertical overflow */
     overflow-x: hidden; /* Vertical overflow */
     width: auto;
+    padding-top: env(safe-area-inset-top);
 }
 
 button {
@@ -229,6 +230,16 @@ a > img {
     text-decoration: none; /* No underline */
 }
 
+.cancel{
+    border: 2px solid rgb(255, 45, 45) !important; /* Border color */
+    background-color: rgba(0, 0, 0, 0) !important; /* Background color */
+    color: rgb(255, 45, 45) !important;
+}
+
+.cancel:hover{
+    background-color: rgb(68, 68, 68) !important; /* Background color */
+}
+
 #discardDraftButton {
     border-color: rgba(0, 0, 0, 0); /* Border color */
     background-color: rgb(255, 45, 45); /* Background color */
@@ -284,7 +295,6 @@ main {
     flex-direction: column; /* Row direction */
     width: 100%; /* Full width */
     position: sticky; /* Sticky position */
-    top: 0; /* Top position */
     background-color: #00000080; /* Background color */
     -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
     backdrop-filter: blur(20px); /* Backdrop filter */
@@ -295,7 +305,9 @@ main {
     padding-right: 0px;
     align-items: center;
     justify-content: center;
+    top: env(safe-area-inset-top) !important; /* Top position */
 }
+
 
 
 /* Styles for links within timeline selection */
@@ -464,6 +476,7 @@ footer > div {
     align-items: center; /* Center align items */
     width: 95%; /* 95% width */
 }
+
 
 /* Styles for footer links */
 footer > div > a {
@@ -642,8 +655,8 @@ div#iconChirp > img {
 /* Styles for notFound div */
 div#notFound {
     display: flex; /* Flex container */
-    justify-content: center; /* Center justify content */
-    align-items: center; /* Center align items */
+    justify-content: left; /* Center justify content */
+    align-items: left; /* Center align items */
     height: 100%; /* 90% viewport height */
     width: 35vw;
     flex-direction: column; /* Column direction */
@@ -651,7 +664,25 @@ div#notFound {
 
 /* Styles for notFound paragraphs */
 div#notFound > p {
-    text-align: center; /* Center alignment */
+    text-align: left; /* Center alignment */
+}
+
+#expirationDate{
+    font-size: 1.5em;
+    font-family: 'SevenSegment', 'Courier New', monospace;
+    background-color:#8b8b8b2d;
+    padding: 8px;
+    color: var(--accent-color);
+    text-align: center !important;
+    width: fit-content;
+    border-radius: 4px;
+}
+
+#expirationDate>span{
+    font-family: Jost, sans-serif;
+    font-size: .8em;
+    color: gray;
+    margin-right: 12px;
 }
 
 /* Styles for signedOut div */
@@ -1406,3 +1437,64 @@ div.timestampTimeline>.postedDate{
    li>div>p{
     margin-right: 12px;
    }
+
+
+   .underlinedButton {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 1em;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 8px;
+    width: fit-content;
+  }
+
+  .underlinedButton:hover {
+    text-decoration: underline;
+    cursor: pointer;    
+  }
+
+  #inviteCodeTextarea{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .chirpImageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 8px;
+
+
+  }
+
+  img.imageInChirp{
+    max-width: 20vw;
+    border: 1px solid #8b8b8b2d;
+    max-height: 80%;
+  }
+
+  #cookieConsent{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 100%;
+    background-color: #8b8b8b2d;
+    border-radius: 0px 0px 8px 8px;
+  }
+
+  #cookieConsent>div{
+    padding: 8px;
+    padding-top: 0px;
+  }
+
+  .usernameLink{
+    margin-left: 8px;
+
+  } 

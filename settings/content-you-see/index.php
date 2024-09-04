@@ -45,7 +45,10 @@ session_start();
             </nav>
 
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -91,7 +94,8 @@ session_start();
                             <a class="settingsMenuLink" href="/settings/content-you-see">📝 Content you see</a>
                         </li>
                         <li>
-                            <a class="settingsMenuLink" href="/settings/appearance-and-accessibility">🎨 Appearance and accessibility</a>
+                            <a class="settingsMenuLink" href="/settings/appearance-and-accessibility">🎨 Appearance and
+                                accessibility</a>
                         </li>
                         <li>
                             <a class="settingsMenuLink" href="/settings/security-and-login">🔐 Security and Login</a>
@@ -111,25 +115,29 @@ session_start();
                 <div id="expandedSettings">
                     <ul>
                         <li>
-                            <div>🌍 Langauges<p class="subText">Set Chrips display langauge and let Chirp know what languages you speak</p>
+                            <div>🌍 Languages<p class="subText">Set Chirps display language and let Chirp know what
+                                    languages you speak</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🚫 Blocked and muted accounts<p class="subText">Show accounts you have blocked or muted</p>
+                                🚫 Blocked and muted accounts<p class="subText">Show accounts you have blocked or muted
+                                </p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🔇 Muted words and conversations<p class="subText">Show  words and conversations you've muted</p>
+                                🔇 Muted words and conversations<p class="subText">Show words and conversations you've
+                                    muted</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
                         <li>
                             <div>
-                                🤔 Topics and interests<p class="subText">Manage topics and interests</p>
+                                💭 Topics and interests<p class="subText">Manage the posts chirps algorithms will
+                                    suggest to you</p>
                             </div>
                             <p class="subText">▷</p>
                         </li>
@@ -138,7 +146,7 @@ session_start();
             </div>
     </main>
     <footer>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>

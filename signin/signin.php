@@ -1,7 +1,7 @@
 <?php
 // Set session cookie parameters
 session_set_cookie_params([
-    'lifetime' => 604800, // 7 days in seconds
+    'lifetime' => 3456000, // 40 days in seconds
     'path' => '/', // Will use the same path
     'domain' => '', // Will use the same domain
     'secure' => true, 

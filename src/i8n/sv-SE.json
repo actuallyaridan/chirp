@@ -1,5 +1,5 @@
 {
-    "sv-SE": "Svenska",
+    "sv-SE": "Svenska (Swedish)",
     "navigation": {
         "home": "Hem",
         "explore": "Upptäck",
@@ -20,18 +20,17 @@
         "rechirps": "rechirps",
         "reply": "svar", "_comment": "This is an ammount. Example: 1 _reply_",
         "replies": "svar"
-        
     },
 
     "details": {
-        "postedOn": "Laddes upp den",
+        "postedOn": "Ladades upp den",
         "replyTo": "Svara på"
     },  
 
     "notifications": {
         "allNotifications": "Alla",
         "mentions": "Omnämningar",
-        "likedYourPost": "liked din chirp",
+        "likedYourPost": "gillade din chirp",
         "rechirpedYourPost": "rechirpade din chirp",
         "quotedYourPost": "citerade din chirp",
         "repliedToYourPost": "svarade på din chirp",
@@ -51,19 +50,20 @@
     },  
 
     "sideBar": {
-        "whoToFollow": "Föreslagna konton",
+        "whoToFollow": "Du kanske gillar...",
         "trendsForYou": "Trender",
         "highTraffic": "Ojdå, hög trafik! Chirpie gör sitt bästa, men om Chirp saktar ner, få inte panik!",
-        "legalFootnote": "Inspirerad av Twitter/X. Ingen kod har hämtats från Twitter/X. Twemoji av Twitter Inc/X Corp är licensierad under CC-BY 4.0.<br>Du kör: Chirp Beta 0.2.1b "
+        "legalFootnote": "Inspirerad av Twitter/X. Ingen kod har hämtats från Twitter/X. Twemoji av Twitter Inc/X Corp är licensierad under CC-BY 4.0.<br>Du kör: Chirp Beta 0.4b "
     },
 
     "time": {
         "ago": "sedan",
-        "shortSeconds": "s",
-        "shortMinutes": "m",
-        "shortHours": "t",
-        "shortDays": "d"   
+        "shortSeconds": " s",
+        "shortMinutes": " m",
+        "shortHours": " t",
+        "shortDays": " d"   
     },
+
 
     "buttons": { 
         "cancel": "Avbryt", 

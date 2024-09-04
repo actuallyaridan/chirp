@@ -5,6 +5,7 @@ window.onload = function () {
     }
 };
 
+
 document.addEventListener('DOMContentLoaded', () => {
     if(document.querySelector('#feedCompose')){
         const cancelChirpButton = document.querySelector('.cancelChirp');
@@ -180,3 +181,4 @@ window.onclick = function(event) {
     }
 
 };
+

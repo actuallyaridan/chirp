@@ -4,45 +4,59 @@ session_start();
 // Check if 'id' parameter is provided in the URL
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 if (!$id) {
-    // Handle error if id parameter is missing or invalid
     $userNotFound = true;
     $invalidId = true;
 } else {
     $invalidId = false;
-    // Establish a connection to SQLite database
     try {
         $db = new PDO('sqlite:' . __DIR__ . '/../../../chirp.db');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Enable error handling
     } catch(PDOException $e) {
-        // Handle database connection error
         echo "Database connection failed: " . $e->getMessage();
         exit;
     }
 
-    // Prepare SQL statement to fetch user details based on username (case insensitive)
+    // Fetch user details
     $stmt = $db->prepare('SELECT * FROM users WHERE LOWER(username) = LOWER(:username)');
     $stmt->bindParam(':username', $id);
     $stmt->execute();
-
-    // Fetch user data
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Check if user exists
     if (!$user) {
-        // Handle case where user is not found
         $userNotFound = true;
     } else {
         $userNotFound = false;
-        // Set the page title dynamically
-        $pageTitle = 'Media uploaded by ' . htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
-                $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
+        $pageTitle = htmlspecialchars($user['name']) . ' (@' . htmlspecialchars($user['username']) . ') - Chirp';
+        $isUserProfile = isset($_SESSION['username']) && strtolower($_SESSION['username']) === strtolower($user['username']);
         $user['is_verified'] = strtolower($user['isVerified']) === 'yes';
+
+        // Fetch follower and following counts
+        $followerStmt = $db->prepare('SELECT COUNT(*) FROM following WHERE following_id = :userId');
+        $followerStmt->bindParam(':userId', $user['id']);
+        $followerStmt->execute();
+        $user['followers'] = $followerStmt->fetchColumn();
+
+        $followingStmt = $db->prepare('SELECT COUNT(*) FROM following WHERE follower_id = :userId');
+        $followingStmt->bindParam(':userId', $user['id']);
+        $followingStmt->execute();
+        $user['following'] = $followingStmt->fetchColumn();
+
+        // Check if the signed-in user is following this user
+        if (isset($_SESSION['user_id'])) {
+            $checkFollowStmt = $db->prepare('SELECT 1 FROM following WHERE follower_id = :followerId AND following_id = :followingId');
+            $checkFollowStmt->bindParam(':followerId', $_SESSION['user_id']);
+            $checkFollowStmt->bindParam(':followingId', $user['id']);
+            $checkFollowStmt->execute();
+            $isFollowing = $checkFollowStmt->fetchColumn();
+        } else {
+            $isFollowing = false;
+        }
     }
 
-    // Close the database connection
     $db = null;
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +100,10 @@ if (!$id) {
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
-                <a href="settings/account">⚙️ Settings</a>
+                <?php if (isset($_SESSION['username']) && $_SESSION['username'] == 'chirp'): ?>
+                <a href="/admin">🛡️ Admin panel</a>
+                <?php endif; ?>
+                <a href="/settings/account">⚙️ Settings</a>
                 <?php if (isset($_SESSION['username'])): ?>
                 <a href="/signout.php">🚪 Sign out</a>
                 <?php else: ?>
@@ -149,20 +166,27 @@ if (!$id) {
                         </div>
                         <div class="timestampTimeline">
                             <?php if ($isUserProfile): ?>
-                                 <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
+                            <a id="editProfileButton" class="followButton" href="/user/edit">Edit profile</a>
                             <?php else: ?>
-                            <a id="followProfileButton" class="followButton">Follow</a>
+                            <button id="followProfileButton" class="followButton"
+                                onclick="toggleFollow(<?php echo $user['id']; ?>)"
+                                style="<?php echo $isFollowing ? 'display:none;' : ''; ?>">Follow</button>
+                            <button id="followingProfileButton" class="followButton following"
+                                onclick="toggleFollow(<?php echo $user['id']; ?>)"
+                                style="<?php echo $isFollowing ? '' : 'display:none;'; ?>">Following</button>
                             <?php endif; ?>
-                            <a id="followingProfileButton" class="followButton following"
-                                style="display:none;">Following</a>
                         </div>
                     </div>
                     <p>
                         <?php echo isset($user['bio']) ? htmlspecialchars($user['bio']) : 'This is a bio where you describe your account using at most 120 characters.'; ?>
                     </p>
                     <div id="accountStats">
-                        <p class="subText"><?php echo htmlspecialchars($user['following']) . ' following'; ?></p>
-                        <p class="subText"><?php echo htmlspecialchars($user['followers']) . ' followers'; ?></p>
+                        <p class="subText">
+                            <?php echo isset($user['following']) ? htmlspecialchars($user['following']) . ' following' : '0 following'; ?>
+                        </p>
+                        <p class="subText">
+                            <?php echo isset($user['followers']) ? htmlspecialchars($user['followers']) . ' followers' : '0 followers'; ?>
+                        </p>
                         <p class="subText">
                             joined: <?php echo isset($user['created_at']) ? date('M j, Y', strtotime($user['created_at'])) : 'unknown'; ?>
                         </p>
@@ -197,10 +221,10 @@ if (!$id) {
     <footer>
         <div class="mobileCompose">
                 <?php if (isset($_SESSION['username'])): ?>
-            <a class="chirpMoile" href="compose">Chirp</a>
+            <a class="chirpMoile" href="/compose">Chirp</a>
                 <?php endif; ?>
         </div>
-        <div>
+        <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
             <a href="/discover"><img src="/src/images/icons/search.svg" alt="Discover"></a>
             <a href="/notifications"><img src="/src/images/icons/bell.svg" alt="Notifications"></a>
@@ -383,7 +407,48 @@ if (!$id) {
     });
 
     setInterval(updatePostedDates, 1000);
+    function toggleFollow(userId) {
+        const followButton = document.getElementById('followProfileButton');
+        const followingButton = document.getElementById('followingProfileButton');
 
+        // Determine action based on current button state
+        const action = followButton.style.display === 'none' ? 'unfollow' : 'follow';
+
+        fetch('/interact_user.php', { // Ensure the path is correct
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userId,
+                    action
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    if (action === 'follow') {
+                        followButton.style.display = 'none'; // Hide Follow button
+                        followingButton.style.display = ''; // Show Following button
+                    } else if (action === 'unfollow') {
+                        followButton.style.display = ''; // Show Follow button
+                        followingButton.style.display = 'none'; // Hide Following button
+                    }
+                } else if (data.error === 'not_signed_in') {
+                    window.location.href = '/signin/';
+                } else {
+                    console.error('Error:', data.message); // Log server errors
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error); // Log fetch errors
+            });
+    }
 
 
     <?php

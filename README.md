@@ -2,7 +2,7 @@
 
 ![Chirp logo](/src/images/users/chirp/banner.png)
 
-**Chirp** is an open source social media project designed to replicate the feel of Twitter. but be better. Chirp is built with PHP, HTML, JS, CSS, and SQLite.
+**Chirp** is an open source social media project designed to replicate the feel of Twitter, but be better. Chirp is built with PHP, HTML, JavaScript, CSS, and SQLite.
 
 ## Status
 

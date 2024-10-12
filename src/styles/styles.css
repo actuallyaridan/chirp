@@ -73,6 +73,7 @@ body {
     overflow-x: hidden; /* Vertical overflow */
     width: auto;
     padding-top: env(safe-area-inset-top);
+    min-height: 100vh;
 }
 
 button {
@@ -88,10 +89,10 @@ a {
 
 /* Styles for emoji images */
 img.emoji {
-    height: 1em; /* Height */
-    width: 1em; /* Width */
-    margin: 0 .05em 0 .1em; /* Margins */
-    vertical-align: -0.1em; /* Vertical alignment */
+    height: 1em !important; /* Height */
+    width: 1em !important; /* Width */
+    margin: 0 .05em 0 .1em !important; /* Margins */
+    vertical-align: -0.2em !important; /* Vertical alignment */
     pointer-events: none; /* No pointer events */
 }
 
@@ -115,6 +116,7 @@ a:hover {
 body {
     display: flex; /* Flex container */
     flex-direction: row; /* Row direction */
+    margin: 0px;
 }
 
 /* Styles for user pictures */
@@ -123,6 +125,11 @@ img.userPic {
     height: 48px; /* Height */
     border-radius: 50%; /* Border radius */
     border: 2px solid #8b8b8b2d; /* Border */
+    display: initial; 
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    position: relative;
+    bottom: 2px;
 }
 
 /* Styles for links with icons */
@@ -294,7 +301,7 @@ main {
     display: flex; /* Flex container */
     flex-direction: column; /* Row direction */
     width: 100%; /* Full width */
-    position: sticky; /* Sticky position */
+    position: fixed !important; /* Sticky position */
     background-color: #00000080; /* Background color */
     -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
     backdrop-filter: blur(20px); /* Backdrop filter */
@@ -305,7 +312,8 @@ main {
     padding-right: 0px;
     align-items: center;
     justify-content: center;
-    top: env(safe-area-inset-top) !important; /* Top position */
+    padding-top: env(safe-area-inset-top) !important;
+    top: 0;
 }
 
 
@@ -465,7 +473,7 @@ footer {
     background-color: #00000080; /* Background color */
     -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
     backdrop-filter: blur(20px); /* Backdrop filter */
-    z-index: 11; /* Z-index */
+    z-index: 15; /* Z-index */
     padding-bottom: calc(8px + env(safe-area-inset-bottom));
 }
 
@@ -746,9 +754,12 @@ h1, h2, h3, h4{
     max-height: 10em;
 }
 
-.userBanner{
+.userBanner {
     width: 100%;
     aspect-ratio: 3 / 1;
+    max-height: 170px;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 button{
@@ -1081,11 +1092,16 @@ p.usernameMenu > img{
     margin-right: 0px;
 }
 
-#editProfileButton{
+#editProfileButton, #signOutButtonProfile{
     margin-bottom: 12px;
 }
 #bioEdit{
     margin-top: 12px;
+}
+
+#signOutButtonProfile{
+    margin-right: 8px;
+    color: black;
 }
 
 #editLink, #editProfilePic, #editBanner{
@@ -1124,14 +1140,14 @@ p.usernameMenu > img{
 
 .edit-button {
     position: absolute;
-    top: 5px; /* Adjust as needed to create spacing from the top */
+    top: 0px; /* Adjust as needed to create spacing from the top */
     left: 50%;
     transform: translateX(-50%);
     background-color: transparent;
     background-color: rgba(0, 0, 0, 0.555); /* Light semi-transparent background on hover */
     border: none;
     padding: 5px 10px;
-    border-radius: 20px;
+    border-radius: 50%;
     cursor: pointer;
     font-size: 18px; /* Adjust size if needed */
     color: #333; /* Text color for the emoji */
@@ -1463,21 +1479,26 @@ div.timestampTimeline>.postedDate{
     text-align: center;
   }
 
-  .chirpImageContainer{
+  .chirpImageContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-bottom: 8px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    max-width: 100%; /* Ensure container doesn't exceed page width */
+    overflow: hidden; /* Hide any excess image if cropped */
+    border-radius: 8px;
+}
 
-
-  }
-
-  img.imageInChirp{
-    max-width: 20vw;
-    border: 1px solid #8b8b8b2d;
-    max-height: 80%;
-  }
+img.imageInChirp {
+    max-width: 100%; /* Make sure the image is responsive within its container */
+    max-height: 80vh; /* Limit the image height to 80% of viewport height */
+    object-fit: cover; /* Ensure the image fills its container without distortion */
+    width: auto; /* Maintain image aspect ratio */
+    height: auto; /* Maintain image aspect ratio */
+    border-radius: 8px;
+}
 
   #cookieConsent{
     display: flex;
@@ -1487,6 +1508,7 @@ div.timestampTimeline>.postedDate{
     width: 100%;
     background-color: #8b8b8b2d;
     border-radius: 0px 0px 8px 8px;
+    display: none !important;
   }
 
   #cookieConsent>div{

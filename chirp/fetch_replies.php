@@ -1,6 +1,58 @@
 <?php
 session_start();
 
+// Function to make URLs clickable, embed images, and handle mentions
+function makeLinksClickable($text) {
+    // Pattern for URLs
+    $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?(\?[^\s]*)?)/i';
+
+    // Replace URLs with clickable links or images
+    $text = preg_replace_callback($urlPattern, function($matches) {
+        $url = $matches[1];
+
+        // Parse URL and query string
+        $parsedUrl = parse_url($url);
+        $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+        $query = isset($parsedUrl['query']) ? $parsedUrl['query'] : '';
+
+        // Strip "https://" and "www." from the display
+        $displayUrl = preg_replace('/^https?:\/\/(www\.)?/i', '', $url);
+
+        // Check for image extension in the path or query string
+        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+        $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+
+        // Check if the query string contains an image format
+        foreach ($imageExtensions as $extension) {
+            if (stripos($query, 'format=' . $extension) !== false) {
+                $fileExtension = $extension;
+                break;
+            }
+        }
+
+        if (in_array(strtolower($fileExtension), $imageExtensions)) {
+            // If it's an image, embed it
+            return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . $url . '" alt="Photo"></div>';
+        } else {
+            // Otherwise, create a clickable link
+            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
+        }
+    }, $text);
+
+    // Pattern for @mentions, ensuring it doesn't match inside URLs
+    $mentionPattern = '/(?<!\S)@([a-zA-Z0-9_]+)(?!\S)/';
+
+    // Replace mentions with clickable profile links
+    $text = preg_replace_callback($mentionPattern, function($matches) {
+        $username = $matches[1];
+        $profileUrl = '/user/?id=' . htmlspecialchars($username, ENT_QUOTES);
+        return '<a class="linkInChirp" href="' . $profileUrl . '">@' . htmlspecialchars($username, ENT_QUOTES) . '</a>';
+    }, $text);
+
+    return $text;
+}
+
+
 try {
     // Set up PDO with error mode to exception
     $db = new PDO('sqlite:' . __DIR__ . '/../../chirp.db');
@@ -42,8 +94,8 @@ try {
     $chirps = [];
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        // Sanitize output
-        $row['chirp'] = nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8'));
+        // Sanitize and make links clickable
+        $row['chirp'] = makeLinksClickable(nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8')));
         $row['username'] = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
         $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
         $row['profilePic'] = htmlspecialchars($row['profilePic'], ENT_QUOTES, 'UTF-8');

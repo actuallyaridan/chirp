@@ -45,8 +45,8 @@
     <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
         Corp is licensed under CC-BY 4.0.
 
-        <br><br>You're running: Chirp Beta 0.4b
+        <br><br>You're running: Chirp Beta 0.6.1b-rc-pre
     </p>
     <a class="subText" href="https://github.com/actuallyaridan/chirp" target="_blank" rel="noopener noreferrer">Visit Chirps source code on GitHub</a>
-    <p class="subText">Proudly developed in 🇸🇪 by <a href="https://aridan.net" target="_blank" rel="noopener noreferrer">Adnan Bukvic</a></p>
+    <p class="subText">Proudly developed in Sweden by <a href="https://aridan.net" target="_blank" rel="noopener noreferrer">Adnan Bukvic</a></p>
 </div>

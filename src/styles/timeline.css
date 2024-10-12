@@ -181,6 +181,7 @@
     /* Stack items vertically */
     margin-bottom: 10%;
     /* Bottom margin */
+    margin-bottom: 10vh;
 }
 
 /* Styles for element with ID 'highTraffic' */
@@ -271,6 +272,10 @@ div#chirps, div#posts,  div#replies {
     /* Bottom border */
     width: 35vw;
     /* 35% of viewport width */
+}
+
+div#chirps{
+    margin-top: calc(env(safe-area-inset-top) + 48px);
 }
 
 div#replies {

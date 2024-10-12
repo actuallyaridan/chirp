@@ -2,84 +2,73 @@
 
 ![Chirp logo](/src/images/users/chirp/banner.png)
 
-**Chirp** is an open source social media project designed to replicate the feel of Twitter, but be better. Chirp is built with PHP, HTML, JavaScript, CSS, and SQLite.
+A social media project meant to mimic the feel of Twitter but be better
 
 ## Status
 
-### What's Working
+### What's working
 - [x] Account creation
 - [x] Posting
 - [x] Replying
 - [x] Liking
 - [x] Account editing
-- [x] Following
 
-### What's Not Working
+### What isn't working
 - [ ] Reposts
-- [ ] Viewing reposts on accounts
+- [ ] Viewing likes and reposts on accounts
 
-### What's Planned
+### What's planned
 - [ ] Post editing
 - [ ] Post deletion
+- [ ] Following
 - [ ] Search
 - [ ] Trends
-- [ ] "For You" timeline
+- [ ] "For you" timeline
 
 ## Screenshot
 
 ![Chirp on Desktop](/src/images/screenshots/chirpDesktop.png)
 
+
 ## Contributing to Chirp
+Chirps source code (as you can see) is open source. You can freely fork this repo, make changes and then create a pull request.
+If you'd like to, provide your Chirp username and you'll gain a contributors badge next to your name.
 
-Chirp's source code is open source, and contributions are welcome! You can fork this repository, make changes, and submit a pull request. If you contribute, include your Chirp username to receive a contributor badge next to your name.
+### Dealing with code
 
-### Working with the Code
+#### Using PHPs built-in server
 
-#### Using PHP's Built-in Server
+_clone this git repo and put it where you like it and `cd` into it_
 
-1. Clone this repository to your desired location.
-2. Navigate to the project directory:
-
-    ```sh
-    php -S localhost:port
-    ```
+```sh
+php -S localhost:port
+```
 
 #### Using Apache/XAMPP
 
-1. Ensure you have `PHP` and `PDO` with SQLite support installed.
-2. Clone the repository:
+_have `PHP` and `PDO` with SQLite support installed_
 
-    ```sh
-    git clone https://github.com/actuallyaridan/chirp
-    mv chirp /var/www/
-    ```
+```sh
+git clone https://github.com/actuallyaridan/chirp
+mv chirp /var/www/
+# Or other place your Apache or XAMPP install uses for hosting coontent
+```
 
-    - *Note: Replace `/var/www/` with the directory used by your Apache or XAMPP installation.*
-
-3. Ensure the directory is empty before moving Chirp. Placing it in a non-empty folder like `/htdocs/chirp` may cause issues.
+**BTW that folder should be empty - if it's something like `/htdocs/chirp` it will 99% break**
 
 #### Database
 
-Chirp uses SQLite as its database. The actual database is not included in the repository due to sensitive information, but a blank sample database (`chirp.db.sample`) is provided.
-
-To use it:
-
-1. Rename `chirp.db.sample` to `chirp.db`.
-2. Place it above the root directory of your PHP web server to secure it.
-3. Data will populate automatically as you use the application.
-
-To create an admin account:
-
-1. Manually generate an invite code.
-2. Sign up with the username "chirp".
-
-*Note: A more user-friendly system for managing permissions and privileges is planned.*
+This project is currently using SQLite. Chrips database is not included in GitHub, as it contains sensntive information that will not be shared publicly. There are however refereces in the PHP files, so you can create an empty replica if you'd like to.
 
 ## Forking Chirp
 
-You are free to fork Chirp and use its code as a foundation for your project. However, please adhere to the following guidelines:
+You can freely made copies of Chirp and use Chirps code as a base for your procject. However, in order to be cool, please follow these guidelines:
 
-- **Rebrand your project:** Avoid using any Chirp branding.
-- **Credit us:** Provide credit to the original contributors or link to this repository.
+• Rebrand your project: Please refrain from uisng any Chirp branding in your project
 
-Chirp is licensed under the MIT license.
+• Credit us: You should provide credit to the people who have contibuted to this project, or link this repo
+
+Other than that, Chirp uses the MIT license.
+
+
+

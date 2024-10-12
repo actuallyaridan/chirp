@@ -53,6 +53,7 @@
         background-color: #00000080; /* Semi-transparent black background */
         -webkit-backdrop-filter: blur(20px); /* Blur effect for WebKit browsers */
         backdrop-filter: blur(20px); /* Blur effect for modern browsers */
+        max-width: 35vw;
     }
     .openOptions{
         display: flex !important;
@@ -100,6 +101,14 @@
         margin-left: unset !important;
     }
 
+    #timelineSelect,
+    .title {
+        background-color: #00000080; /* Semi-transparent black background */
+        -webkit-backdrop-filter: blur(20px); /* Blur effect for WebKit browsers */
+        backdrop-filter: blur(20px); /* Blur effect for modern browsers */
+        max-width: 50vw;
+    }
+
     
 
     #composer {
@@ -112,8 +121,6 @@
     #composer>textarea{
         width: 100%;
     }
-
-
 }
 
 /* Media query for screens narrower than 890px */
@@ -246,4 +253,22 @@
     .displayMoreOptionsMobile{
         display: none !important;
     }
+
+    img.imageInChirp{
+        margin-left: 15vw;
+    }
+
+    #timelineSelect,
+    .title {
+        background-color: #00000080; /* Semi-transparent black background */
+        -webkit-backdrop-filter: blur(20px); /* Blur effect for WebKit browsers */
+        backdrop-filter: blur(20px); /* Blur effect for modern browsers */
+        max-width: 100vw;
+    }
+
+    div#chirps{
+        margin-top: 87px;
+    }
+    
+
 }

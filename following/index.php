@@ -14,9 +14,8 @@ session_start();
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="/src/scripts/general.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -74,13 +73,13 @@ session_start();
     </header>
     <main>
     <div id="feed">
+            <div id="timelineSelect">
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <div id="timelineSelect">
                 <div>
                     <a id="forYou" href="/">For you</a>
-                    <a id="following" class="selected" href="following">Following</a>
+                    <a id="following" class="selected" href="/following">Following</a>
                 </div>
             </div>
             <div id="highTraffic">
@@ -88,7 +87,10 @@ session_start();
             </div>
             <div id="chirps">
             </div>
-            <p class="noMoreChirps">If you want to use the Following tab you need to follow people first! 😝</p>
+            <div id="noMoreChirps">
+                <p class="subText">Something went wrong.</p>
+                <button class="followButton following tryAgain">↻ Try again</button>
+            </div>
         </div>
     </main>
     <aside id="sideBar">

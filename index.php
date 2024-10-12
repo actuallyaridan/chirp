@@ -19,6 +19,7 @@ try {
     <link href="/src/styles/menus.css" rel="stylesheet">
     <link href="/src/styles/responsive.css" rel="stylesheet">
     <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04bd8091c3274c64b334b30906ea3c10"}'></script><!-- End Cloudflare Web Analytics -->
     <script src="/src/scripts/general.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -79,10 +80,10 @@ try {
     </header>
     <main>
         <div id="feed">
+            <div id="timelineSelect" class="extraBlur">
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <div id="timelineSelect" class="extraBlur">
                 <div>
                     <a id="forYou" class="selected" href="/">For you</a>
                     <a id="following" href="following">Following</a>

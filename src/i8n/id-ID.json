@@ -23,7 +23,7 @@
     },
 
     "details": {
-        "postedOn": "Di posting di", "_comment": "I don't know the context of this one, as I've not used chirp in months, just visit every once in a while to see progress. This might need a little retuning."
+        "postedOn": "Di posting di",
         "replyTo": "Balas ke"
     },  
 
@@ -73,7 +73,7 @@
         "replyAction": "Balas", "_comment": "This is a verb. Example: _Reply_ to this tweet", 
         "back": "Balik", 
         "searchAction": "Cari",  
-        "advancedSearchAction": "Cari Canggih", "_comment": "Might need a little fix, since I'm not sure about this one either."
+        "advancedSearchAction": "Cari Canggih",
         "edituser": "Edit Profil", 
         "follow": "Ikuti",
         "following": "Mengikuti",

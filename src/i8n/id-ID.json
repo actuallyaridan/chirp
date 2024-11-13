@@ -1,0 +1,91 @@
+{
+    "id-ID": "Bahasa Indonesia (Indonesian)",
+    "navigation": {
+        "home": "Beranda",
+        "explore": "Jelajahi",
+        "notifications": "Notifikasi",
+        "messages": "Pesan",
+        "user": "Profil", "_comment": "You can also use the word 'Account' if it fits better in your language",
+        "settings": "Pengaturan",
+        "signin": "Masuk"
+    },
+
+    "timeline": {
+        "forYou": "Untuk Anda",
+        "following": "Mengikuti",
+        "noneFollowing": "Kalau Anda ingin menggunakan tab Mengikuti, Anda harus Mengikuti seseorang terlebih dahulu 😝",
+        "like": "Suka", "_comment": "This is an ammount. Example: 1 _like_",
+        "likes": "Suka",
+        "rechirp": "rechirp", "_comment": "This is an ammount. Example: 1 _rechirp_",
+        "rechirps": "rechirps",
+        "reply": "Balas", "_comment": "This is an ammount. Example: 1 _reply_",
+        "replies": "Balasan"
+    },
+
+    "details": {
+        "postedOn": "Di posting di", "_comment": "I don't know the context of this one, as I've not used chirp in months, just visit every once in a while to see progress. This might need a little retuning."
+        "replyTo": "Balas ke"
+    },  
+
+    "notifications": {
+        "allNotifications": "Semua",
+        "mentions": "Sebutan",
+        "likedYourPost": "menyukai chirp anda",
+        "rechirpedYourPost": "rechirped chirp anda",
+        "quotedYourPost": "kutipan chirp anda",
+        "repliedToYourPost": "membalas chirp anda",
+        "followedYou": "mengikuti anda",
+        "and": "dan",
+        "others": "lainnya"
+    },  
+
+    "messages": {
+        "findMessage": "Cari Pesan",
+        "noMessagesText": "Sepertinya, Anda tidak memiliki pesan!<br>Mengapa anda tidak coba berinteraksi dengan seseorang?"
+    },  
+
+    "search": {
+        "searchTitle": "Cari",
+        "placeholderSearch": "Apa yang Anda mencoba cari?"
+    },  
+
+    "sideBar": {
+        "whoToFollow": "Untuk diikuti",
+        "trendsForYou": "Tren untuk Anda",
+        "highTraffic": "Kami sedang mengalami lalu lintas yang sangat tinggi saat ini.<br>Chirpie sedang berusaha semaksimal mungkin, tetapi kalau Chirp mulai melambat, jangan panik!",
+        "legalFootnote": "Terinspirasi dari Twitter/X, Tidak ada kode yang bersumber dari Twitter/X. Twemoji dibuat oleh Twitter Inc./X Corp. dilisensikan di bawah CC-BY 4.0.<br>Kamu menjalankan: Chirp Beta 0.6.1b-rc-pre"
+    },
+
+    "time": {
+        "ago": "yang lalu"
+        "shortSeconds": "d,"
+        "shortMinutes": "m",
+        "shortHours": "j,"
+        "shortDays": "h"
+    },
+
+
+    "buttons": { 
+        "cancel": "Batalkan" 
+        "chirpAction": "Chirp", "_comment": "This is a verb. Example: _Chirp_ this. Do not translate it to the sound a bird makes.", 
+        "likeAction": "Suka", "_comment": "This is a verb. Example: _Like_ this post", 
+        "rechirpAction": "Rechirp", "_comment": "This is a verb. Example: _Rechirp_ this post", 
+        "replyAction": "Balas", "_comment": "This is a verb. Example: _Reply_ to this tweet", 
+        "back": "Balik", 
+        "searchAction": "Cari",  
+        "advancedSearchAction": "Cari Canggih", "_comment": "Might need a little fix, since I'm not sure about this one either."
+        "edituser": "Edit Profil", 
+        "follow": "Ikuti",
+        "following": "Mengikuti",
+        "edit": "Edit",
+        "editHistory": "Liat Sejarah Edit",
+        "copyChirpText": "Salin chirp",
+        "copyLink": "Salin link",
+        "pinChirp": "Sematkan chirp",
+        "broadcast": "Siarkan chirp",
+        "showHidden": "Liat Balaskan yang disembunyikan", 
+        "writeNote": "Tulis catatan ChirpSees",
+        "muteConversation": "Bisukan Percakapan ini",
+        "delete": "Hapus"
+    }
+}

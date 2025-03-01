@@ -79,24 +79,6 @@ function makeLinksClickable($text) {
     return $text;
 }
 
-// Function to get YouTube video details using the YouTube Data API
-function getYoutubeVideoDetails($videoId) {
-    $apiKey = 'AIzaSyA0VIMETmNPc4k1RczLzl6tdX23z2nafjQ';
-    $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id=$videoId&key=$apiKey&part=snippet";
-
-    $response = file_get_contents($apiUrl);
-    if ($response === false) {
-        return null; // Handle API call failure
-    }
-
-    $data = json_decode($response, true);
-
-    if (isset($data['items'][0])) {
-        return $data['items'][0]['snippet']; // Return the whole snippet (including title, thumbnails, channelTitle, and description)
-    }
-
-    return null; // Handle case where video ID is invalid or not found
-}
 
 function getChirpDetails($db, $postId) {
     $query = 'SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified 

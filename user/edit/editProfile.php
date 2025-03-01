@@ -15,6 +15,16 @@ try {
         $userId = $_SESSION['user_id']; // assuming user id is stored in session
         $sessionUsername = $_SESSION['username']; // assuming username is stored in session
 
+        // Fake verified/check marks to be disallowed
+        $unallowedChars = ['✓', '✔', '✅', '✪', '✯', '✰', '✵', '✴', '✧', '卐','卍', '࿕', '࿖', '࿗', '࿘', 'ꖦ']; // Unallowed symbols, words or emojis
+        $unallowedPattern = '/[' . implode('', array_map('preg_quote', $unallowedChars)) . ']/u';
+
+        // Check if the name contains any disallowed characters (e.g., fake check marks)
+        if (preg_match($unallowedPattern, $name)) {
+            echo "Your display name contains unallowed symbols, emojis, symbols or words.";
+            exit();
+        }
+
         // Fetch the username being edited from the database
         $sql = 'SELECT username FROM users WHERE id = :id';
         $stmt = $db->prepare($sql);

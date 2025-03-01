@@ -15,7 +15,7 @@
     /* Center-align items horizontally */
     justify-content: center;
     /* Center-align items vertically */
-    background-color: black;
+    background-color: var(--background-color);
 }
 
 /* Styles for elements with class 'chirp' */
@@ -25,8 +25,9 @@
 
     /* Rounded corners */
     font-family: Satoshi, Jost, Arial, Helvetica, sans-serif;
-    background-color: black;
-    /*border-bottom: 1px solid #8b8b8b2d;*/
+    background-color: var(--background-color);
+    /*border-bottom: 1px solid var(--contrastColor);*/
+    
 }
 
 
@@ -45,7 +46,7 @@
 }
 
 .draft{
-    border: #8b8b8b2d 1px solid;
+    border: var(--contrastColor) 1px solid;
 }
 
 /* Styles for nested elements with class 'chirp' */
@@ -55,6 +56,10 @@
     margin: auto;
     /* Center-align horizontally */
 }
+
+/*.chirpThread>pre{
+    white-space: pre-line !important; 
+}*/
 
 /* Styles for element with class 'chirpInfo' */
 .chirpInfo, .accountInfo {
@@ -92,7 +97,7 @@
     /* Arrange items horizontally */
     width: 100%;
     font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
-    border-top: 1px rgb(56, 56, 56) solid;
+    border-top: 2px var(--contrastColor) solid;
 }
 
 /* Styles for element with class 'chirpInteract' */
@@ -157,7 +162,7 @@
 
 /* Styles for element with class 'chirpsee' */
 .chirpsee {
-    background-color: rgb(24, 15, 0);
+    background-color: var(--contrastColor);
     font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */    /* Background color */
     padding: 8px;
     /* Padding */
@@ -227,7 +232,7 @@
 }
 
 /* Styles for buttons within 'chirpInteract' on hover */
-.chirpInteracThreadt>div>button:hover {
+.chirpInteracThread>div>button:hover {
     background-color: #6b6b6b4f;
     /* Semi-transparent background on hover */
     cursor: pointer;
@@ -264,17 +269,17 @@ img.verified, svg.verified {
 
 /* Styles for element with ID 'chirps' */
 div#chirps, div#posts,  div#replies {
-    border-left: #8b8b8b2d 1px solid;
+    border-left: var(--contrastColor) 2px solid;
     /* Left border */
-    border-right: #8b8b8b2d 1px solid;
+    border-right: var(--contrastColor) 2px solid;
     /* Right border */
-    border-bottom: #8b8b8b2d 1px solid;
+    border-bottom: var(--contrastColor) 1px solid;
     /* Bottom border */
     width: 35vw;
     /* 35% of viewport width */
 }
 
-div#chirps{
+div#chirps, #notFound{
     margin-top: calc(env(safe-area-inset-top) + 48px);
 }
 
@@ -338,10 +343,11 @@ div.drafts-container {
     /* Sticky positioning */
     top: 0;
     /* Stick to the top */
-    background-color: #00000080;
+    background-color: var(--semiTrans-bg);
     /* Black background */
     z-index: 12;
     /* Stack order */
+    color: var(--text-colorUI);
 }
 
 /* Styles for elements with ID 'timelineSelect' and class 'title' */
@@ -358,7 +364,7 @@ div.drafts-container {
     /* Sticky positioning */
     top: 0;
     /* Stick to the top */
-    background-color: #00000080;
+    background-color: var(--semiTrans-bg);
     /* Black background */
     z-index: 12;
     /* Stack order */
@@ -380,6 +386,11 @@ div.drafts-container {
     /* Black background */
     z-index: 12;
     /* Stack order */
+    color: var(--text-colorUI);
+}
+
+#timelineSelect>div>a{
+    color: var(--text-colorUI)
 }
 
 /* Styles for anchor elements within 'timelineSelect' and 'title' */
@@ -393,35 +404,18 @@ div.drafts-container {
     /* Padding */
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    border-bottom: 1px rgb(56, 56, 56) solid;
+    border-bottom: 1px rgb(56 56 56 / 50%) solid;
     font-size: 1em;
     /* Bottom border */
     border-top: none;
     /* No top border */
+    color: var(--text-colorUI);
 }
 
-#loadNew{
-    background-color: var(--accent-color);
-    -webkit-backdrop-filter: blur(20px); /* Webkit backdrop filter */
-    backdrop-filter: blur(20px); /* Backdrop filter */
-    border: none;
-    padding: 8px;
-    font-size: 1em;
-    color: var(--text-color);
-    border-radius: 8px;
-    top: 62px;
-    position: fixed;
-    width: fit-content;
-    z-index: 999;
-}
-
-#loadNew:hover{
-    background-color: rgb(27, 27, 27) !important;
-}
 
 /* Styles for anchor elements within 'timelineSelect' on hover */
 #timelineSelect>a:hover, #timelineSelect>button:hover {
-    background-color: #8b8b8b2d;
+    background-color: var(--contrastColor);
     /* Semi-transparent background on hover */
     cursor: pointer;
     /* Cursor pointer on hover */
@@ -437,7 +431,7 @@ div.drafts-container {
 
 /* Styles for elements with class 'chirp' on hover */
 .chirp:hover, .draft:hover {
-    background-color: #8b8b8b2d;
+    background-color: var(--contrastColor);
     /* Semi-transparent background on hover */
     cursor: pointer;
     /* Cursor pointer on hover */
@@ -449,6 +443,7 @@ div.drafts-container {
     width: 100% !important;
     color: white;
     text-align: left !important;
+    transition: all 0.2s linear !important;
 }
 
 .chirpClicker, .chirpClicker>p, .chirpClicker>button{
@@ -462,9 +457,9 @@ div.drafts-container {
     /* Arrange items horizontally */
     width: 100%;
     /* Full width */
-    justify-content: space-between;
+    /* justify-content: space-between; */
     /* Space items evenly */
-    border-top: 1px rgb(56, 56, 56) solid;
+    border-top: var(--contrastColor) 2px solid;
     /* Top border */
 }
 
@@ -520,6 +515,8 @@ div.drafts-container {
     /* Offset from the top */
 }
 
+
+
 /* Styles for loading animation */
 .lds-ring,
 .lds-ring div {
@@ -529,14 +526,10 @@ div.drafts-container {
     /* Color */
 }
 
-.lds-ring,
-.lds-ring div {
-    box-sizing: border-box;
-}
-
 .lds-ring {
     width: 42px;
     height: 42px;
+    will-change: transform; /* Inform the browser about the animation of transform */
 }
 
 .lds-ring div {
@@ -564,6 +557,60 @@ div.drafts-container {
     animation-delay: -0.1s;
 }
 
+
+
+
+
+/* Styles for loading animation */
+.lds-ring-inline,
+.lds-ring-inline div {
+    box-sizing: border-box;
+    /* Border box model */
+    color: var(--text-color);
+    /* Color */
+}
+
+/* Container to center the animation */
+.lds-ring-inline {
+    min-width: 42px;
+    width: 1rem;
+    height: 1em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform; /* Inform the browser about the animation of transform */
+    position: relative; /* Ensure the divs inside are positioned relative to this */
+}
+
+.lds-ring-inline div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    margin: 8px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    animation: lds-ring 0.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: currentColor transparent transparent transparent;
+}
+
+.lds-ring-inline div:nth-child(1) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring-inline div:nth-child(2) {
+    animation-delay: -0.2s;
+}
+
+.lds-ring-inline div:nth-child(3) {
+    animation-delay: -0.1s;
+}
+
+
 @keyframes lds-ring {
     0% {
         transform: rotate(0deg);
@@ -574,13 +621,14 @@ div.drafts-container {
     }
 }
 
+
 #code{
     margin-top: 12px;
     width: 100%;
     max-width: 200px;
     height: 1.5em;
     color-scheme: dark;
-    background-color: #8b8b8b2d;
+    background-color: var(--contrastColor);
     resize: none;
     border: none;
     padding: 8px;

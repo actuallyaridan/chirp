@@ -1,3 +1,4 @@
+
 <div id="trends">
     <p>Trends</p>
     <div>
@@ -29,10 +30,10 @@
     </div>
     <div>
         <div>
-            <img class="userPic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg"
-                alt="President Biden">
+            <img class="userPic" src="https://pbs.twimg.com/profile_images/1881368435453542400/NnD56DYV_400x400.jpg"
+                alt="President Trump">
             <div>
-                <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
+                <p>President Trump <img class="verified" src="/src/images/icons/verified.svg" alt="Verified">
                 </p>
                 <p class="subText">@POTUS</p>
             </div>
@@ -45,8 +46,8 @@
     <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X
         Corp is licensed under CC-BY 4.0.
 
-        <br><br>You're running: Chirp Beta 0.6.1b-rc-pre
+        <br><br>You're running: Chirp Beta 0.7b
     </p>
-    <a class="subText" href="https://github.com/actuallyaridan/chirp" target="_blank" rel="noopener noreferrer">Visit Chirps source code on GitHub</a>
-    <p class="subText">Proudly developed in Sweden by <a href="https://aridan.net" target="_blank" rel="noopener noreferrer">Adnan Bukvic</a></p>
+    <p class="subText">Visit Chirps source code on <a class="subText" href="https://github.com/actuallyaridan/chirp" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    <p class="subText">Proudly developed in Sweden by <a  class="subText" href="https://aridan.net" target="_blank" rel="noopener noreferrer">Adnan Bukvic</a></p>
 </div>

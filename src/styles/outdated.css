@@ -1,0 +1,71 @@
+@font-face {
+    font-family: Jost;
+    /* Font family */
+    src: url(fonts/Jost.ttf);
+    /* Font source */
+    font-display: swap;
+}
+
+html, body, h1, h2, a, p, div{
+    font-family: Jost, Arial, Helvetica, sans-serif;
+}
+
+body{
+    -ms-overflow-style: scrollbar;
+    overflow-y: scroll;
+    overscroll-behavior-y: none;
+}
+
+.errorContainer{
+    background-color: #FFF;
+    color: black;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10%;
+    font-family: Jost, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+.errorFooter{
+    color: #00000080;
+    font-size: 80%;
+    line-height: 1.5;
+    padding: 1em 0;
+}
+
+.errorFooter>a{    
+    text-decoration: none;
+    padding-right: 1em;
+}
+
+.errorButtons{
+    margin: 3em 0;
+    display: block;
+}
+
+.errorButtons>a{
+    display: inline-block;
+    background: #F0F0F0;
+    border-radius: 8px;
+    color: white;
+    padding: 1em 2em;
+    text-decoration: none;
+    color: black;
+    transition: all 0.2s linear;
+    white-space: nowrap;
+    width: fit-content;
+    margin-bottom: 8px;
+}
+
+.errorButtons>a:hover{
+    background: #cacaca;
+}
+
+a.chirpLegacy{
+    background: #1AD063;
+    color: white;
+}
+
+a.chirpLegacy:hover{
+    background: #128E3C;
+}

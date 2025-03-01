@@ -1,14 +1,29 @@
 <?php
 session_start();
 
+// Function to check if the image is available
+function imageExists($url) {
+    // Use get_headers to check if the image URL returns a valid response
+    $headers = @get_headers($url);
+    return $headers && strpos($headers[0], '200') !== false;
+}
+
 // Function to make URLs clickable, embed images, and handle mentions
-function makeLinksClickable($text) {
+function makeLinksClickable($text) { 
     // Pattern for URLs
     $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?(\?[^\s]*)?)/i';
 
     // Replace URLs with clickable links or images
     $text = preg_replace_callback($urlPattern, function($matches) {
         $url = $matches[1];
+
+        // Decode any HTML entities in the URL
+        $url = html_entity_decode($url);
+
+        // Ensure the URL starts with https://
+        if (strpos($url, 'https://') !== 0 && strpos($url, 'http://') !== 0) {
+            $url = 'https://' . $url;
+        }
 
         // Parse URL and query string
         $parsedUrl = parse_url($url);
@@ -31,8 +46,17 @@ function makeLinksClickable($text) {
         }
 
         if (in_array(strtolower($fileExtension), $imageExtensions)) {
-            // If it's an image, embed it
-            return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . $url . '" alt="Photo"></div>';
+            // Check if the image is available
+            if (imageExists($url)) {
+                // Ensure the image src uses https://
+                $imageUrl = (strpos($url, 'https://') === 0 || strpos($url, 'http://') === 0) ? $url : 'https://' . $url;
+                // If it's an image and available, embed it
+                return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . htmlspecialchars($imageUrl, ENT_QUOTES) . '" alt="Photo"></div>';
+            } else {
+                // If the image is unavailable, show a div instead
+                $learnMoreUrl = (strpos($url, 'https://') === 0 || strpos($url, 'http://') === 0) ? $url : 'https://' . $url;
+                return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed as it either does not exist or has been removed in response to a legal request or a report by the copyright holder.</p><a class="subText" href="' . htmlspecialchars($learnMoreUrl, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+            }
         } else {
             // Otherwise, create a clickable link
             return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
@@ -69,15 +93,21 @@ try {
         exit;
     }
 
-    // Fetch replies from the specified user
+    // Fetch replies from the specified user with counts for likes, rechirps, and replies
     $query = '
-        SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified
+        SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified,
+               (SELECT COUNT(*) FROM likes WHERE chirp_id = chirps.id) AS like_count,
+               (SELECT COUNT(*) FROM rechirps WHERE chirp_id = chirps.id) AS rechirp_count,
+               (SELECT COUNT(*) FROM chirps WHERE parent = chirps.id AND type = "reply") AS reply_count,
+               (SELECT COUNT(*) FROM likes WHERE chirp_id = chirps.id AND user_id = :user_id) AS liked_by_current_user,
+               (SELECT COUNT(*) FROM rechirps WHERE chirp_id = chirps.id AND user_id = :user_id) AS rechirped_by_current_user
         FROM chirps
         INNER JOIN users ON chirps.user = users.id
         WHERE chirps.type = "reply" AND chirps.user = :user_id
         ORDER BY chirps.timestamp DESC
         LIMIT :limit OFFSET :offset
     ';
+
     $stmt = $db->prepare($query);
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -91,18 +121,19 @@ try {
         $row['chirp'] = makeLinksClickable(nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8')));
         $row['username'] = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
         $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
-        $row['profilePic'] = htmlspecialchars($row['profilePic'], ENT_QUOTES, 'UTF-8');
+        $row['profilePic'] = htmlspecialchars_decode($row['profilePic']);  // Decode the profilePic URL
         $row['isVerified'] = (bool)$row['isVerified'];
 
         // Fetch counts for likes, rechirps, and replies
-        $row['like_count'] = (int) $db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int) $row['id'])->fetchColumn();
-        $row['rechirp_count'] = (int) $db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int) $row['id'])->fetchColumn();
-        $row['reply_count'] = (int) $db->query('SELECT COUNT(*) FROM chirps WHERE parent = ' . (int) $row['id'] . ' AND type = "reply"')->fetchColumn();
+        $row['like_count'] = (int) $row['like_count'];
+        $row['rechirp_count'] = (int) $row['rechirp_count'];
+        $row['reply_count'] = (int) $row['reply_count'];
 
         // Check if the current user liked or rechirped the chirp
-        $row['liked_by_current_user'] = (bool) $db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int) $row['id'] . ' AND user_id = ' . (int) $currentUserId)->fetchColumn();
-        $row['rechirped_by_current_user'] = (bool) $db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int) $row['id'] . ' AND user_id = ' . (int) $currentUserId)->fetchColumn();
+        $row['liked_by_current_user'] = (bool) $row['liked_by_current_user'];
+        $row['rechirped_by_current_user'] = (bool) $row['rechirped_by_current_user'];
 
+        // Add the processed chirp to the chirps array
         $chirps[] = $row;
     }
 

@@ -26,7 +26,7 @@
     width: 100%; /* Full width */
     margin-bottom: 24px; /* Bottom margin */
     border-radius: 8px; /* Rounded corners */
-    background-color: #8b8b8b2d; /* Semi-transparent background */
+    background-color: var(--contrastColor); /* Semi-transparent background */
 }
 
 /* Styles for paragraph elements inside the sidebar items */
@@ -74,7 +74,7 @@
 
 /* Styles for the header */
 header {
-    background-color: black;
+    background-color: var(--background-color);
     display: flex; /* Flex container */
     flex-direction: column; /* Stack items vertically */
     min-height: 100vh; /* Minimum height of viewport */
@@ -90,12 +90,17 @@ header > div > nav {
     flex-direction: column; /* Stack items vertically */
     width: moz-fit-content; /* Width based on content (Firefox) */
     width: 100%; /* Full width */
+    color: var(--text-colorUI);
+}
+
+header > div > nav {
+    color: var(--text-colorUI) !important;
 }
 
 /* Styles for buttons inside the header */
 header > div > button {
     padding: 8px; /* Padding around the button */
-    background-color: black; /* Background color */
+    background-color: var(--background-color); /* Background color */
     border: none; /* No border */
     text-align: left; /* Left-aligned text */
     font-family: Jost, Arial, Helvetica, sans-serif; /* Font family */
@@ -113,7 +118,7 @@ header > div > button {
 
 /* Styles for button hover state */
 header > div > button:hover {
-    background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+    background-color: var(--contrastColor); /* Semi-transparent background on hover */
     transition: none; /* Disable transition on hover */
 }
 
@@ -126,12 +131,12 @@ header > div > button > div {
 /* Styles for paragraph elements inside nested divs of the buttons */
 header > div > button > div > p {
     margin: 0; /* Remove default margin */
-    color: white; /* Text color */
+    color: var(--text-colorUI); /* Text color */
 }
 
 /* Styles for anchor elements inside the navigation */
 header > div > nav > a {
-    color: white; /* Text color */
+    color: var(--text-colorUI); /* Text color */
     text-decoration: none; /* Remove underline */
     padding-bottom: 4px; /* Bottom padding */
     padding-top: 4px; /* Top padding */
@@ -165,7 +170,7 @@ header > div > nav > img {
 
 /* Styles for anchor hover state */
 header > div > nav > a:hover {
-    background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+    background-color: var(--contrastColor); /* Semi-transparent background on hover */
     transition: none; /* Disable transition on hover */
     text-decoration: none; /* Remove underline on hover */
 }
@@ -183,10 +188,18 @@ p.settingsButton {
 
 /* Styles for settings button hover state */
 p.settingsButton:hover {
-    background-color: #8b8b8b2d; /* Semi-transparent background on hover */
+    background-color: var(--contrastColor); /* Semi-transparent background on hover */
 }
 
 #whoToFollowExplore{
     display: flex;
     width: 100%;
+}
+
+ul>li>a.menuOption{
+    all: unset;
+}
+
+ul>li>a>div>p{
+    margin-bottom: 0px;
 }

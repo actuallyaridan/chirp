@@ -11,28 +11,38 @@ function getDatabaseConnection() {
     }
 }
 
-// Function to make URLs clickable, embed images, and handle mentions
+// Function to check if the image is available with a timeout
+function imageExists($url) {
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 5 // 5 seconds timeout
+        ]
+    ]);
+    $headers = @get_headers($url, 1, $context);
+    return $headers && strpos($headers[0], '200') !== false;
+}
+
+// Function to make URLs clickable, embed images, and handle mentions, including YouTube embeds
 function makeLinksClickable($text) {
-    // Pattern for URLs
     $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?(\?[^\s]*)?)/i';
 
-    // Replace URLs with clickable links or images
+    // Replace URLs with clickable links, images, or YouTube embeds
     $text = preg_replace_callback($urlPattern, function($matches) {
         $url = $matches[1];
+        $url = html_entity_decode($url);
 
-        // Parse URL and query string
+        if (strpos($url, 'https://') !== 0 && strpos($url, 'http://') !== 0) {
+            $url = 'http://' . $url;
+        }
+
+        // Check if the URL is an image link
         $parsedUrl = parse_url($url);
         $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
         $query = isset($parsedUrl['query']) ? $parsedUrl['query'] : '';
 
-        // Strip "https://" and "www." from the display
-        $displayUrl = preg_replace('/^https?:\/\/(www\.)?/i', '', $url);
-
-        // Check for image extension in the path or query string
         $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
         $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
 
-        // Check if the query string contains an image format
         foreach ($imageExtensions as $extension) {
             if (stripos($query, 'format=' . $extension) !== false) {
                 $fileExtension = $extension;
@@ -41,11 +51,18 @@ function makeLinksClickable($text) {
         }
 
         if (in_array(strtolower($fileExtension), $imageExtensions)) {
-            // If it's an image, embed it
-            return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . $url . '" alt="Photo"></div>';
+            try {
+                if (imageExists($url)) {
+                    return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . htmlspecialchars($url, ENT_QUOTES) . '" alt="Photo"></div>';
+                } else {
+                    return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed as it either does not exist or has been removed in response to a legal request or a report by the copyright holder.</p><a class="subText" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+                }
+            } catch (Exception $e) {
+                return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed due to an error.</p><a class="subText" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+            }
         } else {
-            // Otherwise, create a clickable link
-            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
+            // Treat as a general clickable URL if not a YouTube or image link
+            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($url, ENT_QUOTES) . '</a>';
         }
     }, $text);
 
@@ -60,6 +77,25 @@ function makeLinksClickable($text) {
     }, $text);
 
     return $text;
+}
+
+// Function to get YouTube video details using the YouTube Data API
+function getYoutubeVideoDetails($videoId) {
+    $apiKey = 'AIzaSyA0VIMETmNPc4k1RczLzl6tdX23z2nafjQ';
+    $apiUrl = "https://www.googleapis.com/youtube/v3/videos?id=$videoId&key=$apiKey&part=snippet";
+
+    $response = file_get_contents($apiUrl);
+    if ($response === false) {
+        return null; // Handle API call failure
+    }
+
+    $data = json_decode($response, true);
+
+    if (isset($data['items'][0])) {
+        return $data['items'][0]['snippet']; // Return the whole snippet (including title, thumbnails, channelTitle, and description)
+    }
+
+    return null; // Handle case where video ID is invalid or not found
 }
 
 function getChirpDetails($db, $postId) {
@@ -125,7 +161,14 @@ try {
 
             $title = "$plainName on Chirp: \"" . htmlspecialchars($post['chirp'], ENT_QUOTES) . "\" - Chirp";
             $timestamp = gmdate("Y-m-d\TH:i\Z", $post['timestamp']);
-            $status = nl2br(makeLinksClickable(htmlspecialchars($post['chirp'], ENT_QUOTES)));
+
+            // Format the chirp text: make links clickable and convert newlines to <br> tags
+            $status = makeLinksClickable(htmlspecialchars($post['chirp'], ENT_QUOTES));
+
+            // Normalize and convert newlines to <br> tags
+            $status = str_replace(["\r\n", "\r"], "\n", $status); // Normalize line breaks
+            $status = preg_replace('/\n+/', "\n", $status); // Replace multiple newlines with a single newline
+            $status = nl2br($status); // Convert newlines to <br> tags
 
             $counts = getCounts($db, $postId);
 
@@ -145,4 +188,3 @@ try {
 } catch (PDOException $e) {
     die('Error: ' . htmlspecialchars($e->getMessage()));
 }
-?>

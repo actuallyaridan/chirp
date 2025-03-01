@@ -1,28 +1,39 @@
 <?php
 session_start();
 
-// Function to make URLs clickable, embed images, and handle mentions
+
+// Function to check if the image is available with a timeout
+function imageExists($url) {
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 5 // 5 seconds timeout
+        ]
+    ]);
+    $headers = @get_headers($url, 1, $context);
+    return $headers && strpos($headers[0], '200') !== false;
+}
+
+// Function to make URLs clickable, embed images, and handle mentions, including YouTube embeds
 function makeLinksClickable($text) {
-    // Pattern for URLs
     $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?(\?[^\s]*)?)/i';
 
-    // Replace URLs with clickable links or images
+    // Replace URLs with clickable links, images, or YouTube embeds
     $text = preg_replace_callback($urlPattern, function($matches) {
         $url = $matches[1];
+        $url = html_entity_decode($url);
 
-        // Parse URL and query string
+        if (strpos($url, 'https://') !== 0 && strpos($url, 'http://') !== 0) {
+            $url = 'http://' . $url;
+        }
+
+        // Check if the URL is an image link
         $parsedUrl = parse_url($url);
         $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
         $query = isset($parsedUrl['query']) ? $parsedUrl['query'] : '';
 
-        // Strip "https://" and "www." from the display
-        $displayUrl = preg_replace('/^https?:\/\/(www\.)?/i', '', $url);
-
-        // Check for image extension in the path or query string
         $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
         $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
 
-        // Check if the query string contains an image format
         foreach ($imageExtensions as $extension) {
             if (stripos($query, 'format=' . $extension) !== false) {
                 $fileExtension = $extension;
@@ -31,11 +42,18 @@ function makeLinksClickable($text) {
         }
 
         if (in_array(strtolower($fileExtension), $imageExtensions)) {
-            // If it's an image, embed it
-            return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . $url . '" alt="Photo"></div>';
+            try {
+                if (imageExists($url)) {
+                    return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . htmlspecialchars($url, ENT_QUOTES) . '" alt="Photo"></div>';
+                } else {
+                    return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed as it either does not exist or has been removed in response to a legal request or a report by the copyright holder.</p><a class="subText" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+                }
+            } catch (Exception $e) {
+                return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed due to an error.</p><a class="subText" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+            }
         } else {
-            // Otherwise, create a clickable link
-            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
+            // Treat as a general clickable URL if not a YouTube or image link
+            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($url, ENT_QUOTES) . '</a>';
         }
     }, $text);
 
@@ -51,7 +69,6 @@ function makeLinksClickable($text) {
 
     return $text;
 }
-
 
 try {
     // Set up PDO with error mode to exception
@@ -95,13 +112,20 @@ try {
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         // Sanitize and make links clickable
-        $row['chirp'] = makeLinksClickable(nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8')));
+        $row['chirp'] = makeLinksClickable(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8'));
+        
+        // Normalize and convert newlines to <br> tags
+        $row['chirp'] = str_replace(["\r\n", "\r"], "\n", $row['chirp']); // Normalize line breaks
+        $row['chirp'] = preg_replace('/\n+/', "\n", $row['chirp']); // Replace multiple newlines with a single
+        $row['chirp'] = nl2br($row['chirp']); // Convert newlines to <br> tags
+
+        // Escape and sanitize other fields
         $row['username'] = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
         $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
-        $row['profilePic'] = htmlspecialchars($row['profilePic'], ENT_QUOTES, 'UTF-8');
+        $row['profilePic'] = htmlspecialchars_decode($row['profilePic']); // Decode the profilePic URL
         $row['isVerified'] = (bool)$row['isVerified'];
 
-        // Convert the interaction counts to booleans
+        // Convert interaction counts to booleans for easier use on frontend
         $row['liked_by_current_user'] = (bool)$row['liked_by_current_user'];
         $row['rechirped_by_current_user'] = (bool)$row['rechirped_by_current_user'];
 
@@ -118,7 +142,7 @@ try {
     http_response_code(500); // Set HTTP response code to 500 for server error
     echo json_encode(['error' => 'An error occurred while fetching replies. Please try again later.']);
 } catch (Exception $e) {
+    // Catch any other non-PDO exceptions
     http_response_code(500); // Set HTTP response code to 500 for server error
     echo json_encode(['error' => 'An unexpected error occurred.']);
 }
-?>

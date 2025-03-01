@@ -50,9 +50,9 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0000">
+    <meta name="mobile-web-app-capable" content="yes">
+
+
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -82,7 +82,7 @@ if (!isset($_SESSION['username'])) {
                     class="activeDesktop">
                     <img src="/src/images/icons/person.svg" alt=""> Profile
                 </a>
-                <a href="/compose" class="newchirp">Chirp</a>
+                    <button class="newchirp" onclick="openNewChirpModal()">Chirp</button>
                 <?php endif; ?>
             </nav>
             <div id="menuSettings">
@@ -121,8 +121,7 @@ if (!isset($_SESSION['username'])) {
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-                <button id="back" class="selcted" onclick="back()"><img alt="" class="emoji"
-                        src="/src/images/icons/back.svg"> Cancel </button>
+                <button id="back" class="selcted" onclick="back()"><i class="fa-solid fa-arrow-left"></i> Cancel </button>
 
             </div>
             <form method="POST" action="/user/edit/editProfile.php">
@@ -144,7 +143,7 @@ if (!isset($_SESSION['username'])) {
                                         onClick="openEditProfilePicModal()">✏️</button>
                                     <img id="profilePicPreview" class="userPic"
                                         src="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : '/src/images/users/guest/user.svg'; ?>"
-                                        alt="<?php echo htmlspecialchars($user['name']); ?>">
+                                        alt="">
                                     <input type="hidden" name="profilePic" id="profilePicInput"
                                         value="<?php echo isset($user['profilePic']) ? htmlspecialchars($user['profilePic']) : ''; ?>">
                                 </div>
@@ -207,6 +206,7 @@ if (!isset($_SESSION['username'])) {
                 class="active"><img src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
+    <?php include '../../include/compose.php'; ?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const bannerUrlInput = document.getElementById('bannerUrl');

@@ -1,28 +1,38 @@
 <?php
 session_start();
 
-// Function to make URLs clickable, embed images, and handle mentions
+// Function to check if the image is available with a timeout
+function imageExists($url) {
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 5 // 5 seconds timeout
+        ]
+    ]);
+    $headers = @get_headers($url, 1, $context);
+    return $headers && strpos($headers[0], '200') !== false;
+}
+
+// Function to make URLs clickable, embed images, and handle mentions, including YouTube embeds
 function makeLinksClickable($text) {
-    // Pattern for URLs
     $urlPattern = '/\b((https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,6}(\/[^\s]*)?(\?[^\s]*)?)/i';
 
-    // Replace URLs with clickable links or images
+    // Replace URLs with clickable links, images, or YouTube embeds
     $text = preg_replace_callback($urlPattern, function($matches) {
         $url = $matches[1];
+        $url = html_entity_decode($url);
 
-        // Parse URL and query string
+        if (strpos($url, 'https://') !== 0 && strpos($url, 'http://') !== 0) {
+            $url = 'http://' . $url;
+        }
+
+        // Check if the URL is an image link
         $parsedUrl = parse_url($url);
         $path = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
         $query = isset($parsedUrl['query']) ? $parsedUrl['query'] : '';
 
-        // Strip "https://" and "www." from the display
-        $displayUrl = preg_replace('/^https?:\/\/(www\.)?/i', '', $url);
-
-        // Check for image extension in the path or query string
         $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
         $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
 
-        // Check if the query string contains an image format
         foreach ($imageExtensions as $extension) {
             if (stripos($query, 'format=' . $extension) !== false) {
                 $fileExtension = $extension;
@@ -31,11 +41,18 @@ function makeLinksClickable($text) {
         }
 
         if (in_array(strtolower($fileExtension), $imageExtensions)) {
-            // If it's an image, embed it
-            return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . $url . '" alt="Photo"></div>';
+            try {
+                if (imageExists($url)) {
+                    return '<div class="chirpImageContainer"><img class="imageInChirp" src="' . htmlspecialchars($url, ENT_QUOTES) . '" alt="Photo"></div>';
+                } else {
+                    return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed as it either does not exist or has been removed in response to a legal request or a report by the copyright holder.</p><a class="subText" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+                }
+            } catch (Exception $e) {
+                return '<div class="chirpsee">🧑‍⚖️ Media not displayed<p class="subText">This image cannot be displayed due to an error.</p><a class="subText" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">Learn more</a></div>';
+            }
         } else {
-            // Otherwise, create a clickable link
-            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($displayUrl, ENT_QUOTES) . '</a>';
+            // Treat as a general clickable URL if not a YouTube or image link
+            return '<a class="linkInChirp" href="' . htmlspecialchars($url, ENT_QUOTES) . '" target="_blank" rel="noopener noreferrer">' . htmlspecialchars($url, ENT_QUOTES) . '</a>';
         }
     }, $text);
 
@@ -51,7 +68,6 @@ function makeLinksClickable($text) {
 
     return $text;
 }
-
 
 try {
     $db = new PDO('sqlite:' . __DIR__ . '/../../../chirp.db');
@@ -69,63 +85,58 @@ try {
         exit;
     }
 
-    // Fetch the IDs of posts that the user has liked
-    $likedPostsQuery = '
-        SELECT chirp_id
-        FROM likes
-        WHERE user_id = :user_id
-        ORDER BY timestamp DESC
-        LIMIT :limit OFFSET :offset
-    ';
-    $likedPostsStmt = $db->prepare($likedPostsQuery);
-    $likedPostsStmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $likedPostsStmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $likedPostsStmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-    $likedPostsStmt->execute();
-
-    $likedPosts = $likedPostsStmt->fetchAll(PDO::FETCH_COLUMN, 0);
-
-    if (empty($likedPosts)) {
-        echo json_encode([]);
-        exit;
-    }
-
-    // Fetch details of the liked posts
-    $chirpIdsPlaceholders = implode(',', array_fill(0, count($likedPosts), '?'));
-    $allPostsQuery = "
-        SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified, likes.timestamp as like_timestamp
+    // Fetch liked posts by the user along with counts for likes, rechirps, and replies
+    $query = '
+        SELECT chirps.*, users.username, users.name, users.profilePic, users.isVerified,
+               (SELECT COUNT(*) FROM likes WHERE chirp_id = chirps.id) AS like_count,
+               (SELECT COUNT(*) FROM rechirps WHERE chirp_id = chirps.id) AS rechirp_count,
+               (SELECT COUNT(*) FROM chirps WHERE parent = chirps.id AND type = "reply") AS reply_count,
+               (SELECT COUNT(*) FROM likes WHERE chirp_id = chirps.id AND user_id = :user_id) AS liked_by_current_user,
+               (SELECT COUNT(*) FROM rechirps WHERE chirp_id = chirps.id AND user_id = :user_id) AS rechirped_by_current_user
         FROM chirps
         INNER JOIN users ON chirps.user = users.id
         INNER JOIN likes ON chirps.id = likes.chirp_id
-        WHERE chirps.id IN ($chirpIdsPlaceholders) AND likes.user_id = :user_id
-        ORDER BY like_timestamp DESC
-    ";
-    $allPostsStmt = $db->prepare($allPostsQuery);
-    foreach ($likedPosts as $index => $chirpId) {
-        $allPostsStmt->bindValue($index + 1, $chirpId, PDO::PARAM_INT);
-    }
-    $allPostsStmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-    $allPostsStmt->execute();
+        WHERE likes.user_id = :user_id
+        ORDER BY likes.timestamp DESC
+        LIMIT :limit OFFSET :offset
+    ';
+
+    $stmt = $db->prepare($query);
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
 
     $chirps = [];
 
-    while ($row = $allPostsStmt->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         // Sanitize and make links clickable
-        $row['chirp'] = makeLinksClickable(nl2br(htmlspecialchars($row['chirp'], ENT_QUOTES, 'UTF-8')));
+        $row['chirp'] = makeLinksClickable(htmlspecialchars($row['chirp'], ENT_NOQUOTES, 'UTF-8'));
+
+        // Normalize all types of newlines to \n (Unix-style line feed)
+        $row['chirp'] = str_replace(["\r\n", "\r"], "\n", $row['chirp']);
+
+        // Replace sequences of multiple newlines (\n\n+) with a single newline (\n)
+        $row['chirp'] = preg_replace('/\n+/', "\n", $row['chirp']);
+
+        // Convert the newlines (\n) to <br> tags
+        $row['chirp'] = nl2br($row['chirp']);
+
         $row['username'] = htmlspecialchars($row['username'], ENT_QUOTES, 'UTF-8');
         $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
-        $row['profilePic'] = htmlspecialchars($row['profilePic'], ENT_QUOTES, 'UTF-8');
+        $row['profilePic'] = htmlspecialchars_decode($row['profilePic']);  // Decode the profilePic URL
         $row['isVerified'] = (bool)$row['isVerified'];
 
-        // Fetch counts for likes, rechirps, and replies
-        $row['like_count'] = (int) $db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int) $row['id'])->fetchColumn();
-        $row['rechirp_count'] = (int) $db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int) $row['id'])->fetchColumn();
-        $row['reply_count'] = (int) $db->query('SELECT COUNT(*) FROM chirps WHERE parent = ' . (int) $row['id'] . ' AND type = "reply"')->fetchColumn();
+        // Add counts for likes, rechirps, and replies
+        $row['like_count'] = (int) $row['like_count'];
+        $row['rechirp_count'] = (int) $row['rechirp_count'];
+        $row['reply_count'] = (int) $row['reply_count'];
 
         // Check if the current user liked or rechirped the chirp
-        $row['liked_by_current_user'] = (bool) $db->query('SELECT COUNT(*) FROM likes WHERE chirp_id = ' . (int) $row['id'] . ' AND user_id = ' . (int) $currentUserId)->fetchColumn();
-        $row['rechirped_by_current_user'] = (bool) $db->query('SELECT COUNT(*) FROM rechirps WHERE chirp_id = ' . (int) $row['id'] . ' AND user_id = ' . (int) $currentUserId)->fetchColumn();
+        $row['liked_by_current_user'] = (bool) $row['liked_by_current_user'];
+        $row['rechirped_by_current_user'] = (bool) $row['rechirped_by_current_user'];
 
+        // Add the processed chirp to the chirps array
         $chirps[] = $row;
     }
 
@@ -142,4 +153,3 @@ try {
     http_response_code(500); // Internal Server Error
     echo json_encode(['error' => 'An unexpected error occurred.']);
 }
-?>

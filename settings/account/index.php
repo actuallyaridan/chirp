@@ -7,9 +7,9 @@ session_start();
 
 <head>
     <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0000">
+    <meta name="mobile-web-app-capable" content="yes">
+
+
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -39,7 +39,7 @@ session_start();
                     href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
                     <img src="/src/images/icons/person.svg" alt=""> Profile
                 </a>
-                <a href="/compose" class="newchirp">Chirp</a>
+                    <button class="newchirp" onclick="openNewChirpModal()">Chirp</button>
                 <?php endif; ?>
             </nav>
 
@@ -107,7 +107,7 @@ session_start();
                         <li>
                             <a class="settingsMenuLink" href="https://help.chirpsocial.net">📕 Help Center</a>
                         </li>
-                        <li><p class="subText">Chirp Beta 0.6.1b-rc-pre</p></li>
+                        <li><p class="subText">Chirp Beta 0.7b</p></li>
                     </ul>
 
                 </div>
@@ -159,6 +159,7 @@ session_start();
                     src="/src/images/icons/person.svg" alt="Profile"></a>
         </div>
     </footer>
+    <?php include '../../include/compose.php'; ?>
 </body>
 
 </html>

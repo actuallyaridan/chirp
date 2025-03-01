@@ -3,38 +3,29 @@
 
 <head>
     <meta charset="UTF-8">
-<meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0000">
-    <link href="/src/styles/styles.css" rel="stylesheet">
-    <link href="/src/styles/timeline.css" rel="stylesheet">
-    <link href="/src/styles/menus.css" rel="stylesheet">
-    <link href="/src/styles/responsive.css" rel="stylesheet">
-  
-    <script defer src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js"
-        crossorigin="anonymous"></script>
-    <script src="/src/scripts/general.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link href="/src/styles/outdated.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update your browser - Chirp</title>
 </head>
 
 <body>
-    <main>
-        <div id="feed" class="outdated">
-            <img class="outdatedimg" src="/src/images/icons/chirp.svg" alt="Chirp" width="42px" height="42px">
-            <h1>This browser is no longer supported.</h1>
-            <p>If you want to keep using Chirp, you need to update your browser. There is a list of supported browsers in our Help Center.</p>
-            <p>Alternatively, you can use Chirp Legacy.</p>
-            <div class="buttonsOutdated">
-                <a href="https://legacy.chirpsocial.net" class="chirpLegacy">Use Chirp Legacy</a>
-                <a href="https://help.chirpsocial.net/using-chirp/supported-browsers" class="helpCenter">Help Center</a>
-            </div>
+    <div class="errorContainer">
+        <img class="outdatedimg" src="/src/images/icons/chirp.svg" alt="Chirp" width="48px" height="48px">
+        <h1>This browser is no longer supported.</h1>
+        <p>If you want to keep using Chirp, you need to update your browser. There is a list of supported browsers in
+            our Help Center.</p>
+        <p>Alternatively, you can use Chirp Legacy.</p>
+        <div class="errorButtons">
+            <a href="https://legacy.chirpsocial.net" class="chirpLegacy">Use Chirp Legacy</a>
+            <a href="https://help.chirpsocial.net/using-chirp/supported-browsers" class="helpCenter">Help Center</a>
         </div>
-    </main>
+        <p class="errorFooter">
+            <a>Terms of Service</a>
+            <a>Privacy Policy</a>
+            <a>Cookie Policy</a>
+            <a>GitHub</a>
+        </p>
+    </div>
 </body>
 
 </html>

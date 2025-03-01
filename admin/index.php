@@ -26,7 +26,7 @@ if (!isset($_SESSION['username']) || $_SESSION['username'] !== 'chirp') {
             </div>
             <div id="noMoreChirps">
                 <p class="subText">Your account is not allowed to perform this action.</p>
-                <button class="followButton following tryAgain" onclick="window.location.href=\'/\';">Go back home</button>
+                <a class="followButton following tryAgain" href="/">Go back home</a>
             </div>
         </div>
     </body>
@@ -72,6 +72,41 @@ if (isset($_POST['doneCode'])) {
     echo json_encode(['status' => 'success']);
     exit;
 }
+
+// If the Migrate button is clicked (via AJAX)
+if (isset($_POST['migrateUser'])) {
+    $migrateFrom = $_POST['migrateFrom'];
+    $migrateTo = $_POST['migrateTo'];
+  
+    // Validate input (optional, but recommended)
+    // You can add checks here to ensure usernames are not empty, 
+    // have a minimum length, or don't contain special characters.
+  
+    // Prepare the SQL statement to find the user with the migrateFrom username
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = :migrateFrom");
+    $stmt->bindParam(':migrateFrom', $migrateFrom);
+    $stmt->execute();
+  
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+  
+    if ($user) {
+      // Update the username in the database
+      $stmt = $db->prepare("UPDATE users SET username = :migrateTo WHERE id = :id");
+      $stmt->bindParam(':migrateTo', $migrateTo);
+      $stmt->bindParam(':id', $user['id']);
+      $stmt->execute();
+  
+      // Success message
+      $message = "User migrated successfully!";
+    } else {
+      // Error message if user with migrateFrom username is not found
+      $message = "User with username '$migrateFrom' not found.";
+    }
+  
+    // Send the message back as JSON response
+    echo json_encode(['message' => $message]);
+    exit;
+  }
 ?>
 
 
@@ -80,9 +115,9 @@ if (isset($_POST['doneCode'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0000">
+
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -113,7 +148,7 @@ if (isset($_POST['doneCode'])) {
                     href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
                     <img src="/src/images/icons/person.svg" alt=""> Profile
                 </a>
-                <a href="/compose" class="newchirp">Chirp</a>
+                    <button class="newchirp" onclick="openNewChirpModal()">Chirp</button>
                 <?php endif; ?>
             </nav>
 
@@ -200,6 +235,12 @@ if (isset($_POST['doneCode'])) {
                             </div>
                             <p class="subText">▷</p>
                         </li>
+                        <li onclick="showMigrateModal()">
+                            <div>
+                                🧑‍⚖️ Migrate user<p class="subText">Migrate a user from one username to another</p>
+                            </div>
+                            <p class="subText">▷</p>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -219,6 +260,20 @@ if (isset($_POST['doneCode'])) {
         </div>
     </div>
 
+    <div id="migrateModal" class="modal formGroup">
+        <div class="modal-content editBannerModalContent">
+            <h2>Migrate user</h2>
+            <p class="subText">Move a user between handles</p>
+            <textarea id="migrateFrom" placeholder="Migrate from" class="URLtextarea"></textarea>
+            <textarea id="migrateTo" placeholder="Migrate to" class="URLtextarea"></textarea>
+            <div class="modal-buttons">
+                <button class="button following" id="migrateUser">Migrate</button>
+                <button class="button" id="doneButton" type="button"  onclick="closeMigrateModal()">OK</button>
+            </div>
+            <div id="migrateStatus"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="mobileMenuFooter">
             <a href="/"><img src="/src/images/icons/house.svg" alt="Home"></a>
@@ -232,14 +287,20 @@ if (isset($_POST['doneCode'])) {
     </footer>
 
     <script>
-        // JavaScript to show the modal
         function showinviteCodeModal() {
             document.getElementById("inviteCodeModal").style.display = "block";
         }
 
-        // JavaScript to close the modal
+        function showMigrateModal() {
+            document.getElementById("migrateModal").style.display = "block";
+        }
+
         function closeinviteCodeModal() {
             document.getElementById("inviteCodeModal").style.display = "none";
+        }
+
+        function closeMigrateModal() {
+            document.getElementById("migrateModal").style.display = "none";
         }
 
         // Clear the textarea and close the modal
@@ -290,6 +351,29 @@ if (isset($_POST['doneCode'])) {
                 xhr.send("doneCode=true&inviteCode=" + encodeURIComponent(inviteCode));
             });
         });
+
+        // Handle Migrate button click
+document.getElementById("migrateUser").addEventListener("click", function() {
+  var migrateFrom = document.getElementById("migrateFrom").value;
+  var migrateTo = document.getElementById("migrateTo").value;
+
+  // Validate input (optional, but recommended)
+  // You can add checks here to ensure usernames are not empty, 
+  // have a minimum length, or don't contain special characters.
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onload   
+ = function() {
+    if (xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      document.getElementById("migrateStatus").textContent   
+ = response.message;
+    }
+  };
+  xhr.send("migrateUser=true&migrateFrom=" + encodeURIComponent(migrateFrom) + "&migrateTo=" + encodeURIComponent(migrateTo));
+});
     </script>
 </body>
 

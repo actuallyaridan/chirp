@@ -18,9 +18,9 @@ try {
     <title><?php echo isset($title) ? $title : 'Chirp'; ?></title>
     <meta charset="UTF-8">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#0000">
+    <meta name="mobile-web-app-capable" content="yes">
+
+
     <link href="/src/styles/styles.css" rel="stylesheet">
     <link href="/src/styles/timeline.css" rel="stylesheet">
     <link href="/src/styles/menus.css" rel="stylesheet">
@@ -50,7 +50,7 @@ try {
                         href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>">
                         <img src="/src/images/icons/person.svg" alt=""> Profile
                     </a>
-                    <a href="/compose" class="newchirp">Chirp</a>
+                    <button class="newchirp" onclick="openNewChirpModal()">Chirp</button>
                     <?php endif; ?>
                 </nav>
                 <div id="menuSettings">
@@ -90,8 +90,7 @@ try {
             <div id="iconChirp" onclick="playChirpSound()">
                 <img src="/src/images/icons/chirp.svg" alt="Chirp">
             </div>
-            <button id="back" class="selected" onclick="back()"><img alt="" class="emoji"
-            src="/src/images/icons/back.svg"> Chirp</button>
+            <button id="back" class="selected" onclick="back()"><i class="fa-solid fa-arrow-left"></i> Chirp</button>
             </div>
                 
                 </div>
@@ -120,32 +119,7 @@ try {
                                     </a>
                                 </div>
                             </div>
-                            <div class="morePostOptionWrapper"><button class="morePostOptions" title="More..."
-                                    onClick="openMoreOptionsModal()">🟰</button>
-                                <div class="morePostOptionsModal" id="moreOptionsModal">
-                                    <ul>
-                                        <li id="editPost">✏️ Edit</li>
-                                        <li id="editHistory">🕓 View edit history</li>
-                                        <li id="copyPost">📋 Copy chirp</li>
-                                        <li id="copyLink">🔗 Copy link</li>
-                                        <li id="embedPost">🖇️ Embed chirp</li>
-                                        <li id="pinPost">📌 Pin chirp</li>
-                                        <li id="broadcastPost">📢 Broadcast chirp</li>
-                                        <li id="changeReply">🔐 Change who can reply</li>
-                                        <li id="hideReply">🤐 Hide reply</li>
-                                        <li id="showHiddenReplies">🤐 Show hidden replies</li>
-                                        <li id="translate">🗣️ Translate</li>
-                                        <li id="suggestMore">😄 Suggest more</li>
-                                        <li id="notInterested">🙂‍↔️ Not interested</li>
-                                        <li id="writeNote">📝 Write a ChirpSees Note</li>
-                                        <li id="muteConversation">🔇 Mute conversation</li>
-                                        <li id="muteUser">🔇 Mute user</li>
-                                        <li id="block">🚫 Block</li>
-                                        <li id="report">🚩 Report</li>
-                                        <li id="delete">🗑️ Delete</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <?php include '../include/moreOptions.php';?>
                         </div>
                         <!-- Display chirp content with line breaks -->
                         <pre><?php echo $status; ?></pre>
@@ -165,7 +139,7 @@ try {
                                 </script> via Chirp for Web
                             </p>
                             <div>
-                                <button type="button" class="reply">
+                                <button type="button" class="reply" onClick="openReplyModal()">
                                     <img alt="Reply" src="/src/images/icons/reply.svg"><br>
                                     <?php echo ($reply_count == 1) ? '1 <span class="interactWithPostLabel">reply</span>' : $reply_count . ' <span class="interactWithPostLabel">replies</span>'; ?>
                                 </button>
@@ -196,12 +170,8 @@ try {
                             </div>
 
                         </div>
-                        <form method="POST" action="/chirp/submit.php?id=<?php echo htmlspecialchars($postId); ?>"
-                            id="replyTo">
-                            <textarea name="chirpComposeText" id="replytotext" maxlength="240"
-                                placeholder="Reply to @<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>..."></textarea>
-                            <button type="submit" class="postChirp">Reply</button>
-                        </form>
+                            <button onclick="openReplyModal()" class="replyToButtonMenu">
+                              Reply to @<?php echo isset($user) ? htmlspecialchars($user) : 'guest'; ?>...</button>
                     </div>
                 </div>
                 <div id="replies" data-offset="0">
@@ -225,7 +195,7 @@ try {
         <footer>
             <div class="mobileCompose">
                 <?php if (isset($_SESSION['username'])): ?>
-                <a class="chirpMoile" href="/compose">Chirp</a>
+                <button class="newchirpmobile" onclick="openNewChirpModal()">Chirp</button>
                 <?php endif; ?>
             </div>
             <div>
@@ -238,14 +208,16 @@ try {
                         src="/src/images/icons/person.svg" alt="Profile"></a>
             </div>
         </footer>
+        <?php include '../include/compose.php'; ?>
+        <?php include '../include/reply.php'; ?>
         <div id="likeModal" class="interaction-modal" style="display: none;">
             <ul class="interaction-modal-content">
-                <li><button onclick="showLikes()"><img src="/src/images/icons/stats.svg" class="emoji">Show
+                <li><button onclick="showLikes()"><img src="/src/images/icons/stats.svg" class="emoji">View
                         likes</button></li>
                 <li>
                     <button type="button" class="like"
                         onclick="updateChirpInteraction(<?php echo $postId; ?>, 'like', this)">
-                        <img alt="Like" src="/src/images/icons/<?php echo $liked ? 'liked' : 'like'; ?>.svg">
+                        <img class="emoji" alt="Like" src="/src/images/icons/<?php echo $liked ? 'liked' : 'like'; ?>.svg">
                         <span class="like-button-text"><?php echo $liked ? 'Undo like' : 'Like'; ?></span>
                     </button>
                 </li>
@@ -254,14 +226,14 @@ try {
 
         <div id="rechirpModal" class="interaction-modal" style="display: none;">
             <ul class="interaction-modal-content">
-                <li><button onclick="showRechirps()"><img src="/src/images/icons/stats.svg" class="emoji">Show
+                <li><button onclick="showRechirps()"><img src="/src/images/icons/stats.svg" class="emoji">View
                         rechirps</button></li>
                 <li><button onclick="quoteChirp()"><img src="/src/images/icons/write.svg" class="emoji">Quote</button>
                 </li>
                 <li>
                     <button type="button" class="rechirp"
                         onclick="updateChirpInteraction(<?php echo $postId; ?>, 'rechirp', this)">
-                        <img alt="Rechirp"
+                        <img class="emoji" alt="Rechirp"
                             src="/src/images/icons/<?php echo $rechirped ? 'rechirped' : 'rechirp'; ?>.svg">
                         <span class="rechirp-button-text"><?php echo $rechirped ? 'Undo rechirp' : 'Rechirp'; ?></span>
                     </button>
@@ -271,43 +243,6 @@ try {
         <script src="/src/scripts/general.js"></script>
         <script>
         let loadingChirps = false; // Flag to track if chirps are currently being loaded
-
-        function updatePostedDates() {
-            const chirps = document.querySelectorAll('.chirp .postedDate');
-            chirps.forEach(function(chirp) {
-                const timestamp = chirp.getAttribute('data-timestamp');
-                const postDate = new Date(parseInt(timestamp) * 1000);
-                const now = new Date();
-                const diffInMilliseconds = now - postDate;
-                const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
-                const diffInMinutes = Math.floor(diffInSeconds / 60);
-                const diffInHours = Math.floor(diffInMinutes / 60);
-                const diffInDays = Math.floor(diffInHours / 24);
-
-                let relativeTime;
-
-                if (diffInSeconds < 60) {
-                    relativeTime = diffInSeconds + "s ago";
-                } else if (diffInMinutes < 60) {
-                    relativeTime = diffInMinutes + "m ago";
-                } else if (diffInHours < 24) {
-                    relativeTime = diffInHours + "h ago";
-                } else if (diffInDays < 7) {
-                    relativeTime = diffInDays + "d ago";
-                } else {
-                    const options = {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    };
-                    relativeTime = postDate.toLocaleString([], options);
-                }
-
-                chirp.textContent = relativeTime;
-            });
-        }
 
         function showLoadingSpinner() {
             document.getElementById('noMoreChirps').style.display = 'block';
@@ -328,59 +263,127 @@ try {
 
             setTimeout(() => {
                 fetch(`/chirp/fetch_replies.php?offset=${offset}&for=<?php echo $postId; ?>`)
-                    .then(response => response.json())
-                    .then(chirps => {
-                        chirps.forEach(chirp => {
-                            const chirpDiv = document.createElement('div');
-                            chirpDiv.className = 'chirp';
-                            chirpDiv.id = chirp.id;
-                            chirpDiv.innerHTML = `
-                        <a class="chirpClicker" href="/chirp?id=${chirp.id}">
-                            <div class="chirpInfo">
-                                <div>
-                                    <img class="userPic"
-                                        src="${chirp.profilePic ? chirp.profilePic : '/src/images/users/guest/user.svg'}"
-                                        alt="${chirp.name ? chirp.name : 'Guest'}">
-                                    <div>
-                                        <p>${chirp.name ? chirp.name : 'Guest'}
-                                            ${chirp.isVerified ? '<img class="verified" src="/src/images/icons/verified.svg" alt="Verified">' : ''}
-                                        </p>
-                                        <p class="subText">@${chirp.username ? chirp.username : 'guest'}</p>
-                                    </div>
-                                </div>
-                                <div class="timestampTimeline">
-                                    <p class="subText postedDate" data-timestamp="${chirp.timestamp}"></p>
-                                </div>
-                            </div>
-                            <pre>${chirp.chirp}</pre>
-                        </a>
-                        <div class="chirpInteract">
-                              <button type="button" class="reply" onclick="location.href='/chirp/?id=${chirp.id}'"><img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span></button>
-                            <a href="/chirp?id=${chirp.id}"></a>
-                               <button type="button" class="rechirp" onclick="updateChirpInteraction(${chirp.id}, 'rechirp', this)"><img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span></button>
-                            <a href="/chirp?id=${chirp.id}"></a>
-                             <button type="button" class="like" onclick="updateChirpInteraction(${chirp.id}, 'like', this)"><img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span></button>
-                        </div>
+                .then(response => response.json())
+            .then(chirps => {
+                chirps.forEach(chirp => {
+                    
+
+                    // Create chirp div
+                    const chirpDiv = document.createElement('div');
+                    chirpDiv.className = 'chirp';
+                    chirpDiv.id = chirp.id;
+
+                    // Create chirpClicker link
+                    const chirpClicker = document.createElement('a');
+                    chirpClicker.className = 'chirpClicker';
+                    chirpClicker.href = `/chirp?id=${chirp.id}`;
+
+                    // Create chirpInfo div
+                    const chirpInfo = document.createElement('div');
+                    chirpInfo.className = 'chirpInfo';
+
+                    // User picture
+                    const userPic = document.createElement('img');
+                    userPic.className = 'userPic';
+                    userPic.src = chirp.profilePic ? chirp.profilePic : '/src/images/users/guest/user.svg';
+                    userPic.alt = chirp.name ? chirp.name : 'Guest';
+
+                    // User details
+                    const userDetails = document.createElement('div');
+                    const userName = document.createElement('p');
+                    userName.innerHTML = `
+                        ${chirp.name ? chirp.name : 'Guest'} 
+                        ${chirp.isVerified ? '<img class="verified" src="/src/images/icons/verified.svg" alt="Verified">' : ''}
                     `;
-                            chirpsContainer.appendChild(chirpDiv);
-                        });
+                    const userUsername = document.createElement('p');
+                    userUsername.className = 'subText';
+                    userUsername.innerText = `@${chirp.username ? chirp.username : 'guest'}`;
 
-                        chirpsContainer.setAttribute('data-offset', offset +
-                            12); // Correctly increment the offset
+                    userDetails.appendChild(userName);
+                    userDetails.appendChild(userUsername);
 
-                        updatePostedDates();
-                        twemoji.parse(chirpsContainer);
-                    })
-                    .catch(error => {
-                        console.error('Error fetching chirps:', error);
-                    })
-                    .finally(() => {
-                        loadingChirps = false; // Reset loading flag
-                        hideLoadingSpinner(); // Hide loading spinner
-                    });
-            }, 300);
-        }
+                    // Add user picture and details to chirpInfo
+                    const userWrapper = document.createElement('div');
+                    userWrapper.appendChild(userPic);
+                    userWrapper.appendChild(userDetails);
+                    chirpInfo.appendChild(userWrapper);
 
+                    // Timestamp
+                    const timestampDiv = document.createElement('div');
+                    timestampDiv.className = 'timestampTimeline';
+                    const postedDate = document.createElement('p');
+                    postedDate.className = 'subText postedDate';
+                    postedDate.setAttribute('data-timestamp', chirp.timestamp);
+                    timestampDiv.appendChild(postedDate);
+                    chirpInfo.appendChild(timestampDiv);
+
+                    // Preformatted chirp text
+                    const chirpText = document.createElement('pre');
+                    chirpText.innerHTML = chirp.chirp;
+
+                    // Add chirpInfo and text to chirpClicker
+                    chirpClicker.appendChild(chirpInfo);
+                    chirpClicker.appendChild(chirpText);
+
+                    // Create chirpInteract div
+                    const chirpInteract = document.createElement('div');
+                    chirpInteract.className = 'chirpInteract';
+
+                    // Reply button
+                    const replyButton = document.createElement('button');
+                    replyButton.type = 'button';
+                    replyButton.className = 'reply';
+                    replyButton.onclick = () => location.href = `/chirp/?id=${chirp.id}`;
+                    replyButton.innerHTML = `<img alt="Reply" src="/src/images/icons/reply.svg"> <span class="reply-count">${chirp.reply_count}</span>`;
+                    
+                    // Rechirp button
+                    const rechirpButton = document.createElement('button');
+                    rechirpButton.type = 'button';
+                    rechirpButton.className = 'rechirp';
+                    rechirpButton.onclick = () => updateChirpInteraction(chirp.id, 'rechirp', rechirpButton);
+                    rechirpButton.innerHTML = `<img alt="Rechirp" src="/src/images/icons/${chirp.rechirped_by_current_user ? 'rechirped' : 'rechirp'}.svg"> <span class="rechirp-count">${chirp.rechirp_count}</span>`;
+                    
+                    // Like button
+                    const likeButton = document.createElement('button');
+                    likeButton.type = 'button';
+                    likeButton.className = 'like';
+                    likeButton.onclick = () => updateChirpInteraction(chirp.id, 'like', likeButton);
+                    likeButton.innerHTML = `<img alt="Like" src="/src/images/icons/${chirp.liked_by_current_user ? 'liked' : 'like'}.svg"> <span class="like-count">${chirp.like_count}</span>`;
+                    
+                    // interactLinker
+                    const interactLinker = document.createElement('a');
+                    interactLinker.className = 'interactLinkerPost';
+                    interactLinker.href = `/chirp?id=${chirp.id}`;
+
+                    // Append buttons to chirpInteract
+                    chirpInteract.appendChild(replyButton);
+                    chirpInteract.appendChild(rechirpButton);
+                    chirpInteract.appendChild(likeButton);
+                    chirpInteract.appendChild(interactLinker);
+
+                    // Append chirpClicker and interact div to chirpDiv
+                    chirpDiv.appendChild(chirpClicker);
+                    chirpDiv.appendChild(chirpInteract);
+
+                    // Finally append chirpDiv to the container
+                    chirpsContainer.appendChild(chirpDiv);
+                    
+                });
+
+                chirpsContainer.setAttribute('data-offset', offset + 12); // Correctly increment the offset
+
+                updatePostedDates();
+                twemoji.parse(chirpsContainer);
+            })
+            .catch(error => {
+                console.error('Error fetching chirps:', error);
+            })
+            .finally(() => {
+                loadingChirps = false; // Reset loading flag
+                hideLoadingSpinner(); // Hide loading spinner
+            });
+    }, 250);
+}
         function updateChirpInteraction(chirpId, action, button) {
             fetch(`/interact_chirp.php`, {
                     method: 'POST',

@@ -35,7 +35,7 @@
                 href="<?php echo isset($_SESSION['username']) ? '/user?id=' . htmlspecialchars($_SESSION['username']) : '/signin'; ?>"><img
                     src="/src/images/icons/person.svg" alt=""> Profile</a>
                 <?php if (isset($_SESSION['username'])): ?>
-                <a href="/compose" class="newchirp">Chirp</a>
+                    <button class="newchirp" onclick="openNewChirpModal()">Chirp</button>
                 <?php endif; ?>
             </nav>
             <button id="settingsButtonWrapper" type="button" onclick=showMenuSettings()>
@@ -88,9 +88,9 @@
             </div>
             <div>
                 <div>
-                <img class="userPic" src="https://pbs.twimg.com/profile_images/1380530524779859970/TfwVAbyX_400x400.jpg" alt="">
+                <img class="userPic" src="https://pbs.twimg.com/profile_images/1881368435453542400/NnD56DYV_400x400.jpg" alt="">
                 <div>
-                    <p>President Biden <img class="verified" src="/src/images/icons/verified.svg" alt=""></p><p class="subText">@POTUS</p>
+                    <p>President Trump <img class="verified" src="/src/images/icons/verified.svg" alt=""></p><p class="subText">@POTUS</p>
                 </div>
             </div>
                 <a class="followButton">Follow</a></div>
@@ -98,7 +98,7 @@
         </div>
         <div>
             <p class="subText">Inspired by Twitter/X. No code has been sourced from Twitter/X. Twemoji by Twitter Inc/X Corp is licensed under CC-BY 4.0.
-<br><br>You're running: Chirp Beta 0.6.1b-rc-pre </p>
+<br><br>You're running: Chirp Beta 0.7b </p>
         </div>
     </aside>
     <footer>

@@ -1,0 +1,101 @@
+:root {
+    --red: #FC2C6A;
+    --red-hover: #D4004D;
+    --orange: #FF8B1F;
+    --orange-hover: #D57100;
+    --green: #1AD063;
+    --green-hover: #128E3C;
+    --blue: #10BDF3;
+    --blue-hover: #0A85BA;
+    --purple: #7A2BFC;
+    --purple-hover: #5B1ECC;
+    --dark: #000000;
+    --light: #FFFFFF;
+    --darkSemi: #00000080;
+    --lightSemi: #FFFFFF80;
+    --textColorDark: #FFFFFF;
+    --textColorLight: #000000;
+    --darkContrast: #0F0F0F;
+    --lightContrast: #F0F0F0;
+
+    --accent-color: var(--green);
+    --hover-color: var(--green-hover);
+    --background-color: var(--light);
+    --text-color: white;
+    --semiTrans-bg: var(--lightSemi);
+    --text-colorUI: var(--textColorLight);
+    --contrastColor: var(--lightContrast);
+
+    /* --background-color: var(--dark);
+    --text-color: black;
+    --semiTrans-bg: var(--darkSemi);
+    --text-colorUI: var(--textColorDark);
+    --contrastColor: var(--darkContrast);*/
+}
+
+@media (prefers-color-scheme: light) {
+    html[data-theme='auto'] {
+        --background-color: var(--light);
+        --text-color: white;
+        --semiTrans-bg: var(--lightSemi);
+        --text-colorUI: var(--textColorLight);
+        --contrastColor: var(--lightContrast);
+        --color-scheme: light;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html[data-theme='auto'] {
+        --background-color: var(--dark);
+        --text-color: black;
+        --semiTrans-bg: var(--darkSemi);
+        --text-colorUI: var(--textColorDark);
+        --contrastColor: var(--darkContrast);
+        --color-scheme: dark;
+    }
+}
+
+html[data-theme='auto'] {
+    --background-color: var(--light);
+    --text-color: white;
+    --semiTrans-bg: var(--lightSemi);
+    --text-colorUI: var(--textColorLight);
+    --contrastColor: var(--lightContrast);
+    --color-scheme: light;
+}
+
+
+html[data-theme='dark'] {
+    --background-color: var(--dark);
+    --text-color: black;
+    --semiTrans-bg: var(--darkSemi);
+    --text-colorUI: var(--textColorDark);
+    --contrastColor: var(--darkContrast);
+    --color-scheme: dark;
+}
+
+/* Font face */
+@font-face {
+    font-family: Jost;
+    /* Font family */
+    src: url(fonts/Jost.ttf);
+    /* Font source */
+    font-display: swap;
+}
+
+/* Font face */
+@font-face {
+    font-family: Satoshi;
+    /* Font family */
+    src: url(fonts/Satoshi.ttf);
+    /* Font source */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: SevenSegment;
+    /* Font family */
+    src: url(fonts/SevenSegment.otf);
+    /* Font source */
+    font-display: swap;
+}

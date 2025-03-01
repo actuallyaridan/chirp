@@ -42,7 +42,7 @@ try {
     $userId = $user['id'];
 
     // Define rate limiting parameters
-    define('MAX_CHARS', 240); // Maximum characters allowed for a chirp
+    define('MAX_CHARS', 510); // Maximum characters allowed for a chirp
 
     // Check if the last submission time and attempt count are stored in the session
     $lastSubmissionTime = isset($_SESSION['last_submission_time']) ? $_SESSION['last_submission_time'] : 0;
@@ -85,14 +85,16 @@ try {
     $stmt->bindParam(':user', $userId);
     $stmt->bindParam(':timestamp', $timestamp);
 
-    // Execute the SQL statement
     if ($stmt->execute()) {
+        // Introduce a slight delay (e.g., 100 milliseconds)
+        usleep(100000); // 100 milliseconds (100,000 microseconds)
+    
         // Store the ID of the newly inserted chirp
         $chirpId = $db->lastInsertId();
-
+    
         // Update last submission time in session
         $_SESSION['last_submission_time'] = $currentTime;
-
+    
         // Ensure the location header is set properly
         header('Location: /chirp/index.php?id=' . $chirpId, true, 303);
         exit;
